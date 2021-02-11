@@ -1,0 +1,26 @@
+{
+  "name": "@reactiveforms/core",
+  "version": "1.0.0-alpha.1",
+  "description": "Reactive Forms for React",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pureartisan/reactive-forms-core.git"
+  },
+  "keywords": [
+    "react",
+    "reactive",
+    "forms",
+    "reactive",
+    "hooks"
+  ],
+  "author": "Prageeth Silva <prageethsilva@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pureartisan/reactive-forms-core/issues"
+  },
+  "homepage": "https://github.com/pureartisan/reactive-forms-core#readme"
+}
