@@ -2,8 +2,9 @@
   "name": "@reactiveforms/core",
   "version": "1.0.0-alpha.1",
   "description": "Reactive Forms for React",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "webpack --mode=\"production\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,5 +23,18 @@
   "bugs": {
     "url": "https://github.com/pureartisan/reactive-forms-core/issues"
   },
-  "homepage": "https://github.com/pureartisan/reactive-forms-core#readme"
+  "homepage": "https://github.com/pureartisan/reactive-forms-core#readme",
+  "devDependencies": {
+    "@types/react": "^17.0.1",
+    "@types/react-dom": "^17.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "ts-loader": "^8.0.17",
+    "typescript": "^4.1.5",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0"
+  }
 }
