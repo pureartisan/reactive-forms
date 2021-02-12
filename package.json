@@ -1,9 +1,11 @@
 {
   "name": "@reactiveforms/core",
   "version": "1.0.0-alpha.1",
+  "private": false,
   "description": "Reactive Forms for React",
   "main": "dist/index.js",
   "scripts": {
+    "prepublishOnly": "npm run lint && npm run build",
     "build": "webpack --mode=\"production\"",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
@@ -47,7 +49,22 @@
     "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8.0 || ^17.0.0"
   },
-  "dependencies": {
-    "clsx": "^1.1.1"
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@emotion/react": {
+      "optional": true
+    },
+    "@emotion/styled": {
+      "optional": true
+    }
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }

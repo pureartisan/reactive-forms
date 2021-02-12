@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import clsx from "clsx";
 
 import {
   AbstractControl,
@@ -151,13 +150,18 @@ export const StaticComponent = (
     return null;
   }
 
+  let classNames = '';
+  if (props.input?.name) {
+    classNames = `ReactiveForms-StaticElement-${props.input?.name}`;
+  }
+  if (props.className) {
+    classNames = `${classNames} ${props.className}`;
+  }
+
   return (
     <C
       {...props}
-      className={clsx(
-        props.className,
-        `ReactiveForms-StaticElement-${props.input?.name}`
-      )}
+      className={classNames}
     >
       {props.input?.content && props.input.content()}
     </C>
