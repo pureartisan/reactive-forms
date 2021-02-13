@@ -3,9 +3,6 @@
   "private": true,
   "description": "Reactive Forms for React",
   "scripts": {
-    "lint": "eslint ./packages --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "npm run lint -- --fix",
-    "prettier:fix": "prettier --write ."
   },
   "repository": {
     "type": "git",

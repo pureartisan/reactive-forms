@@ -44,9 +44,13 @@
     "clean": "rimraf ./dist",
     "compile": "webpack --mode=\"production\"",
     "build": "npm run clean && npm run compile",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier:fix": "prettier --write .",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
     "url": "https://github.com/pureartisan/reactive-forms/issues"
-  }
+  },
+  "gitHead": "030efa7b5dc3776ca955259f06c0425d6d1ffcb5"
 }
