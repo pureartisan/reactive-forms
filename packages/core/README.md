@@ -1,10 +1,10 @@
 # Reactive Forms - Core
 
-Reactive Forms for React, insprired by [Angular Reactive Forms](https://angular.io/guide/reactive-forms).
+Reactive Forms for [React](https://reactjs.org/).
 
-This library replicates the basic implemenation of Anuglar Reactive Forms, but at the same time streamlines building model driven forms.
+This library, insprired by [Angular Reactive Forms](https://angular.io/guide/reactive-forms), replicates the basic implemenation of Anuglar Reactive Forms, but at the same time streamlines building model driven forms.
 
-It is expected that `@reactiveforms/core` package is used along with a "UI implemenation" to build forms easily using objects.
+It is expected that `@reactiveforms/core` package is used along with a "UI implemenation" (pre-built or custom) to build forms easily using models.
 
 ## Recommendations
 

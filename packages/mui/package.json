@@ -1,0 +1,52 @@
+{
+  "name": "@reactiveforms/mui",
+  "version": "1.0.0-alpha.1",
+  "description": "Material UI implementation for Reactive Forms",
+  "keywords": [
+    "material",
+    "material",
+    "ui",
+    "ui",
+    "reactive",
+    "forms",
+    "forms"
+  ],
+  "author": "Prageeth Silva <prageethsilva@gmail.com>",
+  "homepage": "https://github.com/pureartisan/reactive-forms/tree/master/packages/mui#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index",
+  "directories": {
+    "dist": "dist"
+  },
+  "dependencies": {
+    "@reactiveforms/core": "^0.0.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pureartisan/reactive-forms.git"
+  },
+  "scripts": {
+    "prepublishOnly": "npm run lint && npm run build",
+    "clean": "rimraf ./dist",
+    "compile": "webpack --mode=\"production\"",
+    "build": "npm run clean && npm run compile",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/pureartisan/reactive-forms/issues"
+  }
+}
