@@ -1,34 +1,22 @@
 {
-  "name": "@reactiveforms/core",
-  "version": "1.0.0-alpha.1",
-  "private": false,
+  "version": "0.0.0",
+  "private": true,
   "description": "Reactive Forms for React",
-  "main": "dist/index.js",
   "scripts": {
-    "prepublishOnly": "npm run lint && npm run build",
-    "build": "webpack --mode=\"production\"",
-    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint ./packages --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
-    "prettier:fix": "prettier --write .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prettier:fix": "prettier --write ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pureartisan/reactive-forms-core.git"
+    "url": "git+https://github.com/pureartisan/reactive-forms.git"
   },
-  "keywords": [
-    "react",
-    "reactive",
-    "forms",
-    "reactive",
-    "hooks"
-  ],
   "author": "Prageeth Silva <prageethsilva@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pureartisan/reactive-forms-core/issues"
+    "url": "https://github.com/pureartisan/reactive-forms/issues"
   },
-  "homepage": "https://github.com/pureartisan/reactive-forms-core#readme",
+  "homepage": "https://github.com/pureartisan/reactive-forms#readme",
   "devDependencies": {
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.0",
@@ -37,9 +25,11 @@
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-react": "^7.22.0",
+    "lerna": "^3.22.1",
     "prettier": "2.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "rimraf": "^3.0.2",
     "ts-loader": "^8.0.17",
     "typescript": "^4.1.5",
     "webpack": "^5.21.2",
@@ -52,12 +42,6 @@
   "peerDependenciesMeta": {
     "@types/react": {
       "optional": true
-    },
-    "@emotion/react": {
-      "optional": true
-    },
-    "@emotion/styled": {
-      "optional": true
     }
   },
   "sideEffects": false,
@@ -66,5 +50,9 @@
   },
   "engines": {
     "node": ">=10.0.0"
+  },
+  "name": "reactive-forms",
+  "dependencies": {
+    "@reactiveforms/core": "file:packages\\core"
   }
 }
