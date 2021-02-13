@@ -49,8 +49,11 @@
     "prettier:fix": "prettier --write .",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "bugs": {
     "url": "https://github.com/pureartisan/reactive-forms/issues"
   },
-  "gitHead": "588b01eb64bbace22119b9896fd1aa799b06e642"
+  "gitHead": "257c0827bc82cc75419fcb6351b6adf3115b15de"
 }
