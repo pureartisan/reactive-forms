@@ -6,7 +6,7 @@ The following exmaple demonstrates a simple "user info" form.
 import React from 'react';
 
 import { Form, FormBuilder, Validators, useForm } from '@reaciveforms/core';
-import { MuiReactiveForm, TextInput, EmailInput } from '@admin/forms/mui';
+import { MuiReactiveForm, TextInput, EmailInput } from '@reaciveforms/mui';
 
 interface UserModel {
   firstName: string;
