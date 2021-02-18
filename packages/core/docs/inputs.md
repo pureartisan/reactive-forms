@@ -22,7 +22,7 @@ The base class has some basic properties like `name`, `value` (the initial value
 
 Let's look at a simple example of defining some easy inputs field and how to use them.
 
-```
+```tsx
 // ------------
 // my-inputs.ts
 // ------------
@@ -84,7 +84,7 @@ So far, we've looked at how to define individual input fields. Now it's time to 
 The way to look at an input group is that it holds a list of other input elements and groups them together. What's interesting is that these input elements can be any of the `InputElement` types, so this gives us the ability to have nested groups.
 
 Let's jump into a quick example:
-```
+```tsx
 // ------------------
 // my-grouped-form.ts
 // ------------------
@@ -140,7 +140,7 @@ Most grouping can be handled using an `InputGroup`, but there are times when hav
 
 Let's look at an example where we want to store a list of music albums.
 
-```
+```tsx
 // ----------------------
 // my-music-collection.ts
 // ----------------------
@@ -185,7 +185,7 @@ The `StaticElement` mainly focuses on the `content` property (which is a method 
 
 Let's continue with our music album:
 
-```
+```tsx
 // ---------------
 // my-album-art.ts
 // ---------------
@@ -236,7 +236,7 @@ const buildAlbumGroup = (album) => {
 
 All input elements (expect `StaticElement`) supports passing validators.
 
-```
+```tsx
 // -------------------
 // my-personal-info.ts
 // -------------------
@@ -283,7 +283,7 @@ The component will have two main `props` passed to it:
 * `input`: The input element object that we defined
 * `control`: The [Form Control](https://github.com/pureartisan/reactive-forms/tree/master/packages/core/docs/form-controls.md) used by this input
 
-```
+```tsx
 // -----------------------
 // my-input-components.tsx
 // -----------------------
@@ -372,7 +372,7 @@ All these methods can be accessed by your Input classes as long as they extend t
 
 This method helps you set default props/values for each input type. This method can be called as many times as you want, it merges the previous values already set.
 
-```
+```tsx
 TextInput.updateDefaultProps({
   foo: 'foo',
   bar: 'bar'
@@ -413,7 +413,7 @@ NOTE: Setting a property to `undefined` after it was previous set will have *no*
 
 This method can only be accessed by the extending classes since it has a `protected` access modifer.
 
-```
+```tsx
 class TextInput extends InputBase<string> {
   private foo: Foo; // you can extend the inputs as you like
 
@@ -432,7 +432,7 @@ For those rare chances that you want to reset those default props, you can use t
 ### Example
 
 Let's go back to our TextInput we defined in the examples above:
-```
+```tsx
 // ------------
 // my-inputs.ts
 // ------------

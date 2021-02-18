@@ -15,7 +15,7 @@ NOTE: An "asynchronous validator" is expected to return a `Promise`, and the
 
 Let's have a quick look:
 
-```
+```tsx
 // -------------------
 // my-sign-up-form.ts
 // -------------------

@@ -1,0 +1,3 @@
+# Example: Static Elements
+
+// TODO
