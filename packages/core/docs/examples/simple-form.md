@@ -14,13 +14,6 @@ interface UserModel {
   email: string;
 }
 
-// e.g. you API requires this
-interface MyFormModel {
-  first_name: string;
-  last_name: string;
-  email: string;
-}
-
 const buildForm = (user?: UserModel): Form => FormBuilder.build([
   new TextInput({
     name: 'first_name',
@@ -55,7 +48,7 @@ export const UserInfoComponent = (props: UserInfoProps) => {
 
   // build the form whenever the `user` changes.
   // (the syntax is very similar to the `useEffect` hook)
-  const form = useForm<MyFormModel>(() => buildForm(user), [user]);
+  const form = useForm(() => buildForm(user), [user]);
 
   return (
     <MuiReactiveForm form={form} />
@@ -83,6 +76,7 @@ The `useForm` hook also takes an optional third argument, that gives access to s
           isDirty: f.dirty
         })
       },
+      // triggered when status of the form changed
       statusChanges: (f: Form) => {
         console.log('form status changed', {
           value: f.value,
@@ -101,6 +95,13 @@ Let's add a submit button and only allow submitting the form if it's valid accor
 
 import { useState } from 'react';
 
+// e.g. you API requires this
+interface MyFormModel {
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
 export const UserInfoComponent = (props: UserInfoProps) => {
 
   const { user } = props;
@@ -114,7 +115,10 @@ export const UserInfoComponent = (props: UserInfoProps) => {
     [user],
     {
       statusChanges: (f: Form) => {
-        setCanSubmit(Boolean(f?.valid));
+        // only allow submitting if there are changes from the user
+        // and those changes are valid
+        const allowSubmit = f.dirty && f.valid;
+        setCanSubmit(Boolean(allowSubmit));
       }
     }
   );
