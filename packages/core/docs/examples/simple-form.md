@@ -1,6 +1,6 @@
 # Example: Simple Form
 
-The following exmaple demonstrates a simple "user info" form.
+The following example demonstrates a simple "user info" form.
 
 ```tsx
 import React from 'react';

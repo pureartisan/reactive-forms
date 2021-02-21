@@ -1,6 +1,6 @@
 # Input Elements
 
-The `@reactiveforms/core` package provides four basic types of element [definitions](../src/models/inputs.ts) that you can begin with:
+The `@reactiveforms/core` package provides four basic types of element [definitions](https://github.com/pureartisan/reactive-forms/tree/master/packages/core/src/models/inputs.ts) that you can begin with:
 * [InputBase](#InputBase)
 * [InputGroup](#InputGroup)
 * [InputArray](#InputArray)
@@ -136,7 +136,7 @@ const formInputs = new InputGroup({
 
 `InputArray` can also be directly used, without having to extend. However, the class can be extended to suit your needs.
 
-Most grouping can be handled using an `InputGroup`, but there are times when have a list of arbitarary groups might be useful.
+Most grouping can be handled using an `InputGroup`, but there are times when have a list of arbitrary groups might be useful.
 
 Let's look at an example where we want to store a list of music albums.
 
@@ -177,11 +177,11 @@ const albums = new InputArray({
 
 ## <a name="StaticElement"></a>StaticElement
 
-A `StaticElement` is special, since it's actually *not* an "input". The `StaticElement` was intrduced purely for one purpose; to allow dynamic forms to have an arbitarary component rendered within form fields.
+A `StaticElement` is special, since it's actually *not* an "input". The `StaticElement` was introduced purely for one purpose; to allow dynamic forms to have an arbitrary component rendered within form fields.
 
 This may seem like a bit of overkill to render a "simple component", but in fact, this is a very powerful part of the Reactive Forms. Especially since the forms are model driven.
 
-The `StaticElement` mainly focuses on the `content` property (which is a method that returns a React/JSX element) since this defines which component is rendererd at runtime.
+The `StaticElement` mainly focuses on the `content` property (which is a method that returns a React/JSX element) since this defines which component is rendered at runtime.
 
 Let's continue with our music album:
 
@@ -291,7 +291,7 @@ The component will have two main `props` passed to it:
 import { InputGroup } from '@reactiveforms/core';
 import { TextInput } from './my-inputs.ts';
 
-cosnt MyTextField = (props) => {
+const MyTextField = (props) => {
   const { input, control } = props;
 
   let classNames = '';
@@ -356,7 +356,7 @@ const firstName = new TextInput({
 
 ```
 
-NOTE: Looking at the exmaple, you'll quickly realise that having to define the `component` for each input can add a lot of "noise" in your code. Therefore it is highly recommended to set "default values" for each input element type. See [Default Values](#DefaultValues) section below for more details.
+NOTE: Looking at the example, you'll quickly realise that having to define the `component` for each input can add a lot of "noise" in your code. Therefore it is highly recommended to set "default values" for each input element type. See [Default Values](#DefaultValues) section below for more details.
 
 
 ## <a name="DefaultValues"></a>Default Values (Default Props)
@@ -411,7 +411,7 @@ NOTE: Setting a property to `undefined` after it was previous set will have *no*
 
 ### <a name="DefaultValues-defaultProps"></a>defaultProps()
 
-This method can only be accessed by the extending classes since it has a `protected` access modifer.
+This method can only be accessed by the extending classes since it has a `protected` access modifier.
 
 ```tsx
 class TextInput extends InputBase<string> {
@@ -468,7 +468,7 @@ const firstName = new TextInput({
   name: 'first_name'
 });
 
-// NOTE: since the default props were set, you can skip the setting of the `component` everytime now. However, you can still override that property on individual cases.
+// NOTE: since the default props were set, you can skip the setting of the `component` every time now. However, you can still override that property on individual cases.
 
 const cardHolderName = new TextInput({
   name: 'card_holder_name'
