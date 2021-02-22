@@ -1,15 +1,15 @@
 {
-  "name": "@reactiveforms/mui",
+  "name": "@reactiveforms/ant",
   "version": "0.0.1-alpha.1",
-  "description": "Material UI implementation for Reactive Forms",
+  "description": "Ant design implementation for Reactive Forms",
   "keywords": [
-    "material",
-    "ui",
+    "ant",
+    "design",
     "reactive",
     "forms"
   ],
   "author": "Prageeth Silva <prageethsilva@gmail.com>",
-  "homepage": "https://github.com/pureartisan/reactive-forms/tree/master/packages/mui#readme",
+  "homepage": "https://github.com/pureartisan/reactive-forms/tree/master/packages/ant#readme",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index",
@@ -51,6 +51,5 @@
   },
   "bugs": {
     "url": "https://github.com/pureartisan/reactive-forms/issues"
-  },
-  "gitHead": "257c0827bc82cc75419fcb6351b6adf3115b15de"
+  }
 }
