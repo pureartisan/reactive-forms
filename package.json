@@ -2,8 +2,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "Reactive Forms for React",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pureartisan/reactive-forms.git"
