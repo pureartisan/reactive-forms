@@ -1,0 +1,70 @@
+{
+  "name": "@reactiveforms/prime",
+  "version": "0.0.1-alpha.1",
+  "description": "Prime implementation for Reactive Forms",
+  "keywords": [
+    "prime",
+    "ui",
+    "reactive",
+    "forms"
+  ],
+  "author": "Prageeth Silva <prageethsilva@gmail.com>",
+  "homepage": "https://github.com/pureartisan/reactive-forms/tree/master/packages/prime#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index",
+  "directories": {
+    "dist": "dist"
+  },
+  "dependencies": {
+    "@reactiveforms/core": "^0.0.1-alpha.8"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.1",
+    "@types/react-dom": "^17.0.1",
+    "primeicons": "^2.0.0",
+    "primereact": "^4.0.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  },
+  "peerDependencies": {
+    "@types/react": "^16.8.0 || ^17.0.1",
+    "@types/react-dom": "^16.8.0 || ^17.0.1",
+    "primeicons": "^2.0.0",
+    "primereact": "^4.0.0",
+    "react": "^16.8.0 || ^17.0.1",
+    "react-dom": "^16.8.0 || ^17.0.1"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@types/material-ui": {
+      "optional": true
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pureartisan/reactive-forms.git"
+  },
+  "scripts": {
+    "prepublishOnly": "npm run lint && npm run build",
+    "clean": "rimraf ./dist",
+    "compile": "webpack --mode=\"production\"",
+    "build": "npm run clean && npm run compile",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier:fix": "prettier --write .",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/pureartisan/reactive-forms/issues"
+  }
+}
