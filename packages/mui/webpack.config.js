@@ -11,7 +11,17 @@ module.exports = {
   },
   externals: {
     ...baseConfig.externals,
-    '@material-ui/core': 'commonjs2 @material-ui/core',
-    '@reactiveforms/core': 'commonjs2 @reactiveforms/core'
+    '@material-ui/core': {
+      root: 'MaterialUiCore',
+      commonjs: '@material-ui/core',
+      commonjs2: '@material-ui/core',
+      amd: '@material-ui/core',
+    },
+    '@reactiveforms/core': {
+      root: 'ReactiveFormsCore',
+      commonjs: '@reactiveforms/core',
+      commonjs2: '@reactiveforms/core',
+      amd: '@reactiveforms/core',
+    }
   }
 };
