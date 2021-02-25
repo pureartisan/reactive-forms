@@ -5,7 +5,7 @@ interface FormGroupProps {
     children?: any
 }
 
-export const FormGroup = (props: FormGroupProps) => {
+export const FormGroup = (props: FormGroupProps): JSX.Element => {
     return (
         <MuiFormGroup
             row

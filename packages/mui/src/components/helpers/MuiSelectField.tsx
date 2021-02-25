@@ -12,7 +12,7 @@ interface MuiSelectFieldProps<V, I extends InputBase<V> = any, C extends BaseCon
     children?: ReactNode | ReactNode[];
 }
 
-export const MuiSelectField = forwardRef(<V, I extends SelectInputBase<V, V>, C extends BaseControl<V>>(props: MuiSelectFieldProps<V, I, C>, ref: any) => {
+export const MuiSelectField = forwardRef(<V, I extends SelectInputBase<V, V>, C extends BaseControl<V>>(props: MuiSelectFieldProps<V, I, C>) => {
     const firstError = getFirstErrorMsg(props);
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target?.value as unknown as V;

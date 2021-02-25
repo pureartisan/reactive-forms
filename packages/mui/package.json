@@ -1,6 +1,6 @@
 {
   "name": "@reactiveforms/mui",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1-alpha.2",
   "description": "Material UI implementation for Reactive Forms",
   "keywords": [
     "material",
@@ -17,15 +17,22 @@
     "dist": "dist"
   },
   "dependencies": {
-    "@reactiveforms/core": "0.0.1-alpha.2"
+    "@reactiveforms/core": "^0.0.1-alpha.5",
+    "is-mobile": "^2.2.2"
   },
   "devDependencies": {
-    "@material-ui/core": "^4.11.3"
+    "@material-ui/core": "^4.11.3",
+    "@types/react": "^17.0.1",
+    "@types/react-dom": "^17.0.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.11.3",
-    "react": "^16.8.0 || ^17.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0"
+    "@types/react": "^16.8.0 || ^17.0.1",
+    "@types/react-dom": "^16.8.0 || ^17.0.1",
+    "react": "^16.8.0 || ^17.0.1",
+    "react-dom": "^16.8.0 || ^17.0.1"
   },
   "peerDependenciesMeta": {
     "@types/react": {

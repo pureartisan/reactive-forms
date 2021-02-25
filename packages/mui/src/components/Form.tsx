@@ -40,7 +40,7 @@ interface MuiReactiveFormProps {
 }
 
 
-export const MuiReactiveForm = (props: MuiReactiveFormProps) => {
+export const MuiReactiveForm = (props: MuiReactiveFormProps): JSX.Element => {
     const classes = useStyles();
     return (
         <ReactiveForm
