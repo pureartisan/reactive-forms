@@ -12,7 +12,8 @@ interface MuiSelectFieldProps<V, I extends InputBase<V> = any, C extends BaseCon
     children?: ReactNode | ReactNode[];
 }
 
-export const MuiSelectField = forwardRef(<V, I extends SelectInputBase<V, V>, C extends BaseControl<V>>(props: MuiSelectFieldProps<V, I, C>) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const MuiSelectField = forwardRef(<V, I extends SelectInputBase<V, V>, C extends BaseControl<V>>(props: MuiSelectFieldProps<V, I, C>, ref: any) => {
     const firstError = getFirstErrorMsg(props);
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target?.value as unknown as V;
