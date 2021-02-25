@@ -6,7 +6,9 @@ module.exports = {
   ...baseConfig,
   entry: "./src/index.ts",
   output: {
+    ...baseConfig.output,
     filename: "index.js",
     path: path.resolve(__dirname, "dist"),
+    library: 'ReactiveFormsCore',
   }
 };

@@ -30,5 +30,9 @@ module.exports = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js"]
+  },
+  output: {
+    libraryTarget: 'umd',
+    globalObject: 'this'
   }
 };
