@@ -9,7 +9,7 @@ import { PasswordInput, PasswordField } from '../components/PasswordField';
 import { SelectInput, SelectField } from '../components/SelectField';
 import { StaticComponent } from '../components/StaticComponent';
 
-export const setDefaults = () => {
+export const setDefaults = (): void => {
 
     InputGroup.updateDefaultProps({ component: FormGroup });
     StaticElement.updateDefaultProps({ component: StaticComponent });

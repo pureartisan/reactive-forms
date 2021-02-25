@@ -8,5 +8,9 @@ module.exports = {
   output: {
     filename: "index.js",
     path: path.resolve(__dirname, "dist"),
+  },
+  externals: {
+    ...baseConfig.externals,
+    '@reactiveforms/core': 'commonjs2 @reactiveforms/core'
   }
 };
