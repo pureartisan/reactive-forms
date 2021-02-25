@@ -19,9 +19,6 @@ module.exports = {
     'react-dom': 'commonjs2 react-dom'
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js"],
-    alias: {
-      '@reactiveforms/core': path.resolve(__dirname, './packages/core/src'),
-    }
+    extensions: [".tsx", ".ts", ".jsx", ".js"]
   }
 };
