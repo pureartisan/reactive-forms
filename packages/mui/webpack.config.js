@@ -18,6 +18,7 @@ module.exports = {
   externals: {
     react: "react",
     reactDOM: "react-dom",
+    '@material-ui/core': "@material-ui/core"
   },
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js"],
