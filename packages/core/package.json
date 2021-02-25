@@ -19,6 +19,12 @@
   "directories": {
     "dist": "dist"
   },
+  "devDependencies": {
+    "@types/react": "^17.0.1",
+    "@types/react-dom": "^17.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8.0 || ^17.0.0"
@@ -52,5 +58,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "379ac394bab2096d0aef25f7fed6d55e985a5aa5"
+  "gitHead": "9d06c18d7e47914ab8552ac213403a0ed0218982"
 }
