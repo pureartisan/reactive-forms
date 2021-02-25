@@ -1,12 +1,12 @@
 /* eslint-disable */
+const path = require('path');
 const baseConfig = require('../../webpack.base');
 
 module.exports = {
   ...baseConfig,
   entry: "./src/index.ts",
-  externals: [
-    ...baseConfig.externals,
-    '@reactiveforms/core',
-    '@material-ui/core'
-  ],
+  output: {
+    filename: "index.js",
+    path: path.resolve(__dirname, "dist"),
+  }
 };

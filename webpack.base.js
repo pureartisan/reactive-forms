@@ -7,19 +7,21 @@ module.exports = {
       {
         test: /\.(js|ts|tsx)$/,
         loader: "ts-loader",
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        options: {
+          configFile: 'tsconfig.build.json'
+        }
       },
     ],
   },
-  externals: ['react', 'react-dom'],
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM'
+  },
   resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js", ".d.ts"],
+    extensions: [".tsx", ".ts", ".jsx", ".js"],
     alias: {
       '@reactiveforms/core': path.resolve(__dirname, './packages/core/src'),
     }
-  },
-  output: {
-    filename: "index.js",
-    path: path.resolve(__dirname, "dist"),
-  },
+  }
 };
