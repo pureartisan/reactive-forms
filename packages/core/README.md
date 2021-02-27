@@ -1,6 +1,6 @@
 # Reactive Forms - Core
 
-[![npm version](https://badge.fury.io/js/%40reactiveforms%2Fcore.svg)](https://badge.fury.io/js/%40reactiveforms%2Fcore)
+![npm](https://img.shields.io/npm/v/@reactiveforms/core) ![license](https://img.shields.io/badge/License-MIT-blue)
 
 Reactive Forms for [React](https://reactjs.org/).
 
