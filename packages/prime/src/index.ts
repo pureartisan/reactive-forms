@@ -10,6 +10,6 @@ export * from './components/FormGroup';
 export * from './components/StaticComponent';
 export * from './components/EmailField';
 export * from './components/PasswordField';
-export * from './components/TextAreaField';
+// export * from './components/TextAreaField';
 export * from './components/TextField';
-export * from './components/SelectField';
+// export * from './components/SelectField';

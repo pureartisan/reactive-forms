@@ -1,9 +1,10 @@
 {
   "name": "@reactiveforms/prime",
   "version": "0.0.1-alpha.1",
-  "description": "Prime implementation for Reactive Forms",
+  "description": "PrimeReact implementation for Reactive Forms",
   "keywords": [
     "prime",
+    "primereact",
     "ui",
     "reactive",
     "forms"
@@ -17,29 +18,29 @@
     "dist": "dist"
   },
   "dependencies": {
-    "@reactiveforms/core": "^0.0.1-alpha.8"
+    "@reactiveforms/core": "^0.0.1-alpha.8",
+    "clsx": "^1.1.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.1",
-    "primeicons": "^2.0.0",
-    "primereact": "^4.0.0",
+    "primeflex": "^2.0.0",
+    "primeicons": "^4.1.0",
+    "primereact": "^6.2.1",
     "react": "17.0.1",
     "react-dom": "17.0.1"
   },
   "peerDependencies": {
     "@types/react": "^16.8.0 || ^17.0.1",
     "@types/react-dom": "^16.8.0 || ^17.0.1",
-    "primeicons": "^2.0.0",
-    "primereact": "^4.0.0",
+    "primeflex": "^2.0.0",
+    "primeicons": "^4.1.0",
+    "primereact": "^6.2.1",
     "react": "^16.8.0 || ^17.0.1",
     "react-dom": "^16.8.0 || ^17.0.1"
   },
   "peerDependenciesMeta": {
     "@types/react": {
-      "optional": true
-    },
-    "@types/material-ui": {
       "optional": true
     }
   },
