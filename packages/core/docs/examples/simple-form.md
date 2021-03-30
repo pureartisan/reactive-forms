@@ -95,7 +95,7 @@ Let's add a submit button and only allow submitting the form if it's valid accor
 
 import { useState } from 'react';
 
-// e.g. you API requires this
+// e.g. your API requires this
 interface MyFormModel {
   first_name: string;
   last_name: string;
