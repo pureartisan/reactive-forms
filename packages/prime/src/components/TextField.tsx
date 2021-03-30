@@ -18,6 +18,7 @@ export const TextField = forwardRef((props: BaseInputComponentProps<string, Text
             {...props}
             ref={ref}
             type="text"
+            inputType="TextField"
         />
     );
 });

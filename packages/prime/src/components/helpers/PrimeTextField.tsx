@@ -10,9 +10,12 @@ import { getFirstErrorMsg } from '../../utils/errors';
 
 interface PrimeTextFieldProps<V extends string, I extends InputBase<V> = any, C extends BaseControl<V> = BaseControl<V>> extends BaseInputComponentProps<V, I, C> {
     type?: string;
+    inputType?: string;
     helperText?: string;
     leftIcon?: any;
+    leftIconClassName?: string;
     rightIcon?: any;
+    rightIconClassName?: string;
     onLeftIconClick?: () => void;
     onRightIconClick?: () => void;
 }
@@ -37,7 +40,7 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
     return (
       <div
         className={clsx(
-          "rf-field p-field",
+          `rf-field rf-field-${props.inputType} p-field`,
           props.input?.className,
           {
             'p-col-12': !props.input?.className,
@@ -52,12 +55,18 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
           </label>
         )}
         {leftIcon && (
-          <i className="rf-field-left-icon" onClick={props.onLeftIconClick}>
+          <i
+            className={clsx("rf-field-left-icon", props?.leftIconClassName)}
+            onClick={props.onLeftIconClick}
+          >
             {leftIcon}
           </i>
         )}
         {rightIcon && (
-          <i className="rf-field-right-icon" onClick={props.onLeftIconClick}>
+          <i
+            className={clsx("rf-field-right-icon", props?.rightIconClassName)}
+            onClick={props.onRightIconClick}
+          >
             {rightIcon}
           </i>
         )}

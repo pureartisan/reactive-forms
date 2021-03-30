@@ -36,10 +36,12 @@ export const PasswordField = forwardRef((props: BaseInputComponentProps<string, 
             {...props}
             ref={ref}
             type="password"
+            inputType="PasswordField"
             onRightIconClick={togglePasswordShow}
             rightIcon={showPassword && (
               passwordVisible ? props.input?.hidePasswordIcon : props.input?.showPasswordIcon
             )}
+            rightIconClassName="show-password-button"
         />
     );
 });

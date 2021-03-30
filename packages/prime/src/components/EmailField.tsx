@@ -18,6 +18,7 @@ export const EmailField = forwardRef((props: BaseInputComponentProps<string, Ema
             {...props}
             ref={ref}
             type="email"
+            inputType="EmailField"
         />
     );
 });
