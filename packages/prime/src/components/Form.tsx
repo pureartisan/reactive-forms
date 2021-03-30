@@ -5,7 +5,7 @@ import React from 'react';
 import { ReactiveForm, AbstractControl } from '@reactiveforms/core';
 
 interface StyledFormProps {
-    type?: keyof JSX.IntrinsicElements;
+    type?: any;
     children?: any
     className?: any;
 }
