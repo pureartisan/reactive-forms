@@ -951,7 +951,7 @@ export class FormControl<V, T extends BaseControl<V>> extends AbstractControl<
     this.initObservables();
 
     /**
-     * Called whenevers an onChange event triggers.
+     * Called whenever an onChange event triggers.
      * Updates the control value according to the update strategy.
      *
      * @param {any} event

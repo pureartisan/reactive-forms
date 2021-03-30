@@ -11,6 +11,10 @@ import { getFirstErrorMsg } from '../../utils/errors';
 interface PrimeTextFieldProps<V extends string, I extends InputBase<V> = any, C extends BaseControl<V> = BaseControl<V>> extends BaseInputComponentProps<V, I, C> {
     type?: string;
     helperText?: string;
+    leftIcon?: any;
+    rightIcon?: any;
+    onLeftIconClick?: () => void;
+    onRightIconClick?: () => void;
 }
 
 export const PrimeTextField = forwardRef(<V extends string, I extends TextInputBase<V>>(props: PrimeTextFieldProps<V, I>, ref: any) => {
@@ -27,12 +31,19 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
     }
 
     const helpText = firstError || props.input?.helpText;
+
+    const leftIcon = props.leftIcon ?? props.input?.leftIcon;
+    const rightIcon = props.rightIcon ?? props.input?.rightIcon;
     return (
       <div
         className={clsx(
-          "p-field",
+          "rf-field p-field",
           props.input?.className,
-          { 'p-col-12': !props.input?.className }
+          {
+            'p-col-12': !props.input?.className,
+            'p-input-icon-left': leftIcon,
+            'p-input-icon-right': rightIcon,
+          }
         )}
       >
         {props.input?.label && (
@@ -40,15 +51,25 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
             {props.input.label}
           </label>
         )}
+        {leftIcon && (
+          <i className="rf-field-left-icon" onClick={props.onLeftIconClick}>
+            {leftIcon}
+          </i>
+        )}
+        {rightIcon && (
+          <i className="rf-field-right-icon" onClick={props.onLeftIconClick}>
+            {rightIcon}
+          </i>
+        )}
         <InputText
-            id={props.input?.id}
-            placeholder={props.input?.placeholder}
-            disabled={props.control?.disabled}
-            value={props.control?.value}
-            onChange={handleChange}
-            type={props.type}
-            className={props.input?.inputClassName}
-            ref={ref}
+          id={props.input?.id}
+          placeholder={props.input?.placeholder}
+          disabled={props.control?.disabled}
+          value={props.control?.value}
+          onChange={handleChange}
+          type={props.type}
+          className={props.input?.inputClassName}
+          ref={ref}
         />
         {helpText && (
           <small

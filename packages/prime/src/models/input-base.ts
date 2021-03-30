@@ -12,6 +12,9 @@ export abstract class TextInputBase<T> extends InputBase<T> {
     labelClassName?: string | ClassNameMap;
     hintClassName?: string | ClassNameMap;
 
+    leftIcon?: any;
+    rightIcon?: any;
+
     pKeyFilter?: any;
     pValidateOnly?: any;
     pTooltip?: any;
@@ -24,6 +27,9 @@ export abstract class TextInputBase<T> extends InputBase<T> {
         this.id = options.id ?? defaultProps.id;
 
         this.helpText = options.helpText ?? defaultProps.helpText;
+
+        this.leftIcon = options.leftIcon ?? defaultProps.leftIcon;
+        this.rightIcon = options.rightIcon ?? defaultProps.rightIcon;
 
         this.pKeyFilter = options.pKeyFilter ?? defaultProps.pKeyFilter;
         this.pValidateOnly = options.pValidateOnly ?? defaultProps.pValidateOnly;

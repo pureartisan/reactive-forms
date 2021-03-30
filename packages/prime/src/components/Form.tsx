@@ -5,15 +5,18 @@ import React from 'react';
 import { ReactiveForm, AbstractControl } from '@reactiveforms/core';
 
 interface StyledFormProps {
+    type?: keyof JSX.IntrinsicElements;
     children?: any
+    className?: any;
 }
 
 const StyledForm = (props: StyledFormProps) => {
+    const FormTag = (props.type ?? 'form') as keyof JSX.IntrinsicElements;
     return (
-        <form
-            className="p-fluid p-formgrid p-grid"
-            {...props}
-        />
+      <FormTag
+          {...props}
+          className="p-fluid p-formgrid p-grid"
+      />
     );
 };
 

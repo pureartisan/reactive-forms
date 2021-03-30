@@ -1,6 +1,6 @@
 {
   "name": "@reactiveforms/core",
-  "version": "0.0.1-alpha.9",
+  "version": "0.0.1-alpha.10",
   "description": "Reactive Forms for React - Core",
   "keywords": [
     "react",
@@ -56,5 +56,8 @@
   "devDependencies": {
     "@types/react": "17.0.1",
     "react": "17.0.1"
+  },
+  "dependencies": {
+    "clsx": "^1.1.1"
   }
 }

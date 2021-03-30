@@ -24,11 +24,13 @@ interface InputBaseConstructor<T extends InputBase = any> {
 }
 
 export abstract class InputBase<T = any> {
+  private static globalElementCount = 0;
   private static _defaultProps = new Map<
     InputBaseConstructor,
     Partial<InputBase>
   >();
 
+  id?: string;
   name?: string;
   placeholder?: string;
   label?: string;
@@ -43,6 +45,7 @@ export abstract class InputBase<T = any> {
 
   constructor(options: Partial<InputBase<T>>) {
     const defaultProps = this.defaultProps();
+    this.id = options.id ?? this.buildGlobalName();
     this.value = options.value ?? defaultProps.value;
     this.name = options.name ?? defaultProps.name;
     this.placeholder = options.placeholder ?? defaultProps.placeholder;
@@ -63,6 +66,10 @@ export abstract class InputBase<T = any> {
         this.constructor as InputBaseConstructor
       ) as Partial<I>) || {}
     );
+  }
+
+  private buildGlobalName(): string {
+    return `input_${InputBase.globalElementCount++}`;
   }
 
   static updateDefaultProps<T extends InputBase = InputBase>(
