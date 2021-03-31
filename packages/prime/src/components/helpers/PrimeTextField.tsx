@@ -37,23 +37,9 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
 
     const leftIcon = props.leftIcon ?? props.input?.leftIcon;
     const rightIcon = props.rightIcon ?? props.input?.rightIcon;
-    return (
-      <div
-        className={clsx(
-          `rf-field rf-field-${props.inputType} p-field`,
-          props.input?.className,
-          {
-            'p-col-12': !props.input?.className,
-            'p-input-icon-left': leftIcon,
-            'p-input-icon-right': rightIcon,
-          }
-        )}
-      >
-        {props.input?.label && (
-          <label htmlFor={props.input?.id} className={props.input?.labelClassName}>
-            {props.input.label}
-          </label>
-        )}
+
+    const inputSection = (
+      <>
         {leftIcon && (
           <i
             className={clsx("rf-field-left-icon", props?.leftIconClassName)}
@@ -80,6 +66,34 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
           className={props.input?.inputClassName}
           ref={ref}
         />
+      </>
+    );
+
+    return (
+      <div
+        className={clsx(
+          `rf-field rf-field-${props.inputType} p-field`,
+          props.input?.className,
+          {
+            'p-col-12': !props.input?.className
+          }
+        )}
+      >
+        {props.input?.label && (
+          <label htmlFor={props.input?.id} className={props.input?.labelClassName}>
+            {props.input.label}
+          </label>
+        )}
+        {leftIcon || rightIcon ? (
+          <span
+            className={clsx({
+              'p-input-icon-left': leftIcon,
+              'p-input-icon-right': rightIcon,
+            })}
+          >
+            {inputSection}
+          </span>
+        ) : inputSection}
         {helpText && (
           <small
             className={clsx(
