@@ -6,6 +6,8 @@ import { EmailInput, EmailField } from '../components/EmailField';
 // import { TextAreaInput, TextAreaField } from '../components/TextAreaField';
 import { TextInput, TextField } from '../components/TextField';
 import { PasswordInput, PasswordField } from '../components/PasswordField';
+import { CheckboxInput, CheckboxField } from '../components/CheckboxField';
+import { SwitchInput, SwitchField } from '../components/SwitchField';
 // import { SelectInput, SelectField } from '../components/SelectField';
 import { StaticComponent } from '../components/StaticComponent';
 
@@ -19,5 +21,8 @@ export const setDefaults = (): void => {
     // TextAreaInput.updateDefaultProps({ component: TextAreaField });
     PasswordInput.updateDefaultProps({ component: PasswordField });
     // SelectInput.updateDefaultProps({ component: SelectField });
+
+    CheckboxInput.updateDefaultProps({ component: CheckboxField });
+    SwitchInput.updateDefaultProps({ component: SwitchField });
 
 };

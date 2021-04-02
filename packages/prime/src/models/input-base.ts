@@ -3,8 +3,6 @@ import { InputBase } from '@reactiveforms/core';
 export type ClassNameMap = any;
 
 export abstract class TextInputBase<T> extends InputBase<T> {
-    id?: string;
-
     helpText?: string;
 
     className?: string | ClassNameMap;
@@ -24,9 +22,12 @@ export abstract class TextInputBase<T> extends InputBase<T> {
         super(options);
         const defaultProps = this.defaultProps<TextInputBase<T>>();
 
-        this.id = options.id ?? defaultProps.id;
-
         this.helpText = options.helpText ?? defaultProps.helpText;
+
+        this.className = options.className ?? defaultProps.className;
+        this.inputClassName = options.inputClassName ?? defaultProps.inputClassName;
+        this.labelClassName = options.labelClassName ?? defaultProps.labelClassName;
+        this.hintClassName = options.hintClassName ?? defaultProps.hintClassName;
 
         this.leftIcon = options.leftIcon ?? defaultProps.leftIcon;
         this.rightIcon = options.rightIcon ?? defaultProps.rightIcon;
@@ -35,6 +36,22 @@ export abstract class TextInputBase<T> extends InputBase<T> {
         this.pValidateOnly = options.pValidateOnly ?? defaultProps.pValidateOnly;
         this.pTooltip = options.pTooltip ?? defaultProps.pTooltip;
         this.pTooltipOptions = options.pTooltipOptions ?? defaultProps.pTooltipOptions;
+    }
+}
+
+export abstract class BooleanInputBase extends InputBase<boolean> {
+    helpText?: string;
+
+    className?: string | ClassNameMap;
+    inputClassName?: string | ClassNameMap;
+    labelClassName?: string | ClassNameMap;
+    hintClassName?: string | ClassNameMap;
+
+    constructor(options: Partial<BooleanInputBase>) {
+        super(options);
+        const defaultProps = this.defaultProps<BooleanInputBase>();
+
+        this.helpText = options.helpText ?? defaultProps.helpText;
     }
 }
 

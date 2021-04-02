@@ -1,29 +1,20 @@
 /* eslint-disable */
 const path = require("path");
+const baseConfig = require('../../webpack.base');
 
-module.exports = {
-  entry: "./src/index.ts",
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        loader: "ts-loader",
-        exclude: /node_modules/,
-        options: {
-          configFile: 'tsconfig.build.json'
+module.exports = (env, argv) => {
+
+    const base = baseConfig(env, argv);
+
+    return {
+        ...base,
+        entry: "./src/index.ts",
+        output: {
+          ...base.output,
+          filename: "index.js",
+          path: path.resolve(__dirname, "dist"),
+          library: 'ReactiveFormsAnt',
         }
-      },
-    ],
-  },
-  externals: {
-    react: "react",
-    reactDOM: "react-dom",
-  },
-  resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js"],
-  },
-  output: {
-    filename: "index.js",
-    path: path.resolve(__dirname, "dist"),
-  },
-};
+    };
+
+}

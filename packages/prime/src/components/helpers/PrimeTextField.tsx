@@ -39,73 +39,73 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
     const rightIcon = props.rightIcon ?? props.input?.rightIcon;
 
     const inputSection = (
-      <>
-        {leftIcon && (
-          <i
-            className={clsx("rf-field-left-icon", props?.leftIconClassName)}
-            onClick={props.onLeftIconClick}
-          >
-            {leftIcon}
-          </i>
-        )}
-        {rightIcon && (
-          <i
-            className={clsx("rf-field-right-icon", props?.rightIconClassName)}
-            onClick={props.onRightIconClick}
-          >
-            {rightIcon}
-          </i>
-        )}
-        <InputText
-          id={props.input?.id}
-          placeholder={props.input?.placeholder}
-          disabled={props.control?.disabled}
-          value={props.control?.value}
-          onChange={handleChange}
-          type={props.type}
-          className={props.input?.inputClassName}
-          ref={ref}
-        />
-      </>
+        <>
+            {leftIcon && (
+                <i
+                    className={clsx("rf-field-left-icon", props?.leftIconClassName)}
+                    onClick={props.onLeftIconClick}
+                >
+                    {leftIcon}
+                </i>
+            )}
+            {rightIcon && (
+                <i
+                    className={clsx("rf-field-right-icon", props?.rightIconClassName)}
+                    onClick={props.onRightIconClick}
+                >
+                    {rightIcon}
+                </i>
+            )}
+            <InputText
+                id={props.input?.id}
+                placeholder={props.input?.placeholder}
+                disabled={props.control?.disabled}
+                value={props.control?.value}
+                onChange={handleChange}
+                type={props.type}
+                className={props.input?.inputClassName}
+                ref={ref}
+            />
+        </>
     );
 
     return (
-      <div
-        className={clsx(
-          `rf-field rf-field-${props.inputType} p-field`,
-          props.input?.className,
-          {
-            'p-col-12': !props.input?.className
-          }
-        )}
-      >
-        {props.input?.label && (
-          <label htmlFor={props.input?.id} className={props.input?.labelClassName}>
-            {props.input.label}
-          </label>
-        )}
-        {(leftIcon || rightIcon) ? (
-          <span
-            className={clsx({
-              'p-input-icon-left': leftIcon,
-              'p-input-icon-right': rightIcon,
-            })}
-          >
-            {inputSection}
-          </span>
-        ) : inputSection}
-        {helpText && (
-          <small
+        <div
             className={clsx(
-              "p-d-block",
-              { 'p-error': firstError },
-              props.input?.hintClassName
+                `rf-field rf-field-${props.inputType} p-field`,
+                props.input?.className,
+                {
+                    'p-col-12': !props.input?.className
+                }
             )}
-          >
-            {helpText}
-          </small>
-        )}
-      </div>
+        >
+            {props.input?.label && (
+                <label htmlFor={props.input?.id} className={props.input?.labelClassName}>
+                    {props.input.label}
+                </label>
+            )}
+            {(leftIcon || rightIcon) ? (
+                <span
+                    className={clsx({
+                    'p-input-icon-left': leftIcon,
+                    'p-input-icon-right': rightIcon,
+                    })}
+                >
+                    {inputSection}
+                </span>
+            ) : inputSection}
+            {helpText && (
+                <small
+                    className={clsx(
+                    "p-d-block",
+                    { 'p-error': firstError },
+                    props.input?.hintClassName
+                    )}
+                >
+                    {helpText}
+                </small>
+            )}
+        </div>
     );
 });
 
