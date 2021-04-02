@@ -20,8 +20,8 @@
     "dist": "dist"
   },
   "peerDependencies": {
-    "@types/react": "^17.0.1",
-    "react": "^17.0.1"
+    "@types/react": "^16.8.0 || ^17.0.1",
+    "react": "^16.8.0 || ^17.0.1"
   },
   "peerDependenciesMeta": {
     "@types/react": {
@@ -55,8 +55,8 @@
   },
   "gitHead": "9d06c18d7e47914ab8552ac213403a0ed0218982",
   "devDependencies": {
-    "@types/react": "17.0.1",
-    "react": "17.0.1"
+    "@types/react": "^17.0.1",
+    "react": "^17.0.1"
   },
   "dependencies": {
     "clsx": "^1.1.1"

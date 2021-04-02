@@ -14,7 +14,7 @@ export const useForm = <T = any>(
   deps?: DependencyList,
   opts?: Options
 ): Form<T> | undefined => {
-  const [form, setForm] = useState<Form<T>>();
+  const [form, setForm] = useState<Form<T> | undefined>(undefined);
 
   useEffect(() => {
     const f = builder();
