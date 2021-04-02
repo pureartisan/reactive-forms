@@ -31,7 +31,7 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
         } else {
             props.control?.markAsDirty();
         }
-    }
+    };
 
     const helpText = firstError || props.input?.helpText;
 
@@ -84,7 +84,7 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
             {props.input.label}
           </label>
         )}
-        {leftIcon || rightIcon ? (
+        {(leftIcon || rightIcon) ? (
           <span
             className={clsx({
               'p-input-icon-left': leftIcon,

@@ -18,10 +18,10 @@
     "dist": "dist"
   },
   "dependencies": {
-    "@reactiveforms/core": "^0.0.1-alpha.10",
     "clsx": "^1.1.1"
   },
   "devDependencies": {
+    "@reactiveforms/core": "^0.0.1-alpha.10",
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.1",
     "primeflex": "^2.0.0",
@@ -31,6 +31,7 @@
     "react-dom": "17.0.1"
   },
   "peerDependencies": {
+    "@reactiveforms/core": "^0.0.1-alpha.10",
     "@types/react": "^16.8.0 || ^17.0.1",
     "@types/react-dom": "^16.8.0 || ^17.0.1",
     "primeflex": "^2.0.0",
@@ -56,6 +57,7 @@
     "prepublishOnly": "npm run lint && npm run build",
     "clean": "rimraf ./dist",
     "compile": "webpack --mode=\"production\"",
+    "dev": "webpack --mode=\"development\"",
     "build": "npm run clean && npm run compile",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
@@ -68,5 +70,5 @@
   "bugs": {
     "url": "https://github.com/pureartisan/reactive-forms/issues"
   },
-  "gitHead": "000f5768279263845854c0d97f1bf277a749241e"
+  "gitHead": "e3fe03d9e902ee7ebc6681126f0edf3339a0d5fd"
 }

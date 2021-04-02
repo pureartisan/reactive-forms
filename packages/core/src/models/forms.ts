@@ -621,7 +621,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
    * @param {Function|Function[]|null} newValidator
    * @return {void}
    */
-  setValidators(newValidator: ValidatorFn | ValidatorFn[] | null): void {
+  setValidators(newValidator: ValidatorFn<any> | ValidatorFn<any>[] | null): void {
     this.validator = coerceToValidator(newValidator);
   }
 
@@ -630,7 +630,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
    * will overwrite any existing async validators.
    */
   setAsyncValidators(
-    newValidator: AsyncValidatorFn | AsyncValidatorFn[] | null
+    newValidator: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null
   ): void {
     this.asyncValidator = coerceToAsyncValidator(newValidator);
   }
@@ -924,7 +924,7 @@ export class FormControl<V, T extends BaseControl<V>> extends AbstractControl<
     input: InputBase<V>,
     formState: unknown,
     validatorOrOpts?: ValidatorOrOpts<V, T>,
-    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+    asyncValidator?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null
   ) {
     super(
       coerceToValidator(validatorOrOpts),
@@ -1146,7 +1146,7 @@ export class FormGroup<
     group: InputGroup,
     controls: NamedControlsMap,
     validatorOrOpts?: ValidatorOrOpts<V, T>,
-    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+    asyncValidator?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null
   ) {
     super(
       coerceToValidator(validatorOrOpts),
@@ -1469,7 +1469,7 @@ export class FormArray extends AbstractControl<any, any> {
     inputArray: InputArray,
     controls: AbstractControl<any, any>[],
     validatorOrOpts?: ValidatorOrOpts<any, any>,
-    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+    asyncValidator?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null
   ) {
     super(
       coerceToValidator(validatorOrOpts),
@@ -1729,7 +1729,7 @@ export class Form<T = any> extends FormGroup<T> {
     inputs: InputElement[],
     controls: NamedControlsMap,
     validatorOrOpts?: ValidatorOrOpts<any, any>,
-    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+    asyncValidator?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null
   ) {
     super(
       (null as unknown) as InputGroup,

@@ -103,8 +103,8 @@ export class InputGroup {
   name?: string;
   inputs?: InputElement[];
   label?: string;
-  validators?: ValidatorFn | ValidatorFn[] | null;
-  asyncValidators?: AsyncValidatorFn | AsyncValidatorFn[] | null;
+  validators?: ValidatorFn<any> | ValidatorFn<any>[] | null;
+  asyncValidators?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null;
   updateOn?: FormHooks;
   component?: ForwardRefExoticComponent<any> | FC<any>;
 
@@ -157,8 +157,8 @@ export class InputArray {
   name?: string;
   inputs?: InputElement[];
   label?: string;
-  validators?: ValidatorFn | ValidatorFn[] | null;
-  asyncValidators?: AsyncValidatorFn | AsyncValidatorFn[] | null;
+  validators?: ValidatorFn<any> | ValidatorFn<any>[] | null;
+  asyncValidators?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null;
   updateOn?: FormHooks;
   component?: ForwardRefExoticComponent<any>;
 

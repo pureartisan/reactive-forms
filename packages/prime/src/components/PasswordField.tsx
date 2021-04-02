@@ -35,7 +35,7 @@ export const PasswordField = forwardRef((props: BaseInputComponentProps<string, 
         <PrimeTextField
             {...props}
             ref={ref}
-            type="password"
+            type={passwordVisible ? 'text' : 'password'}
             inputType="PasswordField"
             onRightIconClick={togglePasswordShow}
             rightIcon={showPassword && (

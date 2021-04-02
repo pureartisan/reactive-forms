@@ -1,12 +1,12 @@
 import { Observable } from "./observable";
 import { BaseControl, Errors } from "./controls";
 
-export type ValidatorFn<V = any, T extends BaseControl<V> = BaseControl<V>> = (
+export type ValidatorFn<V, T extends BaseControl<V> = BaseControl<V>> = (
   control: T
 ) => Errors | null;
 
 export type AsyncValidatorFn<
-  V = any,
+  V,
   T extends BaseControl<V> = BaseControl<V>
 > = (control: T) => Promise<Errors | null> | Observable<Errors | null>;
 
@@ -16,7 +16,7 @@ export type PossibleValidatorFn<
 > = ValidatorFn<V, T> | ValidatorFn<V, T>[] | null;
 
 export type PossibleAsyncValidatorFn<
-  V = any,
+  V,
   T extends BaseControl<V> = BaseControl<V>
 > = AsyncValidatorFn<V, T> | AsyncValidatorFn<V, T>[] | null;
 
@@ -25,7 +25,7 @@ export interface Validator<V = any, T extends BaseControl<V> = BaseControl<V>> {
 }
 
 export interface AsyncValidator<
-  V = any,
+  V,
   T extends BaseControl<V> = BaseControl<V>
 > {
   validate: AsyncValidatorFn<V, T>;

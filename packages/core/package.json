@@ -1,6 +1,6 @@
 {
   "name": "@reactiveforms/core",
-  "version": "0.0.1-alpha.10",
+  "version": "0.0.1-alpha.11",
   "description": "Reactive Forms for React - Core",
   "keywords": [
     "react",
@@ -40,6 +40,7 @@
     "prepublishOnly": "npm run lint && npm run build",
     "clean": "rimraf ./dist",
     "compile": "webpack --mode=\"production\"",
+    "dev": "webpack --mode=\"development\"",
     "build": "npm run clean && npm run compile",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
@@ -52,7 +53,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "e3fe03d9e902ee7ebc6681126f0edf3339a0d5fd",
+  "gitHead": "9d06c18d7e47914ab8552ac213403a0ed0218982",
   "devDependencies": {
     "@types/react": "17.0.1",
     "react": "17.0.1"
