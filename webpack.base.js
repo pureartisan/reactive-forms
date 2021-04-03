@@ -31,6 +31,7 @@ module.exports = (env, argv) => {
                   loader: 'sass-loader',
                   options: { sourceMap: true }
                 },
+                'postcss-loader'
               ],
             },
           ],

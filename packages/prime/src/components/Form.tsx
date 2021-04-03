@@ -20,7 +20,6 @@ const StyledForm = (props: StyledFormProps) => {
     );
 };
 
-
 interface PrimeReactiveFormProps {
     form?: AbstractControl<any>
     className?: string;
