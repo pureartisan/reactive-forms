@@ -52,6 +52,11 @@ export abstract class BooleanInputBase extends InputBase<boolean> {
         const defaultProps = this.defaultProps<BooleanInputBase>();
 
         this.helpText = options.helpText ?? defaultProps.helpText;
+
+        this.className = options.className ?? defaultProps.className;
+        this.inputClassName = options.inputClassName ?? defaultProps.inputClassName;
+        this.labelClassName = options.labelClassName ?? defaultProps.labelClassName;
+        this.hintClassName = options.hintClassName ?? defaultProps.hintClassName;
     }
 }
 
