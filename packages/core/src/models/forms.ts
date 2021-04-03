@@ -119,7 +119,7 @@ function normalizeValidator<V, T extends BaseControl<V>>(
   validator: Validator<V, T> | ValidatorFn<V, T>
 ): ValidatorFn<V, T> {
   if (isValidator<V, T, Validator<V, T>>(validator)) {
-    return (control: T) => validator.validate(control);
+    return (control: T, form: any) => validator.validate(control, form);
   }
   return validator;
 }
@@ -132,7 +132,7 @@ function normalizeAsyncValidator<V, T extends BaseControl<V>>(
   validator: AsyncValidator<V, T> | AsyncValidatorFn<V, T>
 ): AsyncValidatorFn<V, T> {
   if (isValidator<V, T, AsyncValidator<V, T>>(validator)) {
-    return (control: T) => validator.validate(control);
+    return (control: T, form: any) => validator.validate(control, form);
   }
   return validator;
 }
@@ -772,7 +772,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
   }
 
   protected runValidator(): any | null {
-    return this.validator ? this.validator((this as unknown) as T) : null;
+    return this.validator ? this.validator((this as unknown) as T, this.root) : null;
   }
 
   /**
@@ -783,7 +783,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
     if (this.asyncValidator) {
       this.status = "PENDING";
       const obs = Observable.toObservable(
-        this.asyncValidator((this as unknown) as T)
+        this.asyncValidator((this as unknown) as T, this.root)
       );
       this.asyncValidationSubscription = obs.subscribe((errors) =>
         this.setErrors(errors, {

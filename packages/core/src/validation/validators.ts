@@ -32,16 +32,18 @@ const mergeErrors = (arrayOfErrors: Array<Errors | null>): Errors | null => {
 
 const executeValidators = <V, T extends BaseControl<V>>(
   control: T,
+  form: any,
   validators: ValidatorFn<V, T>[]
 ): Array<Errors | null> => {
-  return validators.map((validator) => validator(control));
+  return validators.map((validator) => validator(control, form));
 };
 
 const executeAsyncValidators = <V, T extends BaseControl<V>>(
   control: T,
+  form: any,
   validators: AsyncValidatorFn<V, T>[]
 ): Array<Errors | null> => {
-  return validators.map((validator) => validator(control));
+  return validators.map((validator) => validator(control, form));
 };
 
 const EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -240,8 +242,8 @@ export class Validators {
     if (nonEmptyValidators.length === 0) {
       return null;
     }
-    return (control: T) => {
-      const errors = executeValidators(control, nonEmptyValidators);
+    return (control: T, form: any) => {
+      const errors = executeValidators(control, form, nonEmptyValidators);
       return mergeErrors(errors);
     };
   }
@@ -262,8 +264,8 @@ export class Validators {
     if (nonEmptyValidators.length === 0) {
       return null;
     }
-    return (control: T) => {
-      const observables = executeAsyncValidators(control, nonEmptyValidators);
+    return (control: T, form: any) => {
+      const observables = executeAsyncValidators(control, form, nonEmptyValidators);
       return Observable.fromPromise(Promise.all(observables), mergeErrors);
     };
   }
