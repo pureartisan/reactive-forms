@@ -5,7 +5,7 @@ import { Form, FormGroup, AbstractControl } from "../models/forms";
 import { Field } from "./fields";
 
 interface ReactiveFormProps {
-  form?: Form | AbstractControl<any, any>;
+  form?: Form | AbstractControl<any>;
   component?: any;
   className?: string;
   style?: any;

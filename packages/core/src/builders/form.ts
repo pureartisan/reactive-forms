@@ -11,10 +11,9 @@ import {
   FormArray,
   AbstractControl,
 } from "../models/forms";
-import { BaseControl } from "../models/controls";
 
 interface ControlMap {
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl<any>;
 }
 
 export class FormBuilder {
@@ -72,11 +71,11 @@ export class FormBuilder {
     );
   }
 
-  static buildFormControl<V, T extends BaseControl<V>>(
+  static buildFormControl<V>(
     input: InputBase<V>,
     prevState?: V
-  ): FormControl<V, T> {
-    return new FormControl<V, T>(
+  ): FormControl<V> {
+    return new FormControl<V>(
       input,
       {
         value: prevState ?? input.value,
@@ -100,7 +99,7 @@ export class FormBuilder {
   private static buildAbstractControl(
     input: InputElement,
     prevState?: any
-  ): AbstractControl<any, any> {
+  ): AbstractControl<any> {
     if (input instanceof InputGroup) {
       return this.buildFormGroup(input, prevState);
     } else if (input instanceof InputArray) {

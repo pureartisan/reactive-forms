@@ -28,7 +28,7 @@ const inputHasControl = (input: InputElement): boolean => {
 };
 
 interface FieldProps {
-  control?: AbstractControl<any, any>;
+  control?: AbstractControl<any>;
   input?: InputElement;
 }
 
@@ -52,11 +52,11 @@ export const Field = (props: FieldProps): JSX.Element | null => {
 
   if (input instanceof InputBase) {
     return (
-      <FieldControl input={input} control={control as FormControl<any, any>} />
+      <FieldControl input={input} control={control as FormControl<any>} />
     );
   } else if (input instanceof InputGroup) {
     return (
-      <FieldGroup input={input} control={control as FormGroup<any, any>} />
+      <FieldGroup input={input} control={control as FormGroup<any>} />
     );
   } else if (input instanceof InputArray) {
     return <FieldArray input={input} control={control as FormArray} />;
@@ -68,13 +68,13 @@ export const Field = (props: FieldProps): JSX.Element | null => {
   return null;
 };
 
-interface FieldControlProps<V, T extends BaseControl<V>> {
-  control?: FormControl<V, T>;
+interface FieldControlProps<V> {
+  control?: FormControl<V>;
   input?: InputBase<V>;
 }
 
-export const FieldControl = <V, T extends BaseControl<V>>(
-  props: FieldControlProps<V, T>
+export const FieldControl = <V,>(
+  props: FieldControlProps<V>
 ): JSX.Element | null => {
   const C = props.input?.component;
   if (!C) {
@@ -84,13 +84,13 @@ export const FieldControl = <V, T extends BaseControl<V>>(
   return <C control={props.control} input={props.input} />;
 };
 
-interface FieldGroupProps<V, T extends BaseControl<V>> {
-  control?: FormGroup<V, T>;
+interface FieldGroupProps<V> {
+  control?: FormGroup<V>;
   input?: InputGroup;
 }
 
-export const FieldGroup = <V, T extends BaseControl<V>>(
-  props: FieldGroupProps<V, T>
+export const FieldGroup = <V,>(
+  props: FieldGroupProps<V>
 ): JSX.Element | null => {
   const C = props.input?.component;
   if (!C) {

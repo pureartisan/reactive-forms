@@ -30,18 +30,18 @@ const mergeErrors = (arrayOfErrors: Array<Errors | null>): Errors | null => {
   return Object.keys(res).length ? res : null;
 };
 
-const executeValidators = <V, T extends BaseControl<V>>(
-  control: T,
+const executeValidators = <V>(
+  control: BaseControl<V>,
   form: any,
-  validators: ValidatorFn<V, T>[]
+  validators: ValidatorFn<V>[]
 ): Array<Errors | null> => {
   return validators.map((validator) => validator(control, form));
 };
 
-const executeAsyncValidators = <V, T extends BaseControl<V>>(
-  control: T,
+const executeAsyncValidators = <V>(
+  control: BaseControl<V>,
   form: any,
-  validators: AsyncValidatorFn<V, T>[]
+  validators: AsyncValidatorFn<V>[]
 ): Array<Errors | null> => {
   return validators.map((validator) => validator(control, form));
 };
@@ -55,10 +55,9 @@ export class Validators {
    * Validator that requires controls to have a value greater than a number.
    */
   static min<
-    V extends string | number = string | number,
-    T extends BaseControl<V> = BaseControl<V>
-  >(min: number): ValidatorFn<V, T> | null {
-    return (control: T) => {
+    V extends string | number = string | number
+  >(min: number): ValidatorFn<V> | null {
+    return (control: BaseControl<V>) => {
       if (isEmptyValue(control.value) || isEmptyValue(min)) {
         return null; // don't validate empty values to allow optional controls
       }
@@ -79,10 +78,9 @@ export class Validators {
    * Validator that requires controls to have a value less than a number.
    */
   static max<
-    V extends string | number = string | number,
-    T extends BaseControl<V> = BaseControl<V>
-  >(max: number): ValidatorFn<V, T> | null {
-    return (control: T) => {
+    V extends string | number = string | number
+  >(max: number): ValidatorFn<V> | null {
+    return (control: BaseControl<V>) => {
       if (isEmptyValue(control.value) || isEmptyValue(max)) {
         return null; // don't validate empty values to allow optional controls
       }
@@ -145,14 +143,14 @@ export class Validators {
    * Validator that requires controls to have a value of a minimum length.
    */
   static minLength<
-    V extends string | number = string | number,
-    T extends BaseControl = BaseControl<V>
-  >(minLength: number): ValidatorFn<V, T> | null {
-    return (control: T) => {
+    V extends string | number = string | number
+  >(minLength: number): ValidatorFn<V> | null {
+    return (control: BaseControl<V>) => {
       if (isEmptyValue(control.value)) {
         return null; // don't validate empty values to allow optional controls
       }
-      const length = control.value?.length || 0;
+      const value = control.value as any;
+      const length = value?.length || 0;
       if (length >= minLength) {
         return null;
       }
@@ -169,14 +167,14 @@ export class Validators {
    * Validator that requires controls to have a value of a maximum length.
    */
   static maxLength<
-    V extends string | number = string | number,
-    T extends BaseControl = BaseControl<V>
-  >(maxLength: number): ValidatorFn<V, T> | null {
-    return (control: T) => {
+    V extends string | number = string | number
+  >(maxLength: number): ValidatorFn<V> | null {
+    return (control: BaseControl<V>) => {
       if (isEmptyValue(control.value)) {
         return null; // don't validate empty values to allow optional controls
       }
-      const length = control.value?.length || 0;
+      const value = control.value as any;
+      const length = value?.length || 0;
       if (length <= maxLength) {
         return null;
       }
@@ -193,9 +191,8 @@ export class Validators {
    * Validator that requires a control to match a regex to its value.
    */
   static pattern<
-    V extends string | number = string | number,
-    T extends BaseControl = BaseControl<V>
-  >(pattern: string | RegExp): ValidatorFn<V, T> | null {
+    V extends string | number = string | number
+  >(pattern: string | RegExp): ValidatorFn<V> | null {
     if (!pattern) {
       return null;
     }
@@ -214,7 +211,7 @@ export class Validators {
       if (isEmptyValue(control.value)) {
         return null; // don't validate empty values to allow optional controls
       }
-      if (regex.test(control.value)) {
+      if (regex.test(control.value as any)) {
         return null;
       }
       return {
@@ -232,9 +229,9 @@ export class Validators {
    * @param {(Function|null|undefined)[]|null} validators
    * @return {Function|null}
    */
-  static compose<V, T extends BaseControl<V>>(
-    validators: ValidatorFn<V, T>[] | null
-  ): ValidatorFn<V, T> | null {
+  static compose<V>(
+    validators: ValidatorFn<V>[] | null
+  ): ValidatorFn<V> | null {
     if (!validators) {
       return null;
     }
@@ -242,7 +239,7 @@ export class Validators {
     if (nonEmptyValidators.length === 0) {
       return null;
     }
-    return (control: T, form: any) => {
+    return (control: BaseControl<V>, form: any) => {
       const errors = executeValidators(control, form, nonEmptyValidators);
       return mergeErrors(errors);
     };
@@ -254,9 +251,9 @@ export class Validators {
    * @param {(Function|null|undefined)[]|null} validators
    * @return {Function|null}
    */
-  static composeAsync<V, T extends BaseControl<V>>(
-    validators: AsyncValidatorFn<V, T>[] | null
-  ): AsyncValidatorFn<V, T> | null {
+  static composeAsync<V>(
+    validators: AsyncValidatorFn<V>[] | null
+  ): AsyncValidatorFn<V> | null {
     if (!validators) {
       return null;
     }
@@ -264,7 +261,7 @@ export class Validators {
     if (nonEmptyValidators.length === 0) {
       return null;
     }
-    return (control: T, form: any) => {
+    return (control: BaseControl<V>, form: any) => {
       const observables = executeAsyncValidators(control, form, nonEmptyValidators);
       return Observable.fromPromise(Promise.all(observables), mergeErrors);
     };

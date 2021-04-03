@@ -19,18 +19,18 @@ interface FormGroupValue {
   [key: string]: any;
 }
 
-type ControlOptionsObject<V, T extends BaseControl<V>> = {
-  validators?: PossibleValidatorFn<V, T>;
-  asyncValidators?: PossibleAsyncValidatorFn<V, T>;
+type ControlOptionsObject<V> = {
+  validators?: PossibleValidatorFn<V>;
+  asyncValidators?: PossibleAsyncValidatorFn<V>;
   updateOn?: FormHooks;
 };
 
-type ValidatorOrOpts<V, T extends BaseControl<V>> =
-  | PossibleValidatorFn<V, T>
-  | ControlOptionsObject<V, T>;
+type ValidatorOrOpts<V> =
+  | PossibleValidatorFn<V>
+  | ControlOptionsObject<V>;
 
 interface NamedControlsMap {
-  [name: string]: AbstractControl<any, any>;
+  [name: string]: AbstractControl<any>;
 }
 
 /**
@@ -67,11 +67,11 @@ function getControlValue(event: any) {
  * @param {(String|Number)[]|String} path
  * @param {String} delimiter
  */
-const find = <V, T extends BaseControl<V>>(
-  control: AbstractControl<V, T>,
+const find = <V>(
+  control: AbstractControl<V>,
   path: Array<string | number> | string,
   delimiter: string
-): AbstractControl<V, T> | undefined => {
+): AbstractControl<V> | undefined => {
   if (path === null || path === undefined) {
     return undefined;
   }
@@ -82,12 +82,12 @@ const find = <V, T extends BaseControl<V>>(
     return undefined;
   }
   return path.reduce(
-    (v: AbstractControl<V, T> | undefined, nameOrIndex: string | number) => {
+    (v: AbstractControl<V> | undefined, nameOrIndex: string | number) => {
       if (v instanceof FormGroup) {
         return v.controls[nameOrIndex] || undefined;
       }
       if (v instanceof FormArray) {
-        return v.at<V, T>(nameOrIndex as number) || undefined;
+        return v.at<V>(nameOrIndex as number) || undefined;
       }
       return undefined;
     },
@@ -95,16 +95,15 @@ const find = <V, T extends BaseControl<V>>(
   );
 };
 
-const isOptionsObj = <V, T extends BaseControl<V>>(
+const isOptionsObj = <V>(
   obj: any
-): obj is ControlOptionsObject<V, T> => {
+): obj is ControlOptionsObject<V> => {
   return Boolean(obj && !Array.isArray(obj) && typeof obj === "object");
 };
 
 const isValidator = <
   V,
-  T extends BaseControl<V>,
-  S = Validator<V, T> | AsyncValidator<V, T>
+  S = Validator<V> | AsyncValidator<V>
 >(
   obj: any
 ): obj is S => {
@@ -115,11 +114,11 @@ const isValidator = <
  * @param {Function} validator
  * @return {Function}
  */
-function normalizeValidator<V, T extends BaseControl<V>>(
-  validator: Validator<V, T> | ValidatorFn<V, T>
-): ValidatorFn<V, T> {
-  if (isValidator<V, T, Validator<V, T>>(validator)) {
-    return (control: T, form: any) => validator.validate(control, form);
+function normalizeValidator<V>(
+  validator: Validator<V> | ValidatorFn<V>
+): ValidatorFn<V> {
+  if (isValidator<V, Validator<V>>(validator)) {
+    return (control: BaseControl<V>, form: any) => validator.validate(control, form);
   }
   return validator;
 }
@@ -128,11 +127,11 @@ function normalizeValidator<V, T extends BaseControl<V>>(
  * @param {Function} validator
  * @return {Function}
  */
-function normalizeAsyncValidator<V, T extends BaseControl<V>>(
-  validator: AsyncValidator<V, T> | AsyncValidatorFn<V, T>
-): AsyncValidatorFn<V, T> {
-  if (isValidator<V, T, AsyncValidator<V, T>>(validator)) {
-    return (control: T, form: any) => validator.validate(control, form);
+function normalizeAsyncValidator<V>(
+  validator: AsyncValidator<V> | AsyncValidatorFn<V>
+): AsyncValidatorFn<V> {
+  if (isValidator<V, AsyncValidator<V>>(validator)) {
+    return (control: BaseControl<V>, form: any) => validator.validate(control, form);
   }
   return validator;
 }
@@ -141,9 +140,9 @@ function normalizeAsyncValidator<V, T extends BaseControl<V>>(
  * @param {Function[]} validators
  * @return {Function|null}
  */
-const composeValidators = <V, T extends BaseControl<V>>(
-  validators: ValidatorFn<V, T>[]
-): ValidatorFn<V, T> | null => {
+const composeValidators = <V>(
+  validators: ValidatorFn<V>[]
+): ValidatorFn<V> | null => {
   return Validators.compose(validators.map(normalizeValidator));
 };
 
@@ -151,18 +150,18 @@ const composeValidators = <V, T extends BaseControl<V>>(
  * @param {Function[]} validators
  * @return {Function|null}
  */
-const composeAsyncValidators = <V, T extends BaseControl<V>>(
-  validators: AsyncValidatorFn<V, T>[]
-): AsyncValidatorFn<V, T> | null => {
+const composeAsyncValidators = <V>(
+  validators: AsyncValidatorFn<V>[]
+): AsyncValidatorFn<V> | null => {
   return Validators.composeAsync(validators.map(normalizeAsyncValidator));
 };
 
-const coerceToValidator = <V, T extends BaseControl<V>>(
-  validatorOrOpts?: ValidatorOrOpts<V, T>
-): ValidatorFn<V, T> | null => {
+const coerceToValidator = <V>(
+  validatorOrOpts?: ValidatorOrOpts<V>
+): ValidatorFn<V> | null => {
   const validator = isOptionsObj(validatorOrOpts)
-    ? (validatorOrOpts.validators as PossibleValidatorFn<V, T>)
-    : (validatorOrOpts as PossibleValidatorFn<V, T>);
+    ? (validatorOrOpts.validators as PossibleValidatorFn<V>)
+    : (validatorOrOpts as PossibleValidatorFn<V>);
 
   if (!validator) {
     return null;
@@ -171,13 +170,13 @@ const coerceToValidator = <V, T extends BaseControl<V>>(
   return Array.isArray(validator) ? composeValidators(validator) : validator;
 };
 
-const coerceToAsyncValidator = <V, T extends BaseControl<V>>(
-  asyncValidator?: AsyncValidatorFn<V, T> | AsyncValidatorFn<V, T>[] | null,
-  validatorOrOpts?: ValidatorOrOpts<V, T>
-): AsyncValidatorFn<V, T> | null => {
+const coerceToAsyncValidator = <V>(
+  asyncValidator?: AsyncValidatorFn<V> | AsyncValidatorFn<V>[] | null,
+  validatorOrOpts?: ValidatorOrOpts<V>
+): AsyncValidatorFn<V> | null => {
   const origAsyncValidator = isOptionsObj(validatorOrOpts)
-    ? (validatorOrOpts.asyncValidators as PossibleAsyncValidatorFn<V, T>)
-    : (asyncValidator as PossibleAsyncValidatorFn<V, T>);
+    ? (validatorOrOpts.asyncValidators as PossibleAsyncValidatorFn<V>)
+    : (asyncValidator as PossibleAsyncValidatorFn<V>);
 
   if (!origAsyncValidator) {
     return null;
@@ -197,7 +196,7 @@ const coerceToAsyncValidator = <V, T extends BaseControl<V>>(
  * that are shared between all sub-classes, like `value`, `valid`, and `dirty`. It shouldn't be
  * instantiated directly.
  */
-export abstract class AbstractControl<V, T extends BaseControl<V>>
+export abstract class AbstractControl<V>
   implements BaseControl<V> {
   value?: V;
 
@@ -225,8 +224,8 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
 
   errors: Errors | null;
 
-  validator: ValidatorFn<V, T> | null;
-  asyncValidator: AsyncValidatorFn<V, T> | null;
+  validator: ValidatorFn<V> | null;
+  asyncValidator: AsyncValidatorFn<V> | null;
 
   valueChanges!: Observable<V>;
   statusChanges!: Observable<Status>;
@@ -248,8 +247,8 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
    * @param {Function|null} asyncValidator
    */
   constructor(
-    validator: ValidatorFn<V, T> | null,
-    asyncValidator: AsyncValidatorFn<V, T> | null
+    validator: ValidatorFn<V> | null,
+    asyncValidator: AsyncValidatorFn<V> | null
   ) {
     this.validator = validator;
     this.asyncValidator = asyncValidator;
@@ -291,7 +290,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
    * Possible values: `'change'` (default) | `'blur'` | `'submit'`
    */
   get updateOn(): FormHooks {
-    return this._updateOn ? this._updateOn : this._parent?.updateOn || "change";
+    return this._updateOn ? this._updateOn : (this._parent as any)?.updateOn || "change";
   }
 
   /**
@@ -377,9 +376,9 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
    * Retrieves the top-level ancestor of this control.
    * @return {AbstractControl}
    */
-  get root(): AbstractControl<any, any> {
+  get root(): AbstractControl<any> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    let x: AbstractControl<any, any> = this;
+    let x: AbstractControl<any> = this;
     while (x._parent) {
       x = x._parent;
     }
@@ -676,7 +675,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
    */
   get(
     path: string | Array<string | number>
-  ): AbstractControl<V, T> | undefined {
+  ): AbstractControl<V> | undefined {
     return find(this, path, ".");
   }
 
@@ -692,7 +691,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
     errorCode: string,
     path: string | Array<string | number>
   ): any | null {
-    const control: AbstractControl<V, T> | undefined = path
+    const control: AbstractControl<V> | undefined = path
       ? this.get(path)
       : this;
     return control?.errors ? control.errors[errorCode] : null;
@@ -772,7 +771,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
   }
 
   protected runValidator(): any | null {
-    return this.validator ? this.validator((this as unknown) as T, this.root) : null;
+    return this.validator ? this.validator((this as unknown) as BaseControl<V>, this.root) : null;
   }
 
   /**
@@ -783,7 +782,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
     if (this.asyncValidator) {
       this.status = "PENDING";
       const obs = Observable.toObservable(
-        this.asyncValidator((this as unknown) as T, this.root)
+        this.asyncValidator((this as unknown) as BaseControl<V>, this.root)
       );
       this.asyncValidationSubscription = obs.subscribe((errors) =>
         this.setErrors(errors, {
@@ -867,7 +866,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
 
   protected abstract forEachChild(
     callback: (
-      control: AbstractControl<V, T>,
+      control: AbstractControl<V>,
       nameOrIndex?: string | number
     ) => void
   ): void;
@@ -875,7 +874,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
   protected abstract allControlsDisabled(): boolean;
 
   protected abstract anyControls(
-    callback: (control: AbstractControl<V, T>) => boolean
+    callback: (control: AbstractControl<V>) => boolean
   ): boolean;
 
   abstract syncPendingControls(): boolean;
@@ -894,8 +893,8 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
    * @param {{validators: Function|Function[]|null, asyncValidators: Function|Function[]|null, updateOn: 'change' | 'blur' | 'submit'}} opts
    * @return {Void}
    */
-  protected setUpdateStrategy<V, T extends BaseControl<V>>(
-    opts?: ValidatorOrOpts<V, T>
+  protected setUpdateStrategy<V>(
+    opts?: ValidatorOrOpts<V>
   ): void {
     if (isOptionsObj(opts) && opts?.updateOn) {
       this._updateOn = opts.updateOn;
@@ -903,10 +902,7 @@ export abstract class AbstractControl<V, T extends BaseControl<V>>
   }
 }
 
-export class FormControl<V, T extends BaseControl<V>> extends AbstractControl<
-  V,
-  T
-> {
+export class FormControl<V> extends AbstractControl<V> {
   input: InputBase<V>;
 
   active: boolean;
@@ -923,12 +919,12 @@ export class FormControl<V, T extends BaseControl<V>> extends AbstractControl<
   constructor(
     input: InputBase<V>,
     formState: unknown,
-    validatorOrOpts?: ValidatorOrOpts<V, T>,
-    asyncValidator?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null
+    validatorOrOpts?: ValidatorOrOpts<V>,
+    asyncValidator?: AsyncValidatorFn<V> | AsyncValidatorFn<V>[] | null
   ) {
     super(
       coerceToValidator(validatorOrOpts),
-      coerceToAsyncValidator<V, T>(asyncValidator, validatorOrOpts)
+      coerceToAsyncValidator<V>(asyncValidator, validatorOrOpts)
     );
     this.input = input;
     this.applyFormState(formState);
@@ -1133,9 +1129,8 @@ export class FormControl<V, T extends BaseControl<V>> extends AbstractControl<
 }
 
 export class FormGroup<
-  V extends FormGroupValue,
-  T extends BaseControl<V> = BaseControl<V>
-> extends AbstractControl<V, T> {
+  V extends FormGroupValue
+> extends AbstractControl<V> {
   group: InputGroup;
   controls: NamedControlsMap;
 
@@ -1145,12 +1140,12 @@ export class FormGroup<
   constructor(
     group: InputGroup,
     controls: NamedControlsMap,
-    validatorOrOpts?: ValidatorOrOpts<V, T>,
+    validatorOrOpts?: ValidatorOrOpts<V>,
     asyncValidator?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null
   ) {
     super(
       coerceToValidator(validatorOrOpts),
-      coerceToAsyncValidator<V, T>(asyncValidator, validatorOrOpts)
+      coerceToAsyncValidator<V>(asyncValidator, validatorOrOpts)
     );
     this.group = group || {};
     this.controls = controls || {};
@@ -1197,10 +1192,10 @@ export class FormGroup<
    * @param {AbstractControl} control
    * @return {AbstractControl}
    */
-  registerControl<V, T extends BaseControl<V>>(
+  registerControl<V>(
     name: string,
-    control: AbstractControl<V, T>
-  ): AbstractControl<V, T> {
+    control: AbstractControl<V>
+  ): AbstractControl<V> {
     if (this.controls[name]) return this.controls[name];
     this.controls[name] = control;
     control.setParent(this as any);
@@ -1214,9 +1209,9 @@ export class FormGroup<
    * @param {AbstractControl} control
    * @return {void}
    */
-  addControl<V, T extends BaseControl<V>>(
+  addControl<V>(
     name: string,
-    control: AbstractControl<V, T>
+    control: AbstractControl<V>
   ): void {
     this.registerControl(name, control);
     this.updateValueAndValidity();
@@ -1241,9 +1236,9 @@ export class FormGroup<
    * @param {AbstractControl} control
    * @return {void}
    */
-  setControl<V, T extends BaseControl<V>>(
+  setControl<V>(
     name: string,
-    control: AbstractControl<V, T>
+    control: AbstractControl<V>
   ): void {
     if (this.controls[name]) {
       this.controls[name].registerOnCollectionChange();
@@ -1356,7 +1351,7 @@ export class FormGroup<
    * @return {void}
    */
   forEachChild(
-    callback: (control: AbstractControl<V, T>, name?: string) => void
+    callback: (control: AbstractControl<V>, name?: string) => void
   ): void {
     Object.keys(this.controls).forEach((name) =>
       callback(this.controls[name], name)
@@ -1372,7 +1367,7 @@ export class FormGroup<
    * @param {Function} condition
    * @return {Boolean}
    */
-  anyControls(callback: (control: AbstractControl<V, T>) => boolean): boolean {
+  anyControls(callback: (control: AbstractControl<V>) => boolean): boolean {
     let res = false;
     this.forEachChild((control, name) => {
       res = res || Boolean(name && this.contains(name) && callback(control));
@@ -1398,7 +1393,7 @@ export class FormGroup<
    */
   private reduceChildren<U = any>(
     initValue: U,
-    fn: (accumilated: U, control: AbstractControl<any, any>, name: string) => U
+    fn: (accumilated: U, control: AbstractControl<any>, name: string) => U
   ): U {
     let res = initValue;
     this.forEachChild((control, name) => {
@@ -1458,17 +1453,17 @@ export class FormGroup<
   }
 }
 
-export class FormArray extends AbstractControl<any, any> {
+export class FormArray extends AbstractControl<any> {
   inputArray: InputArray;
-  controls: AbstractControl<any, any>[];
+  controls: AbstractControl<any>[];
 
   // TODO
   handleSubmit: any;
 
   constructor(
     inputArray: InputArray,
-    controls: AbstractControl<any, any>[],
-    validatorOrOpts?: ValidatorOrOpts<any, any>,
+    controls: AbstractControl<any>[],
+    validatorOrOpts?: ValidatorOrOpts<any>,
     asyncValidator?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null
   ) {
     super(
@@ -1504,9 +1499,9 @@ export class FormArray extends AbstractControl<any, any> {
    * @param {Number} index
    * @return {AbstractControl}
    */
-  at<V, T extends BaseControl<V>>(
+  at<V>(
     index: number
-  ): AbstractControl<V, T> | undefined {
+  ): AbstractControl<V> | undefined {
     return this.controls[index];
   }
 
@@ -1515,7 +1510,7 @@ export class FormArray extends AbstractControl<any, any> {
    * @param {AbstractControl} control
    * @return {Void}
    */
-  push<V, T extends BaseControl<V>>(control: AbstractControl<V, T>): void {
+  push<V>(control: AbstractControl<V>): void {
     this.controls.push(control);
     this.registerControl(control);
     this.updateValueAndValidity();
@@ -1527,9 +1522,9 @@ export class FormArray extends AbstractControl<any, any> {
    * @param {Number} index
    * @param {AbstractControl} control
    */
-  insert<V, T extends BaseControl<V>>(
+  insert<V>(
     index: number,
-    control: AbstractControl<V, T>
+    control: AbstractControl<V>
   ): void {
     this.controls.splice(index, 0, control);
     this.registerControl(control);
@@ -1556,9 +1551,9 @@ export class FormArray extends AbstractControl<any, any> {
    * @param {Number} index
    * @param {AbstractControl} control
    */
-  setControl<V, T extends BaseControl<V>>(
+  setControl<V>(
     index: number,
-    control: AbstractControl<V, T>
+    control: AbstractControl<V>
   ): void {
     if (this.controls[index]) {
       this.controls[index].registerOnCollectionChange();
@@ -1668,7 +1663,7 @@ export class FormArray extends AbstractControl<any, any> {
   }
 
   protected forEachChild(
-    callback: (control: AbstractControl<any, any>, index?: number) => void
+    callback: (control: AbstractControl<any>, index?: number) => void
   ): void {
     this.controls.forEach((control, index) => {
       callback(control, index);
@@ -1682,7 +1677,7 @@ export class FormArray extends AbstractControl<any, any> {
   }
 
   protected anyControls(
-    callback: (control: AbstractControl<any, any>) => boolean
+    callback: (control: AbstractControl<any>) => boolean
   ): boolean {
     return this.controls.some(
       (control) => control.enabled && callback(control)
@@ -1712,7 +1707,7 @@ export class FormArray extends AbstractControl<any, any> {
     return this.controls.length > 0 || this.disabled;
   }
 
-  private registerControl(control: AbstractControl<any, any>): void {
+  private registerControl(control: AbstractControl<any>): void {
     control.setParent(this);
     control.registerOnCollectionChange(this._onCollectionChange);
   }
@@ -1728,7 +1723,7 @@ export class Form<T = any> extends FormGroup<T> {
   constructor(
     inputs: InputElement[],
     controls: NamedControlsMap,
-    validatorOrOpts?: ValidatorOrOpts<any, any>,
+    validatorOrOpts?: ValidatorOrOpts<any>,
     asyncValidator?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null
   ) {
     super(
