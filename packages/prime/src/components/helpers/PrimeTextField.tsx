@@ -3,10 +3,9 @@ import clsx from 'clsx';
 
 import { InputText } from 'primereact/inputtext';
 
-import { BaseInputComponentProps, InputBase, BaseControl } from '@reactiveforms/core';
+import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg } from '@reactiveforms/core';
 
 import { TextInputBase } from '../../models/input-base';
-import { getFirstErrorMsg } from '../../utils/errors';
 
 interface PrimeTextFieldProps<V extends string, I extends InputBase<V> = any, C extends BaseControl<V> = BaseControl<V>> extends BaseInputComponentProps<V, I, C> {
     type?: string;
@@ -87,8 +86,8 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
             {(leftIcon || rightIcon) ? (
                 <span
                     className={clsx({
-                    'p-input-icon-left': leftIcon,
-                    'p-input-icon-right': rightIcon,
+                        'p-input-icon-left': leftIcon,
+                        'p-input-icon-right': rightIcon,
                     })}
                 >
                     {inputSection}
@@ -97,9 +96,9 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
             {helpText && (
                 <small
                     className={clsx(
-                    "rf-helper-text p-d-block",
-                    { 'p-error': firstError },
-                    props.input?.hintClassName
+                        "rf-helper-text p-d-block",
+                        { 'p-error': firstError },
+                        props.input?.hintClassName
                     )}
                 >
                     {helpText}

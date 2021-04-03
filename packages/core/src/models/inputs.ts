@@ -2,6 +2,7 @@ import { ForwardRefExoticComponent, FC } from "react";
 
 import { BaseControl } from "./controls";
 import { ValidatorFn, AsyncValidatorFn } from "./validators";
+import { ErrorTranslators } from './errors';
 
 export type FormHooks = "change" | "blur" | "submit";
 
@@ -18,6 +19,7 @@ export interface BaseInputComponentProps<
 > {
   input?: I;
   control?: C;
+  errorTranslators?: ErrorTranslators;
 }
 
 interface InputBaseConstructor<T extends InputBase = any> {

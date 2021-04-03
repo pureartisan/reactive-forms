@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { ReactiveForm, AbstractControl } from '@reactiveforms/core';
+import { ReactiveForm, AbstractControl, ErrorTranslators } from '@reactiveforms/core';
 
 interface StyledFormProps {
     elementType?: any;
@@ -13,10 +13,10 @@ interface StyledFormProps {
 const StyledForm = (props: StyledFormProps) => {
     const FormTag = (props.elementType ?? 'div') as keyof JSX.IntrinsicElements;
     return (
-      <FormTag
-          {...props}
-          className="p-fluid p-formgrid p-grid"
-      />
+        <FormTag
+            {...props}
+            className="p-fluid p-formgrid p-grid"
+        />
     );
 };
 
@@ -25,6 +25,7 @@ interface PrimeReactiveFormProps {
     className?: string;
     style?: any;
     elementType?: any;
+    errorTranslators?: ErrorTranslators;
 }
 
 
