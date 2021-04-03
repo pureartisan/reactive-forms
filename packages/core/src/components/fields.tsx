@@ -14,7 +14,6 @@ import {
   InputGroup,
   InputArray,
 } from "../models/inputs";
-import { BaseControl } from "../models/controls";
 import { useForceUpdate } from "../hooks/force-update";
 
 const inputHasControl = (input: InputElement): boolean => {

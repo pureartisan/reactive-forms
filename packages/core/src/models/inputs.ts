@@ -1,8 +1,9 @@
 import { ForwardRefExoticComponent, FC } from "react";
 
 import { BaseControl } from "./controls";
-import { FormHooks } from "./forms";
 import { ValidatorFn, AsyncValidatorFn } from "./validators";
+
+export type FormHooks = "change" | "blur" | "submit";
 
 export type InputElement =
   | InputBase<any>

@@ -1,7 +1,6 @@
-import { Observable, Subscription } from "./observable";
-import { isEvent } from "../utils/events";
 import { Validators } from "../validation/validators";
 
+import { Observable, Subscription } from "./observable";
 import {
   ValidatorFn,
   AsyncValidatorFn,
@@ -10,10 +9,9 @@ import {
   PossibleValidatorFn,
   PossibleAsyncValidatorFn,
 } from "./validators";
+import { Errors } from './errors';
 import { InputElement, InputGroup, InputArray, InputBase } from "./inputs";
-import { Status, BaseControl, ControlChangeOpts, Errors } from "./controls";
-
-export type FormHooks = "change" | "blur" | "submit";
+import { Status, BaseControl, ControlChangeOpts } from "./controls";
 
 interface FormGroupValue {
   [key: string]: any;
@@ -22,7 +20,6 @@ interface FormGroupValue {
 type ControlOptionsObject<V> = {
   validators?: PossibleValidatorFn<V>;
   asyncValidators?: PossibleAsyncValidatorFn<V>;
-  updateOn?: FormHooks;
 };
 
 type ValidatorOrOpts<V> =
@@ -31,35 +28,6 @@ type ValidatorOrOpts<V> =
 
 interface NamedControlsMap {
   [name: string]: AbstractControl<any>;
-}
-
-/**
- * Calculates the control's value according to the input type
- * @param {any} event
- * @return {any}
- */
-function getControlValue(event: any) {
-  if (isEvent(event)) {
-    switch (event.target.type) {
-      case "checkbox":
-        return event.target.checked;
-      case "select-multiple":
-        if (event.target.options) {
-          const options = event.target.options;
-          const value = [];
-          for (let i = 0, len = options.length; i < len; i++) {
-            if (options[i].selected) {
-              value.push(options[i].value);
-            }
-          }
-          return value;
-        }
-        return event.target.value;
-      default:
-        return event.target.value;
-    }
-  }
-  return event;
 }
 
 /**
@@ -203,11 +171,6 @@ export abstract class AbstractControl<V>
   status!: Status;
 
   /**
-   * A control is `submitted` if the `handleSubmit` event has been triggered on it.
-   */
-  submitted: boolean;
-
-  /**
    * A control is marked `touched` once the user has triggered
    * a `blur` event on it.
    */
@@ -236,7 +199,6 @@ export abstract class AbstractControl<V>
   protected pendingDirty: boolean;
   protected pendingTouched: boolean;
   protected onDisabledChange: any[];
-  protected _updateOn?: FormHooks;
 
   private onCollectionChange?: () => void;
 
@@ -257,7 +219,6 @@ export abstract class AbstractControl<V>
      * a `blur` event on it.
      */
     this.touched = false;
-    this.submitted = false;
     /**
      * A control is `pristine` if the user has not yet changed
      * the value in the UI.
@@ -269,7 +230,7 @@ export abstract class AbstractControl<V>
 
     this.errors = null;
 
-    this.pendingChange = this.updateOn !== "change";
+    this.pendingChange = false;
     this.pendingDirty = false;
     this.pendingTouched = false;
     this.onDisabledChange = [];
@@ -283,15 +244,6 @@ export abstract class AbstractControl<V>
   }
 
   abstract getRawValue(): any;
-
-  /**
-   * Returns the update strategy of the `AbstractControl` (i.e.
-   * the event on which the control will update itself).
-   * Possible values: `'change'` (default) | `'blur'` | `'submit'`
-   */
-  get updateOn(): FormHooks {
-    return this._updateOn ? this._updateOn : (this._parent as any)?.updateOn || "change";
-  }
 
   /**
    * A control is `dirty` if the user has changed the value
@@ -454,9 +406,7 @@ export abstract class AbstractControl<V>
   updateValueAndValidity(options: ControlChangeOpts = {}): void {
     this.setInitialStatus();
     this.updateValue();
-    const shouldValidate =
-      this.enabled && (this.updateOn !== "submit" || this.submitted);
-    if (shouldValidate) {
+    if (this.enabled) {
       this.cancelExistingSubscription();
       this.errors = this.runValidator();
       this.status = this.calculateStatus();
@@ -488,47 +438,6 @@ export abstract class AbstractControl<V>
       this._parent.markAsTouched(opts);
     }
     if (opts.emitEvent) {
-      this.stateChanges?.next();
-    }
-  }
-
-  /**
-   * Marks the control as `submitted`.
-   *
-   * If the control has any children, it will also mark all children as `submitted`
-   * @param {{emitEvent: Boolean}} opts
-   * @return {void}
-   */
-  markAsSubmitted(opts: ControlChangeOpts = {}): void {
-    this.submitted = true;
-
-    this.forEachChild((control) => {
-      control.markAsSubmitted();
-    });
-
-    if (opts.emitEvent !== false) {
-      this.stateChanges?.next();
-    }
-  }
-
-  /**
-   * Marks the control as `unsubmitted`.
-   *
-   * If the control has any children, it will also mark all children as `unsubmitted`.
-   *
-   * @param {{emitEvent: Boolean}} opts
-   * @return {void}
-   */
-  markAsUnsubmitted(opts: ControlChangeOpts = {}): void {
-    this.submitted = false;
-
-    this.forEachChild((control) => {
-      control.markAsUnsubmitted({
-        onlySelf: true,
-      });
-    });
-
-    if (opts.emitEvent !== false) {
       this.stateChanges?.next();
     }
   }
@@ -825,10 +734,6 @@ export abstract class AbstractControl<V>
     return this.anyControls((control) => control.dirty);
   }
 
-  protected anyControlsUnsubmitted(): boolean {
-    return this.anyControls((control) => !control.submitted);
-  }
-
   /**
    * @return {Boolean}
    */
@@ -877,8 +782,6 @@ export abstract class AbstractControl<V>
     callback: (control: AbstractControl<V>) => boolean
   ): boolean;
 
-  abstract syncPendingControls(): boolean;
-
   registerOnCollectionChange(fn: () => void = () => {}): void {
     this.onCollectionChange = fn;
   }
@@ -888,18 +791,6 @@ export abstract class AbstractControl<V>
       this.onCollectionChange();
     }
   }
-
-  /**
-   * @param {{validators: Function|Function[]|null, asyncValidators: Function|Function[]|null, updateOn: 'change' | 'blur' | 'submit'}} opts
-   * @return {Void}
-   */
-  protected setUpdateStrategy<V>(
-    opts?: ValidatorOrOpts<V>
-  ): void {
-    if (isOptionsObj(opts) && opts?.updateOn) {
-      this._updateOn = opts.updateOn;
-    }
-  }
 }
 
 export class FormControl<V> extends AbstractControl<V> {
@@ -907,14 +798,7 @@ export class FormControl<V> extends AbstractControl<V> {
 
   active: boolean;
 
-  private _pendingValue?: V;
-
-  private onValueChanges: Observable<any>;
-  private onBlurChanges: Observable<any>;
-
-  onChange: (event: any) => void;
-  onBlur: (event: any) => void;
-  onFocus: (event: any) => void;
+  private pendingValue?: V;
 
   constructor(
     input: InputBase<V>,
@@ -928,7 +812,6 @@ export class FormControl<V> extends AbstractControl<V> {
     );
     this.input = input;
     this.applyFormState(formState);
-    this.setUpdateStrategy(validatorOrOpts);
     this.pendingChange = true;
     this.pendingDirty = false;
     this.pendingTouched = false;
@@ -938,74 +821,11 @@ export class FormControl<V> extends AbstractControl<V> {
      */
     this.active = false;
 
-    this.onValueChanges = new Observable<any>();
-    this.onBlurChanges = new Observable<any>();
     this.updateValueAndValidity({
       onlySelf: true,
       emitEvent: false,
     });
     this.initObservables();
-
-    /**
-     * Called whenever an onChange event triggers.
-     * Updates the control value according to the update strategy.
-     *
-     * @param {any} event
-     * @return {void}
-     */
-    // TODO
-    this.onChange = (event) => {
-      const value = getControlValue(event);
-      const isDirty = value !== this.value;
-      if (this.updateOn !== "change") {
-        this._pendingValue = value;
-        this.pendingChange = true;
-        if (isDirty && !this.pendingDirty) {
-          this.pendingDirty = true;
-        }
-        this.stateChanges.next();
-      } else {
-        if (isDirty && !this.dirty) {
-          this.markAsDirty();
-        }
-        this.setValue(value);
-      }
-      this.onValueChanges.next(value);
-    };
-    /**
-     * Called whenevers an onBlur event triggers.
-     */
-
-    this.onBlur = () => {
-      this.active = false;
-      if (this.updateOn === "blur") {
-        if (this.pendingDirty && !this.dirty) {
-          this.markAsDirty();
-        }
-        if (!this.touched) {
-          this.markAsTouched();
-        }
-        this.setValue(this._pendingValue as V);
-      } else if (this.updateOn === "submit") {
-        this.pendingTouched = true;
-      } else {
-        const emitChangeToView = !this.touched;
-        if (!this.touched) {
-          this.markAsTouched();
-        }
-        if (emitChangeToView) {
-          this.stateChanges.next();
-        }
-      }
-      this.onBlurChanges.next(this._pendingValue);
-    };
-    /**
-     * Called whenevers an onFocus event triggers.
-     */
-    this.onFocus = () => {
-      this.active = true;
-      this.stateChanges.next();
-    };
   }
 
   /**
@@ -1025,7 +845,7 @@ export class FormControl<V> extends AbstractControl<V> {
    * @return {void}
    */
   setValue(value?: V, options: ControlChangeOpts = {}): void {
-    this.value = this._pendingValue = value;
+    this.value = this.pendingValue = value;
     this.updateValueAndValidity(options);
   }
 
@@ -1093,7 +913,7 @@ export class FormControl<V> extends AbstractControl<V> {
 
   private applyFormState(formState: any) {
     if (this.isBoxedValue(formState)) {
-      this.value = this._pendingValue = formState.value;
+      this.value = this.pendingValue = formState.value;
       if (formState.disabled) {
         this.disable({
           onlySelf: true,
@@ -1106,25 +926,8 @@ export class FormControl<V> extends AbstractControl<V> {
         });
       }
     } else {
-      this.value = this._pendingValue = formState;
+      this.value = this.pendingValue = formState;
     }
-  }
-
-  syncPendingControls(): boolean {
-    if (this.updateOn === "submit") {
-      if (this.pendingDirty) {
-        this.markAsDirty();
-      }
-      if (this.pendingTouched) {
-        this.markAsTouched();
-      }
-      if (this.pendingChange) {
-        this.setValue(this._pendingValue as V);
-        this.pendingChange = false;
-        return true;
-      }
-    }
-    return false;
   }
 }
 
@@ -1133,9 +936,6 @@ export class FormGroup<
 > extends AbstractControl<V> {
   group: InputGroup;
   controls: NamedControlsMap;
-
-  // TODO
-  private handleSubmit: (e: any) => void;
 
   constructor(
     group: InputGroup,
@@ -1150,25 +950,11 @@ export class FormGroup<
     this.group = group || {};
     this.controls = controls || {};
     this.initObservables();
-    this.setUpdateStrategy(validatorOrOpts);
     this.setUpControls();
     this.updateValueAndValidity({
       onlySelf: true,
       emitEvent: false,
     });
-    this.handleSubmit = (e) => {
-      if (e) {
-        e.preventDefault();
-      }
-      if (this.anyControlsUnsubmitted()) {
-        this.markAsSubmitted({
-          emitEvent: false,
-        });
-      }
-      if (!this.syncPendingControls()) {
-        this.updateValueAndValidity();
-      }
-    };
   }
 
   /**
@@ -1295,7 +1081,6 @@ export class FormGroup<
       });
     });
     this.updateValueAndValidity(options);
-    this.markAsUnsubmitted();
     this.updatePristine(options);
     this.updateTouched(options);
   }
@@ -1441,24 +1226,11 @@ export class FormGroup<
       throw new Error(`Cannot find form control with name: ${name}.`);
     }
   }
-
-  syncPendingControls(): boolean {
-    const subtreeUpdated = this.reduceChildren(false, (updated, child) => {
-      return child.syncPendingControls() || updated;
-    });
-    if (subtreeUpdated) {
-      this.updateValueAndValidity();
-    }
-    return subtreeUpdated;
-  }
 }
 
 export class FormArray extends AbstractControl<any> {
   inputArray: InputArray;
   controls: AbstractControl<any>[];
-
-  // TODO
-  handleSubmit: any;
 
   constructor(
     inputArray: InputArray,
@@ -1473,25 +1245,11 @@ export class FormArray extends AbstractControl<any> {
     this.inputArray = inputArray || {};
     this.controls = controls || [];
     this.initObservables();
-    this.setUpdateStrategy(validatorOrOpts);
     this.setUpControls();
     this.updateValueAndValidity({
       onlySelf: true,
       emitEvent: false,
     });
-    this.handleSubmit = (e: any) => {
-      if (e) {
-        e.preventDefault();
-      }
-      if (this.anyControlsUnsubmitted()) {
-        this.markAsSubmitted({
-          emitEvent: false,
-        });
-      }
-      if (!this.syncPendingControls()) {
-        this.updateValueAndValidity();
-      }
-    };
   }
 
   /**
@@ -1625,7 +1383,6 @@ export class FormArray extends AbstractControl<any> {
       });
     });
     this.updateValueAndValidity(options);
-    this.markAsUnsubmitted();
     this.updatePristine(options);
     this.updateTouched(options);
   }
@@ -1639,16 +1396,6 @@ export class FormArray extends AbstractControl<any> {
    */
   getRawValue(): any[] {
     return this.controls.map((control) => control.getRawValue());
-  }
-
-  syncPendingControls(): boolean {
-    const subtreeUpdated = this.controls.reduce((updated, child) => {
-      return child.syncPendingControls() || updated;
-    }, false);
-    if (subtreeUpdated) {
-      this.updateValueAndValidity();
-    }
-    return subtreeUpdated;
   }
 
   private throwIfControlMissing(index: number): void {

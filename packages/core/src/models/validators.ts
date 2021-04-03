@@ -1,5 +1,6 @@
 import { Observable } from "./observable";
-import { BaseControl, Errors } from "./controls";
+import { Errors } from './errors';
+import { BaseControl } from "./controls";
 
 export type ValidatorFn<V> = (
   control: BaseControl<V>,

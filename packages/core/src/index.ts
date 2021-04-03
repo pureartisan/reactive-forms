@@ -1,5 +1,6 @@
 // models
 export * from "./models/controls";
+export * from "./models/errors";
 export * from "./models/forms";
 export * from "./models/inputs";
 export * from "./models/observable";

@@ -1,17 +1,6 @@
+import { Errors } from './errors';
+
 export type Status = "VALID" | "INVALID" | "DISABLED" | "PENDING";
-
-export type Errors = {
-  [key: string]: any;
-};
-
-export type ErrorTranslator<T = any> = (
-  key: string,
-  meta?: T
-) => string | undefined;
-
-export interface ErrorTranslators {
-  [key: string]: ErrorTranslator;
-}
 
 export interface SelfOnlyOpts {
   onlySelf?: boolean;
@@ -26,7 +15,6 @@ export interface ControlChangeOpts extends SelfOnlyOpts, EmitEventOpts {}
 export interface BaseControl<T = any> {
   readonly value?: T;
   readonly status: Status;
-  readonly submitted: boolean;
   readonly pristine: boolean;
   readonly dirty: boolean;
   readonly valid: boolean;
@@ -41,8 +29,6 @@ export interface BaseControl<T = any> {
 
   updateValueAndValidity: (options: ControlChangeOpts) => void;
   markAsTouched: (opts?: ControlChangeOpts) => void;
-  markAsSubmitted: (opts?: ControlChangeOpts) => void;
-  markAsUnsubmitted: (opts?: ControlChangeOpts) => void;
   markAsPristine: (opts?: ControlChangeOpts) => void;
   markAsUntouched: (opts?: ControlChangeOpts) => void;
   markAsDirty: (opts?: ControlChangeOpts) => void;

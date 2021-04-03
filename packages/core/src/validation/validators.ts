@@ -1,6 +1,7 @@
 import { Observable } from "../models/observable";
 import { nonEmpty } from "../utils/collections";
-import { BaseControl, Errors } from "../models/controls";
+import { Errors } from "../models/errors";
+import { BaseControl } from "../models/controls";
 import { ValidatorFn, AsyncValidatorFn } from "../models/validators";
 
 const isEmptyValue = (value?: string | number): boolean => {
