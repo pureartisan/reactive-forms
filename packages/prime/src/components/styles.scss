@@ -1,7 +1,12 @@
 .rf-field-CheckboxField {
     flex-wrap: wrap;
+
     label {
         cursor: pointer;
         user-select: none;
+    }
+
+    .p-error {
+        width: 100%;
     }
 }
