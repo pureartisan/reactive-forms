@@ -97,7 +97,7 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
             {helpText && (
                 <small
                     className={clsx(
-                    "p-d-block",
+                    "rf-helper-text p-d-block",
                     { 'p-error': firstError },
                     props.input?.hintClassName
                     )}
