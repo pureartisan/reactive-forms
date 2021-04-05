@@ -58,6 +58,7 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
             <InputText
                 id={props.input?.id}
                 placeholder={props.input?.placeholder}
+                readOnly={props.input?.readonly}
                 disabled={props.control?.disabled}
                 value={props.control?.value}
                 onChange={handleChange}

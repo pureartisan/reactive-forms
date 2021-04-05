@@ -41,6 +41,7 @@ export const PrimeBooleanField = forwardRef(<I extends BooleanInputBase>(props: 
             <Input
                 inputId={props.input?.id}
                 disabled={props.control?.disabled}
+                readOnly={props.input?.readonly}
                 checked={props.control?.value}
                 onChange={handleChange}
                 className={clsx(props.input?.inputClassName, {

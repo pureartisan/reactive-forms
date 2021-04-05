@@ -38,6 +38,7 @@ export abstract class InputBase<T = any> {
   placeholder?: string;
   label?: string;
   value?: T;
+  readonly?: boolean;
   disabled?: boolean;
   validators?: ValidatorFn<T> | ValidatorFn<T>[] | null;
   asyncValidators?: AsyncValidatorFn<T> | AsyncValidatorFn<T>[] | null;
@@ -53,6 +54,7 @@ export abstract class InputBase<T = any> {
     this.name = options.name ?? defaultProps.name;
     this.placeholder = options.placeholder ?? defaultProps.placeholder;
     this.label = options.label ?? defaultProps.label;
+    this.readonly = options.readonly ?? defaultProps.readonly;
     this.disabled = options.disabled ?? defaultProps.disabled;
     this.validators = options.validators ?? defaultProps.validators;
     this.asyncValidators =
