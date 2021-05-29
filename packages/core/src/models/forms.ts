@@ -345,6 +345,16 @@ export abstract class AbstractControl<V>
     }
   }
 
+  emitEvents(onlySelf?: boolean): void {
+    this.valueChanges?.next(this.value);
+    this.statusChanges?.next(this.status);
+    this.stateChanges?.next();
+
+    if (this._parent && !onlySelf) {
+        this._parent.emitEvents();
+    }
+  }
+
   /**
    * Disables the control. This means the control will be exempt from validation checks and
    * excluded from the aggregate value of any parent. Its status is `DISABLED`.
@@ -364,9 +374,7 @@ export abstract class AbstractControl<V>
     this.updateValue();
 
     if (opts.emitEvent !== false) {
-      this.valueChanges?.next(this.value);
-      this.statusChanges?.next(this.status);
-      this.stateChanges?.next();
+      this.emitEvents(opts.onlySelf);
     }
 
     this.updateAncestors(!!opts.onlySelf);
@@ -415,9 +423,7 @@ export abstract class AbstractControl<V>
       }
     }
     if (options.emitEvent !== false) {
-      this.valueChanges?.next(this.value);
-      this.statusChanges?.next(this.status);
-      this.stateChanges?.next();
+      this.emitEvents(options.onlySelf);
     }
     if (this._parent && !options.onlySelf) {
       this._parent.updateValueAndValidity(options);

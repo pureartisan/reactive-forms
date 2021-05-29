@@ -47,4 +47,5 @@ export interface BaseControl<T = any> {
   reset: (formState: any, opts?: ControlChangeOpts) => void;
   setValue: (value?: T, opts?: ControlChangeOpts) => void;
   patchValue: (value?: T, opts?: ControlChangeOpts) => void;
+  emitEvents: (onlySelf?: boolean) => void;
 }

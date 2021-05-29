@@ -57,7 +57,7 @@ export class Validators {
    */
   static min<
     V extends string | number = string | number
-  >(min: number): ValidatorFn<V> | null {
+  >(min: number): ValidatorFn<V> {
     return (control: BaseControl<V>) => {
       if (isEmptyValue(control.value) || isEmptyValue(min)) {
         return null; // don't validate empty values to allow optional controls
@@ -80,7 +80,7 @@ export class Validators {
    */
   static max<
     V extends string | number = string | number
-  >(max: number): ValidatorFn<V> | null {
+  >(max: number): ValidatorFn<V> {
     return (control: BaseControl<V>) => {
       if (isEmptyValue(control.value) || isEmptyValue(max)) {
         return null; // don't validate empty values to allow optional controls
@@ -145,7 +145,7 @@ export class Validators {
    */
   static minLength<
     V extends string | number = string | number
-  >(minLength: number): ValidatorFn<V> | null {
+  >(minLength: number): ValidatorFn<V> {
     return (control: BaseControl<V>) => {
       if (isEmptyValue(control.value)) {
         return null; // don't validate empty values to allow optional controls
@@ -169,7 +169,7 @@ export class Validators {
    */
   static maxLength<
     V extends string | number = string | number
-  >(maxLength: number): ValidatorFn<V> | null {
+  >(maxLength: number): ValidatorFn<V> {
     return (control: BaseControl<V>) => {
       if (isEmptyValue(control.value)) {
         return null; // don't validate empty values to allow optional controls
@@ -193,22 +193,25 @@ export class Validators {
    */
   static pattern<
     V extends string | number = string | number
-  >(pattern: string | RegExp): ValidatorFn<V> | null {
-    if (!pattern) {
-      return null;
-    }
+  >(pattern: string | RegExp): ValidatorFn<V> {
+
     let regex: RegExp;
     let regexStr: string;
 
-    if (typeof pattern === "string") {
-      regexStr = `^${pattern}$`;
-      regex = new RegExp(regexStr);
-    } else {
-      regexStr = pattern.toString();
-      regex = pattern;
+    if (pattern) {
+        if (typeof pattern === "string") {
+            regexStr = `^${pattern}$`;
+            regex = new RegExp(regexStr);
+        } else {
+            regexStr = pattern.toString();
+            regex = pattern;
+        }
     }
 
     return (control) => {
+      if (!pattern) {
+        return null;
+      }
       if (isEmptyValue(control.value)) {
         return null; // don't validate empty values to allow optional controls
       }

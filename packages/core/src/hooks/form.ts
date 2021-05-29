@@ -2,11 +2,12 @@ import { useState, useEffect, DependencyList } from "react";
 
 import { Form } from "../models/forms";
 
-type Builder = (...args: any[]) => Form;
+type Builder = (...args: any[]) => Form | null;
 
 type Options = {
   valueChanges?: <T>(form: Form<T>) => void;
   statusChanges?: <T>(form: Form<T>) => void;
+  stateChanges?: <T>(form: Form<T>) => void;
 };
 
 export const useForm = <T = any>(
@@ -19,23 +20,31 @@ export const useForm = <T = any>(
   useEffect(() => {
     const f = builder();
 
-    const valueChangesSubs = f?.valueChanges?.subscribe(() => {
-      if (opts?.valueChanges) {
-        opts.valueChanges(f);
-      }
-    });
-    const statusChangesSubs = f?.stateChanges?.subscribe(() => {
-      if (opts?.statusChanges) {
-        opts.statusChanges(f);
-      }
-    });
+    if (f) {
+        const valueChangesSubs = f.valueChanges?.subscribe(() => {
+            if (opts?.valueChanges) {
+                opts.valueChanges(f);
+            }
+        });
+        const statusChangesSubs = f.statusChanges?.subscribe(() => {
+            if (opts?.statusChanges) {
+                opts.statusChanges(f);
+            }
+        });
+        const stateChangesSubs = f.stateChanges?.subscribe(() => {
+            if (opts?.stateChanges) {
+                opts.stateChanges(f);
+            }
+        });
 
-    setForm(f);
+        setForm(f);
 
-    return () => {
-      valueChangesSubs.unsubscribe();
-      statusChangesSubs.unsubscribe();
-    };
+        return () => {
+            valueChangesSubs.unsubscribe();
+            statusChangesSubs.unsubscribe();
+            stateChangesSubs.unsubscribe();
+        };
+    }
   }, deps);
 
   return form;
