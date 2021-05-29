@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { ReactiveForm, AbstractControl, ErrorTranslators } from '@reactiveforms/core';
+import { ReactiveForm, Form, AbstractControl, ErrorTranslators } from '@reactiveforms/core';
 
 interface StyledFormProps {
     elementType?: any;
@@ -21,7 +21,7 @@ const StyledForm = (props: StyledFormProps) => {
 };
 
 interface PrimeReactiveFormProps {
-    form?: AbstractControl<any>
+    form?: Form<any> | AbstractControl<any>
     className?: string;
     style?: any;
     elementType?: any;
