@@ -29,7 +29,7 @@ const inputHasControl = (input: InputElement): boolean => {
 };
 
 interface FieldProps {
-    form?: Form<any>,
+    form?: Form | AbstractControl<any>,
     control?: AbstractControl<any>;
     input?: InputElement;
     errorTranslators?: ErrorTranslators;
@@ -101,7 +101,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
 };
 
 interface FieldControlProps<V> {
-    form?: Form<any>;
+    form?: Form | AbstractControl<any>;
     control?: FormControl<V>;
     input?: InputBase<V>;
     errorTranslators?: ErrorTranslators;
@@ -129,7 +129,7 @@ export const FieldControl = <V,>(
 };
 
 interface FieldGroupProps<V> {
-    form?: Form<any>;
+    form?: Form | AbstractControl<any>;
     control?: FormGroup<V>;
     input?: InputGroup;
     errorTranslators?: ErrorTranslators;
@@ -165,7 +165,7 @@ export const FieldGroup = <V,>(
 };
 
 interface FieldArrayProps {
-    form?: Form<any>;
+    form?: Form | AbstractControl<any>;
   control?: FormArray;
   input?: InputArray;
   errorTranslators?: ErrorTranslators;
@@ -203,7 +203,7 @@ export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
 };
 
 interface StaticComponentProps {
-    form?: Form<any>;
+    form?: Form | AbstractControl<any>;
     input?: StaticElement;
     className?: string;
 }

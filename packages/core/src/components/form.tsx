@@ -37,6 +37,7 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
                 return (
                     <Field
                         key={inp?.name}
+                        form={form}
                         input={inp}
                         control={ctrl}
                         errorTranslators={errorTranslators}
