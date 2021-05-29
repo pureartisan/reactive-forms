@@ -24,12 +24,13 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target?.value as unknown as V;
-        props.control?.setValue(value);
+        props.control?.setValue(value, { emitEvent: false });
         if (value === props.input?.value) {
-            props.control?.markAsPristine();
+            props.control?.markAsPristine({ emitEvent: false });
         } else {
-            props.control?.markAsDirty();
+            props.control?.markAsDirty({ emitEvent: false });
         }
+        props.control?.emitEvents();
     };
 
     const helpText = firstError || props.input?.helpText;
