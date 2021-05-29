@@ -10,7 +10,11 @@ It is expected that `@reactiveforms/core` package is used along with a "UI imple
 
 ## Recommendations
 
-`@reactiveforms` includes an implemenation of the Material UI form elements [`@reactiveforms/mui`](https://www.npmjs.com/package/@reactiveforms/mui), using the popular [Reactive Material UI](https://material-ui.com/) library. However, you can use your own custom implementations too.
+`@reactiveforms` includes an implementation of the following UI frameworks:
+- [`@reactiveforms/mui`](https://www.npmjs.com/package/@reactiveforms/mui) using the popular [Reactive Material UI](https://material-ui.com/) library
+- [`@reactiveforms/prime`](https://www.npmjs.com/package/@reactiveforms/prime) using the popular [Prime React](http://primefaces.org/primereact/) library
+
+However, you can use your own custom implementations too.
 
 ## Installation
 
