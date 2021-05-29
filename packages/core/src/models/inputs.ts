@@ -22,6 +22,8 @@ export interface BaseInputComponentProps<
   errorTranslators?: ErrorTranslators;
 }
 
+export type HiddenResolver = (form: any) => boolean;
+
 interface InputBaseConstructor<T extends InputBase = any> {
   new (...args: any[]): T;
 }
@@ -46,6 +48,7 @@ export abstract class InputBase<T = any> {
   component?: ForwardRefExoticComponent<
     BaseInputComponentProps<T, InputBase<T>, BaseControl<T>>
   >;
+  hidden?: HiddenResolver;
 
   constructor(options: Partial<InputBase<T>>) {
     const defaultProps = this.defaultProps();
@@ -61,6 +64,7 @@ export abstract class InputBase<T = any> {
       options.asyncValidators ?? defaultProps.asyncValidators;
     this.updateOn = options.updateOn ?? defaultProps.updateOn;
     this.component = options.component ?? defaultProps.component;
+    this.hidden = options.hidden ?? defaultProps.hidden;
   }
 
   protected defaultProps<I extends InputBase<T> = InputBase<T>>(): Readonly<
@@ -112,6 +116,7 @@ export class InputGroup {
   asyncValidators?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null;
   updateOn?: FormHooks;
   component?: ForwardRefExoticComponent<any> | FC<any>;
+  hidden?: HiddenResolver;
 
   constructor(options: Partial<InputGroup>) {
     const defaultProps = this.defaultProps();
@@ -119,6 +124,7 @@ export class InputGroup {
     this.label = options.label ?? defaultProps.label;
     this.inputs = (options.inputs ?? defaultProps.inputs) || [];
     this.component = options.component ?? defaultProps.component;
+    this.hidden = options.hidden ?? defaultProps.hidden;
   }
 
   protected defaultProps<T extends InputGroup = InputGroup>(): Readonly<
@@ -166,6 +172,7 @@ export class InputArray {
   asyncValidators?: AsyncValidatorFn<any> | AsyncValidatorFn<any>[] | null;
   updateOn?: FormHooks;
   component?: ForwardRefExoticComponent<any>;
+  hidden?: HiddenResolver;
 
   constructor(options: Partial<InputArray>) {
     const defaultProps = this.defaultProps();
@@ -173,6 +180,7 @@ export class InputArray {
     this.label = options.label ?? defaultProps.label;
     this.inputs = (options.inputs ?? defaultProps.inputs) || [];
     this.component = options.component ?? defaultProps.component;
+    this.hidden = options.hidden ?? defaultProps.hidden;
   }
 
   protected defaultProps<T extends InputArray = InputArray>(): Readonly<
@@ -217,12 +225,14 @@ export class StaticElement {
   readonly name: string;
   component?: ForwardRefExoticComponent<any> | any;
   content?: () => any;
+  hidden?: HiddenResolver;
 
   constructor(options: Partial<StaticElement>) {
     const defaultProps = this.defaultProps();
     this.name = options.name ?? this.buildGlobalName();
     this.content = options.content ?? defaultProps.content;
     this.component = options.component ?? defaultProps.component;
+    this.hidden = options.hidden ?? defaultProps.hidden;
   }
 
   protected defaultProps<T extends StaticElement = StaticElement>(): Readonly<

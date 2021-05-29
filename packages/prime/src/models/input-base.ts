@@ -60,35 +60,37 @@ export abstract class BooleanInputBase extends InputBase<boolean> {
     }
 }
 
-// export interface OptionItem<T> {
-//     value?: T | null;
-//     label?: string;
-// }
+export interface OptionItem<T> {
+    value?: T | null;
+    label?: string;
+}
 
-// export abstract class SelectInputBase<O, T = O | O[]> extends InputBase<T> {
-//     id?: string;
-//     options?: OptionItem<O>[];
+export abstract class SelectInputBase<O, T> extends InputBase<O> {
+    id?: string;
+    options?: OptionItem<O>[];
 
-//     muiFullWidth?: boolean;
-//     muiClasses?: any;
-//     muiInputLabelProps?: any;
-//     muiSelectProps?: any;
-//     muiFormHelperTextProps?: any;
+    helpText?: string;
 
-//     constructor(options: Partial<SelectInputBase<O, T>>) {
-//         super(options);
-//         const defaultProps = this.defaultProps<SelectInputBase<O, T>>();
+    className?: string | ClassNameMap;
+    inputClassName?: string | ClassNameMap;
+    labelClassName?: string | ClassNameMap;
+    hintClassName?: string | ClassNameMap;
 
-//         this.id = options.id ?? defaultProps.id;
-//         this.options = (options.options ?? defaultProps.options ) || [];
+    constructor(options: Partial<SelectInputBase<O, T>>) {
+        super(options);
+        const defaultProps = this.defaultProps<SelectInputBase<O, T>>();
 
-//         this.muiFullWidth = options.muiFullWidth ?? defaultProps.muiFullWidth;
-//         this.muiClasses = options.muiClasses ?? defaultProps.muiClasses;
-//         this.muiInputLabelProps = options.muiInputLabelProps ?? defaultProps.muiInputLabelProps;
-//         this.muiSelectProps = options.muiSelectProps ?? defaultProps.muiSelectProps;
-//         this.muiFormHelperTextProps = options.muiFormHelperTextProps ?? defaultProps.muiFormHelperTextProps;
-//     }
-// }
+        this.id = options.id ?? defaultProps.id;
+        this.options = (options.options ?? defaultProps.options ) || [];
+
+        this.helpText = options.helpText ?? defaultProps.helpText;
+
+        this.className = options.className ?? defaultProps.className;
+        this.inputClassName = options.inputClassName ?? defaultProps.inputClassName;
+        this.labelClassName = options.labelClassName ?? defaultProps.labelClassName;
+        this.hintClassName = options.hintClassName ?? defaultProps.hintClassName;
+    }
+}
 
 // export abstract class SliderInputBase<T extends number | number[]> extends InputBase<T> {
 //     min?: number;

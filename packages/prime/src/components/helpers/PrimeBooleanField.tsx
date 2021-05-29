@@ -18,7 +18,7 @@ export const PrimeBooleanField = forwardRef(<I extends BooleanInputBase>(props: 
     const handleChange = (event: any) => {
         const checked = props.valueGetter ? props.valueGetter(event) : (event.checked || event.value);
         props.control?.setValue(checked, { emitEvent: false });
-        if (value === props.input?.value) {
+        if (checked === props.input?.value) {
             props.control?.markAsPristine({ emitEvent: false });
         } else {
             props.control?.markAsDirty({ emitEvent: false });

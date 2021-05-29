@@ -14,4 +14,4 @@ export * from './components/CheckboxField';
 export * from './components/SwitchField';
 // export * from './components/TextAreaField';
 export * from './components/TextField';
-// export * from './components/SelectField';
+export * from './components/SelectField';

@@ -6,6 +6,7 @@ import {
   FormControl,
   FormGroup,
   FormArray,
+  Form,
 } from "../models/forms";
 import {
   StaticElement,
@@ -28,17 +29,25 @@ const inputHasControl = (input: InputElement): boolean => {
 };
 
 interface FieldProps {
+    form?: Form<any>,
     control?: AbstractControl<any>;
     input?: InputElement;
     errorTranslators?: ErrorTranslators;
 }
 
 export const Field = (props: FieldProps): JSX.Element | null => {
-    const { input, control } = props;
+    const { input, control, form } = props;
     const forceUpdate = useForceUpdate();
+
+    // TODO ensure we batch the forceUpdates to increase performance
 
     useEffect(() => {
         const subscription = control?.stateChanges.subscribe(forceUpdate);
+        return () => subscription?.unsubscribe();
+    }, [control]);
+
+    useEffect(() => {
+        const subscription = control?.statusChanges.subscribe(forceUpdate);
         return () => subscription?.unsubscribe();
     }, [control]);
 
@@ -54,6 +63,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     if (input instanceof InputBase) {
         return (
             <FieldControl
+                form={form}
                 input={input}
                 control={control as FormControl<any>}
                 errorTranslators={props.errorTranslators}
@@ -62,6 +72,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     } else if (input instanceof InputGroup) {
         return (
             <FieldGroup
+                form={form}
                 input={input}
                 control={control as FormGroup<any>}
                 errorTranslators={props.errorTranslators}
@@ -70,6 +81,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     } else if (input instanceof InputArray) {
         return (
             <FieldArray
+                form={form}
                 input={input}
                 control={control as FormArray}
                 errorTranslators={props.errorTranslators}
@@ -77,7 +89,10 @@ export const Field = (props: FieldProps): JSX.Element | null => {
         );
     } else if (input instanceof StaticElement) {
         return (
-            <StaticComponent input={input} />
+            <StaticComponent
+                form={form}
+                input={input}
+            />
         );
     }
 
@@ -86,6 +101,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
 };
 
 interface FieldControlProps<V> {
+    form?: Form<any>;
     control?: FormControl<V>;
     input?: InputBase<V>;
     errorTranslators?: ErrorTranslators;
@@ -99,6 +115,10 @@ export const FieldControl = <V,>(
         return null;
     }
 
+    if (props.input?.hidden && props.input.hidden(props.form)) {
+        return null;
+    }
+
     return (
         <C
             control={props.control}
@@ -109,6 +129,7 @@ export const FieldControl = <V,>(
 };
 
 interface FieldGroupProps<V> {
+    form?: Form<any>;
     control?: FormGroup<V>;
     input?: InputGroup;
     errorTranslators?: ErrorTranslators;
@@ -119,6 +140,10 @@ export const FieldGroup = <V,>(
 ): JSX.Element | null => {
     const C = props.input?.component;
     if (!C) {
+        return null;
+    }
+
+    if (props.input?.hidden && props.input.hidden(props.form)) {
         return null;
     }
 
@@ -140,6 +165,7 @@ export const FieldGroup = <V,>(
 };
 
 interface FieldArrayProps {
+    form?: Form<any>;
   control?: FormArray;
   input?: InputArray;
   errorTranslators?: ErrorTranslators;
@@ -148,6 +174,10 @@ interface FieldArrayProps {
 export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
     const C = props.input?.component;
     if (!C) {
+        return null;
+    }
+
+    if (props.input?.hidden && props.input.hidden(props.form)) {
         return null;
     }
 
@@ -173,6 +203,7 @@ export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
 };
 
 interface StaticComponentProps {
+    form?: Form<any>;
     input?: StaticElement;
     className?: string;
 }
@@ -182,6 +213,10 @@ export const StaticComponent = (
 ): JSX.Element | null => {
     const C = props.input?.component;
     if (!C) {
+        return null;
+    }
+
+    if (props.input?.hidden && props.input.hidden(props.form)) {
         return null;
     }
 
