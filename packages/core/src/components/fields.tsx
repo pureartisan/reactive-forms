@@ -36,31 +36,31 @@ interface FieldProps {
 }
 
 export const Field = (props: FieldProps): JSX.Element | null => {
-    const { input, control } = props;
+    const { input, control, form } = props;
     const forceUpdate = useForceUpdate();
 
     // TODO ensure we batch the forceUpdates to increase performance
 
     useEffect(() => {
-        const subscription = control?.stateChanges.subscribe(forceUpdate);
+        const subscription = form?.stateChanges.subscribe(forceUpdate);
         return () => subscription?.unsubscribe();
-    }, [control]);
+    }, [form]);
 
     useEffect(() => {
-        const subscription = control?.statusChanges.subscribe(forceUpdate);
+        const subscription = form?.statusChanges.subscribe(forceUpdate);
         return () => subscription?.unsubscribe();
-    }, [control]);
+    }, [form]);
 
     useEffect(() => {
-        const subscription = control?.valueChanges.subscribe(forceUpdate);
+        const subscription = form?.valueChanges.subscribe(forceUpdate);
         return () => subscription?.unsubscribe();
-    }, [control]);
+    }, [form]);
 
     if (!input) {
         return null;
     }
 
-    if (input.hidden && input.hidden(props.form)) {
+    if (input.hidden && input.hidden(form)) {
         return null;
     }
 
