@@ -378,7 +378,7 @@ export abstract class AbstractControl<V>
       this.emitEvents(opts.onlySelf);
     }
 
-    this.updateAncestors(!!opts.onlySelf);
+    this.updateAncestors(!!opts.onlySelf, opts.emitEvent);
     this.onDisabledChange.forEach((changeFn) => changeFn(true));
   }
 
@@ -403,7 +403,7 @@ export abstract class AbstractControl<V>
       onlySelf: true,
       emitEvent: opts.emitEvent,
     });
-    this.updateAncestors(!!opts.onlySelf);
+    this.updateAncestors(!!opts.onlySelf, opts.emitEvent);
     this.onDisabledChange.forEach((changeFn) => changeFn(false));
   }
 
@@ -652,11 +652,12 @@ export abstract class AbstractControl<V>
   /**
    * @param {Boolean} onlySelf
    */
-  protected updateAncestors(onlySelf: boolean): void {
+  protected updateAncestors(onlySelf: boolean, emitEvent?: boolean): void {
     if (this._parent && !onlySelf) {
-      this._parent.updateValueAndValidity();
-      this._parent.updatePristine();
-      this._parent.updateTouched();
+      const opts = { emitEvent };
+      this._parent.updateValueAndValidity(opts);
+      this._parent.updatePristine(opts);
+      this._parent.updateTouched(opts);
     }
   }
 
@@ -702,9 +703,7 @@ export abstract class AbstractControl<V>
         this.asyncValidator((this as unknown) as BaseControl<V>, this.root)
       );
       this.asyncValidationSubscription = obs.subscribe((errors) =>
-        this.setErrors(errors, {
-          emitEvent,
-        })
+        this.setErrors(errors, { emitEvent })
       );
     }
   }
