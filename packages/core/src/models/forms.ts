@@ -413,7 +413,7 @@ export abstract class AbstractControl<V>
    * By default, it will also update the value and validity of its ancestors.
    * @param {{onlySelf: Boolean, emitEvent: Booelan}} options
    */
-  updateValueAndValidity(options: ControlChangeOpts = {}): void {
+  updateValueAndValidity(opts: ControlChangeOpts = {}): void {
     this.setInitialStatus();
     this.updateValue();
     if (this.enabled) {
@@ -421,14 +421,14 @@ export abstract class AbstractControl<V>
       this.errors = this.runValidator();
       this.status = this.calculateStatus();
       if (this.status === "VALID" || this.status === "PENDING") {
-        this.runAsyncValidator(true);
+        this.runAsyncValidator(opts.emitEvent !== false);
       }
     }
-    if (options.emitEvent !== false) {
-      this.emitEvents(options.onlySelf);
+    if (opts.emitEvent !== false) {
+      this.emitEvents(opts.onlySelf);
     }
-    if (this._parent && !options.onlySelf) {
-      this._parent.updateValueAndValidity(options);
+    if (this._parent && !opts.onlySelf) {
+      this._parent.updateValueAndValidity(opts);
     }
   }
 
