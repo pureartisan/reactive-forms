@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import clsx from 'clsx';
 
 import {
@@ -6,7 +6,6 @@ import {
   FormControl,
   FormGroup,
   FormArray,
-  Form,
 } from "../models/forms";
 import {
   StaticElement,
@@ -16,7 +15,6 @@ import {
   InputArray,
 } from "../models/inputs";
 import { ErrorTranslators } from '../models/errors';
-import { useForceUpdate } from "../hooks/force-update";
 
 const inputHasControl = (input: InputElement): boolean => {
     // NOTE: static elements are skipped, since they are just
@@ -29,38 +27,15 @@ const inputHasControl = (input: InputElement): boolean => {
 };
 
 interface FieldProps {
-    form?: Form | AbstractControl<any>,
     control?: AbstractControl<any>;
     input?: InputElement;
     errorTranslators?: ErrorTranslators;
 }
 
 export const Field = (props: FieldProps): JSX.Element | null => {
-    const { input, control, form } = props;
-    const forceUpdate = useForceUpdate();
-
-    // TODO ensure we batch the forceUpdates to increase performance
-
-    useEffect(() => {
-        const subscription = form?.stateChanges.subscribe(forceUpdate);
-        return () => subscription?.unsubscribe();
-    }, [form]);
-
-    useEffect(() => {
-        const subscription = form?.statusChanges.subscribe(forceUpdate);
-        return () => subscription?.unsubscribe();
-    }, [form]);
-
-    useEffect(() => {
-        const subscription = form?.valueChanges.subscribe(forceUpdate);
-        return () => subscription?.unsubscribe();
-    }, [form]);
+    const { input, control } = props;
 
     if (!input) {
-        return null;
-    }
-
-    if (input.hidden && input.hidden(form)) {
         return null;
     }
 

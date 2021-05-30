@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { ErrorTranslators } from '../models/errors';
 import { Form, FormGroup, AbstractControl } from "../models/forms";
+import { useForceUpdate } from "../hooks/force-update";
 
 import { Field } from "./fields";
 
@@ -16,11 +17,31 @@ interface ReactiveFormProps {
 const DefaultForm = (props: any) => <form {...props} />;
 
 export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
-    if (!props.form) {
+    const forceUpdate = useForceUpdate();
+
+    const { form, component, errorTranslators, ...rest } = props;
+
+    if (!form) {
         return null;
     }
 
-    const { form, component, errorTranslators, ...rest } = props;
+    // TODO ensure we batch the forceUpdates to increase performance
+
+    useEffect(() => {
+        const subscription = form?.stateChanges.subscribe(forceUpdate);
+        return () => subscription?.unsubscribe();
+    }, [form]);
+
+    useEffect(() => {
+        const subscription = form?.statusChanges.subscribe(forceUpdate);
+        return () => subscription?.unsubscribe();
+    }, [form]);
+
+    useEffect(() => {
+        const subscription = form?.valueChanges.subscribe(forceUpdate);
+        return () => subscription?.unsubscribe();
+    }, [form]);
+
     const F = component ?? DefaultForm;
 
     let inputs;
@@ -34,10 +55,14 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
         <F {...rest}>
             {inputs?.map((inp) => {
                 const ctrl = inp?.name ? props.form?.get(inp.name) : undefined;
+
+                if (inp?.hidden && inp.hidden(form)) {
+                    return null;
+                }
+
                 return (
                     <Field
                         key={inp?.name}
-                        form={form}
                         input={inp}
                         control={ctrl}
                         errorTranslators={errorTranslators}
