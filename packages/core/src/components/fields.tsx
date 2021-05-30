@@ -36,7 +36,7 @@ interface FieldProps {
 }
 
 export const Field = (props: FieldProps): JSX.Element | null => {
-    const { input, control, form } = props;
+    const { input, control } = props;
     const forceUpdate = useForceUpdate();
 
     // TODO ensure we batch the forceUpdates to increase performance
@@ -60,10 +60,13 @@ export const Field = (props: FieldProps): JSX.Element | null => {
         return null;
     }
 
+    if (input.hidden && input.hidden(props.form)) {
+        return null;
+    }
+
     if (input instanceof InputBase) {
         return (
             <FieldControl
-                form={form}
                 input={input}
                 control={control as FormControl<any>}
                 errorTranslators={props.errorTranslators}
@@ -72,7 +75,6 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     } else if (input instanceof InputGroup) {
         return (
             <FieldGroup
-                form={form}
                 input={input}
                 control={control as FormGroup<any>}
                 errorTranslators={props.errorTranslators}
@@ -81,7 +83,6 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     } else if (input instanceof InputArray) {
         return (
             <FieldArray
-                form={form}
                 input={input}
                 control={control as FormArray}
                 errorTranslators={props.errorTranslators}
@@ -90,7 +91,6 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     } else if (input instanceof StaticElement) {
         return (
             <StaticComponent
-                form={form}
                 input={input}
             />
         );
@@ -101,7 +101,6 @@ export const Field = (props: FieldProps): JSX.Element | null => {
 };
 
 interface FieldControlProps<V> {
-    form?: Form | AbstractControl<any>;
     control?: FormControl<V>;
     input?: InputBase<V>;
     errorTranslators?: ErrorTranslators;
@@ -115,10 +114,6 @@ export const FieldControl = <V,>(
         return null;
     }
 
-    if (props.input?.hidden && props.input.hidden(props.form)) {
-        return null;
-    }
-
     return (
         <C
             control={props.control}
@@ -129,7 +124,6 @@ export const FieldControl = <V,>(
 };
 
 interface FieldGroupProps<V> {
-    form?: Form | AbstractControl<any>;
     control?: FormGroup<V>;
     input?: InputGroup;
     errorTranslators?: ErrorTranslators;
@@ -140,10 +134,6 @@ export const FieldGroup = <V,>(
 ): JSX.Element | null => {
     const C = props.input?.component;
     if (!C) {
-        return null;
-    }
-
-    if (props.input?.hidden && props.input.hidden(props.form)) {
         return null;
     }
 
@@ -165,7 +155,6 @@ export const FieldGroup = <V,>(
 };
 
 interface FieldArrayProps {
-    form?: Form | AbstractControl<any>;
   control?: FormArray;
   input?: InputArray;
   errorTranslators?: ErrorTranslators;
@@ -174,10 +163,6 @@ interface FieldArrayProps {
 export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
     const C = props.input?.component;
     if (!C) {
-        return null;
-    }
-
-    if (props.input?.hidden && props.input.hidden(props.form)) {
         return null;
     }
 
@@ -203,7 +188,6 @@ export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
 };
 
 interface StaticComponentProps {
-    form?: Form | AbstractControl<any>;
     input?: StaticElement;
     className?: string;
 }
@@ -213,10 +197,6 @@ export const StaticComponent = (
 ): JSX.Element | null => {
     const C = props.input?.component;
     if (!C) {
-        return null;
-    }
-
-    if (props.input?.hidden && props.input.hidden(props.form)) {
         return null;
     }
 

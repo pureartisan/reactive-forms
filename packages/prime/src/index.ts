@@ -12,6 +12,6 @@ export * from './components/EmailField';
 export * from './components/PasswordField';
 export * from './components/CheckboxField';
 export * from './components/SwitchField';
-// export * from './components/TextAreaField';
+export * from './components/TextAreaField';
 export * from './components/TextField';
 export * from './components/SelectField';
