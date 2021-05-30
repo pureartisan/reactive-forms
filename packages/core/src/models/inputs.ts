@@ -224,7 +224,7 @@ export class StaticElement {
 
   readonly name: string;
   component?: ForwardRefExoticComponent<any> | any;
-  content?: () => any;
+  content?: (form?: any) => any;
   hidden?: HiddenResolver;
 
   constructor(options: Partial<StaticElement>) {

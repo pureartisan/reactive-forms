@@ -6,6 +6,7 @@ import {
   FormControl,
   FormGroup,
   FormArray,
+  Form
 } from "../models/forms";
 import {
   StaticElement,
@@ -27,6 +28,7 @@ const inputHasControl = (input: InputElement): boolean => {
 };
 
 interface FieldProps {
+    form?: Form<any> | AbstractControl<any>;
     control?: AbstractControl<any>;
     input?: InputElement;
     errorTranslators?: ErrorTranslators;
@@ -163,6 +165,7 @@ export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
 };
 
 interface StaticComponentProps {
+    form?: Form<any> | AbstractControl<any>;
     input?: StaticElement;
     className?: string;
 }
@@ -180,7 +183,7 @@ export const StaticComponent = (
             {...props}
             className={clsx(`ReactiveForms-StaticElement-${props.input?.name}`, props.className)}
         >
-            {props.input?.content && props.input.content()}
+            {props.input?.content && props.input.content(props.form)}
         </C>
     );
 };
