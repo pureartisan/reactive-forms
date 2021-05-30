@@ -9,6 +9,7 @@ export * from './components/Form';
 export * from './components/FormGroup';
 export * from './components/StaticComponent';
 export * from './components/EmailField';
+export * from './components/CurrencyField';
 export * from './components/PasswordField';
 export * from './components/CheckboxField';
 export * from './components/SwitchField';

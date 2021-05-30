@@ -4,6 +4,7 @@ import { InputGroup, StaticElement } from '@reactiveforms/core';
 import { FormGroup } from '../components/FormGroup';
 import { EmailInput, EmailField } from '../components/EmailField';
 import { TextAreaInput, TextAreaField } from '../components/TextAreaField';
+import { CurrencyInput, CurrencyField } from '../components/CurrencyField';
 import { TextInput, TextField } from '../components/TextField';
 import { PasswordInput, PasswordField } from '../components/PasswordField';
 import { CheckboxInput, CheckboxField } from '../components/CheckboxField';
@@ -17,6 +18,7 @@ export const setDefaults = (): void => {
     StaticElement.updateDefaultProps({ component: StaticComponent });
 
     EmailInput.updateDefaultProps({ component: EmailField });
+    CurrencyInput.updateDefaultProps({ component: CurrencyField });
     TextInput.updateDefaultProps({ component: TextField });
     TextAreaInput.updateDefaultProps({ component: TextAreaField });
     PasswordInput.updateDefaultProps({ component: PasswordField });
