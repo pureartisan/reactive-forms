@@ -368,6 +368,7 @@ export abstract class AbstractControl<V>
     this.errors = null;
     this.forEachChild((control) => {
       control.disable({
+        ...opts,
         onlySelf: true,
       });
     });
@@ -394,6 +395,7 @@ export abstract class AbstractControl<V>
     this.status = "VALID";
     this.forEachChild((control) => {
       control.enable({
+        ...opts,
         onlySelf: true,
       });
     });
