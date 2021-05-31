@@ -68,6 +68,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     } else if (input instanceof StaticElement) {
         return (
             <StaticComponent
+                form={props.form}
                 input={input}
             />
         );
