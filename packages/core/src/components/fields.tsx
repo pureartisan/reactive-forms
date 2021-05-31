@@ -174,17 +174,20 @@ interface StaticComponentProps {
 export const StaticComponent = (
     props: StaticComponentProps
 ): JSX.Element | null => {
+
     const C = props.input?.component;
     if (!C) {
         return null;
     }
 
+    const { form, input, className, ...rest } = props;
+
     return (
         <C
-            {...props}
-            className={clsx(`ReactiveForms-StaticElement-${props.input?.name}`, props.className)}
+            {...rest}
+            className={clsx(`ReactiveForms-StaticElement-${input?.name}`, className)}
         >
-            {props.input?.content && props.input.content(props.form)}
+            {input?.content && input.content(form)}
         </C>
     );
 };
