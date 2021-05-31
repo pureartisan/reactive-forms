@@ -185,7 +185,7 @@ export const StaticComponent = (
     return (
         <C
             {...rest}
-            className={clsx(`ReactiveForms-StaticElement-${input?.name}`, className)}
+            className={clsx(`rf-static-element rf-${input?.name}`, className)}
         >
             {input?.content && input.content(form)}
         </C>
