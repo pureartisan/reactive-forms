@@ -36,7 +36,11 @@ export const PrimeBooleanField = forwardRef(<I extends BooleanInputBase>(props: 
                 `rf-field rf-field-${props.inputType}`,
                 props.className,
                 props.input?.className,
-                { 'p-col-12': !props.input?.className }
+                {
+                    'p-col-12': !props.input?.className,
+                    'boolean-true': props.control?.value,
+                    'boolean-false': !props.control?.value
+                }
             )}
         >
             <Input
