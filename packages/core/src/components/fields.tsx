@@ -35,7 +35,7 @@ interface FieldProps {
 }
 
 export const Field = (props: FieldProps): JSX.Element | null => {
-    const { input, control } = props;
+    const { input, control, form } = props;
 
     if (!input) {
         return null;
@@ -52,6 +52,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     } else if (input instanceof InputGroup) {
         return (
             <FieldGroup
+                form={form}
                 input={input}
                 control={control as FormGroup<any>}
                 errorTranslators={props.errorTranslators}
@@ -60,6 +61,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     } else if (input instanceof InputArray) {
         return (
             <FieldArray
+                form={form}
                 input={input}
                 control={control as FormArray}
                 errorTranslators={props.errorTranslators}
@@ -68,7 +70,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     } else if (input instanceof StaticElement) {
         return (
             <StaticComponent
-                form={props.form}
+                form={form}
                 input={input}
             />
         );
@@ -102,6 +104,7 @@ export const FieldControl = <V,>(
 };
 
 interface FieldGroupProps<V> {
+    form?: Form<any> | AbstractControl<any>;
     control?: FormGroup<V>;
     input?: InputGroup;
     errorTranslators?: ErrorTranslators;
@@ -118,6 +121,10 @@ export const FieldGroup = <V,>(
     return (
         <C control={props.control} input={props.input}>
             {props.input?.inputs?.map((inp) => {
+                if (inp?.hidden && inp.hidden(props.form)) {
+                    return null;
+                }
+
                 const ctrl = inp?.name ? props.control?.get(inp.name) : undefined;
                 return (
                     <Field
@@ -133,9 +140,10 @@ export const FieldGroup = <V,>(
 };
 
 interface FieldArrayProps {
-  control?: FormArray;
-  input?: InputArray;
-  errorTranslators?: ErrorTranslators;
+    form?: Form<any> | AbstractControl<any>;
+    control?: FormArray;
+    input?: InputArray;
+    errorTranslators?: ErrorTranslators;
 }
 
 export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
@@ -149,6 +157,10 @@ export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
     return (
         <C control={props.control} input={props.input}>
             {props.input?.inputs?.map((inp) => {
+                if (inp?.hidden && inp.hidden(props.form)) {
+                    return null;
+                }
+
                 if (inputHasControl(inp)) {
                     controlIndex++;
                 }
