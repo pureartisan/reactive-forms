@@ -21,10 +21,6 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
 
     const { form, component, errorTranslators, ...rest } = props;
 
-    if (!form) {
-        return null;
-    }
-
     // TODO ensure we batch the forceUpdates to increase performance
 
     useEffect(() => {
@@ -41,6 +37,10 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
         const subscription = form?.valueChanges.subscribe(forceUpdate);
         return () => subscription?.unsubscribe();
     }, [form]);
+
+    if (!form) {
+        return null;
+    }
 
     const F = component ?? DefaultForm;
 
