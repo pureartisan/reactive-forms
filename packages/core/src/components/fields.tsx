@@ -16,6 +16,7 @@ import {
   InputArray,
 } from "../models/inputs";
 import { ErrorTranslators } from '../models/errors';
+import { useEffect } from 'react';
 
 const inputHasControl = (input: InputElement): boolean => {
     // NOTE: static elements are skipped, since they are just
@@ -32,12 +33,25 @@ interface FieldProps {
     control?: AbstractControl<any>;
     input?: InputElement;
     errorTranslators?: ErrorTranslators;
+    onEnableChanged?: () => void;
 }
 
 export const Field = (props: FieldProps): JSX.Element | null => {
     const { input, control, form } = props;
 
-    if (!input) {
+    const isHidden = input?.hidden && input.hidden(form);
+    useEffect(() => {
+        if (isHidden) {
+            control?.disable({ emitEvent: false });
+        } else {
+            control?.enable({ emitEvent: false });
+        }
+        if (props.onEnableChanged) {
+            props.onEnableChanged();
+        }
+    }, [isHidden]);
+
+    if (!input || isHidden) {
         return null;
     }
 
@@ -108,6 +122,7 @@ interface FieldGroupProps<V> {
     control?: FormGroup<V>;
     input?: InputGroup;
     errorTranslators?: ErrorTranslators;
+    onEnableChanged?: () => void;
 }
 
 export const FieldGroup = <V,>(
@@ -121,10 +136,6 @@ export const FieldGroup = <V,>(
     return (
         <C control={props.control} input={props.input}>
             {props.input?.inputs?.map((inp) => {
-                if (inp?.hidden && inp.hidden(props.form)) {
-                    return null;
-                }
-
                 const ctrl = inp?.name ? props.control?.get(inp.name) : undefined;
                 return (
                     <Field
@@ -132,6 +143,7 @@ export const FieldGroup = <V,>(
                         input={inp}
                         control={ctrl}
                         errorTranslators={props.errorTranslators}
+                        onEnableChanged={props.onEnableChanged}
                     />
                 );
             })}
@@ -144,6 +156,7 @@ interface FieldArrayProps {
     control?: FormArray;
     input?: InputArray;
     errorTranslators?: ErrorTranslators;
+    onEnableChanged?: () => void;
 }
 
 export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
@@ -157,10 +170,6 @@ export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
     return (
         <C control={props.control} input={props.input}>
             {props.input?.inputs?.map((inp) => {
-                if (inp?.hidden && inp.hidden(props.form)) {
-                    return null;
-                }
-
                 if (inputHasControl(inp)) {
                     controlIndex++;
                 }
@@ -170,6 +179,7 @@ export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
                         input={inp}
                         control={props.control?.at(controlIndex)}
                         errorTranslators={props.errorTranslators}
+                        onEnableChanged={props.onEnableChanged}
                     />
                 );
             })}

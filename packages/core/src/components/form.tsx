@@ -56,10 +56,6 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
             {inputs?.map((inp) => {
                 const ctrl = inp?.name ? props.form?.get(inp.name) : undefined;
 
-                if (inp?.hidden && inp.hidden(form)) {
-                    return null;
-                }
-
                 return (
                     <Field
                         key={inp?.name}
@@ -67,6 +63,7 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
                         input={inp}
                         control={ctrl}
                         errorTranslators={errorTranslators}
+                        onEnableChanged={forceUpdate}
                     />
                 );
             })}
