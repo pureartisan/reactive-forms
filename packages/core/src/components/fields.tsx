@@ -140,6 +140,7 @@ export const FieldGroup = <V,>(
                 return (
                     <Field
                         key={inp?.name}
+                        form={props.form}
                         input={inp}
                         control={ctrl}
                         errorTranslators={props.errorTranslators}
@@ -177,6 +178,7 @@ export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
                     <Field
                         key={inp?.name}
                         input={inp}
+                        form={props.form}
                         control={props.control?.at(controlIndex)}
                         errorTranslators={props.errorTranslators}
                         onEnableChanged={props.onEnableChanged}
