@@ -15,7 +15,7 @@ export class TextAreaInput extends TextInputBase<string> {
     constructor(options: Partial<TextAreaInput>) {
         super(options);
         const defaultProps = this.defaultProps<TextAreaInput>();
-        this.cols = options.rows ?? defaultProps.cols;
+        this.cols = options.cols ?? defaultProps.cols;
         this.rows = options.rows ?? defaultProps.rows;
         this.rowsMax = options.rowsMax ?? defaultProps.rowsMax;
         this.autoResize = options.autoResize ?? defaultProps.autoResize;
