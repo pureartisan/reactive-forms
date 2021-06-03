@@ -10,6 +10,7 @@ import { PasswordInput, PasswordField } from '../components/PasswordField';
 import { CheckboxInput, CheckboxField } from '../components/CheckboxField';
 import { SwitchInput, SwitchField } from '../components/SwitchField';
 import { SelectInput, SelectField } from '../components/SelectField';
+import { DateInput, DateField } from '../components/DateField';
 import { StaticComponent } from '../components/StaticComponent';
 
 export const setDefaults = (): void => {
@@ -22,7 +23,10 @@ export const setDefaults = (): void => {
     TextInput.updateDefaultProps({ component: TextField });
     TextAreaInput.updateDefaultProps({ component: TextAreaField });
     PasswordInput.updateDefaultProps({ component: PasswordField });
+
     SelectInput.updateDefaultProps({ component: SelectField });
+
+    DateInput.updateDefaultProps({ component: DateField });
 
     CheckboxInput.updateDefaultProps({ component: CheckboxField });
     SwitchInput.updateDefaultProps({ component: SwitchField });

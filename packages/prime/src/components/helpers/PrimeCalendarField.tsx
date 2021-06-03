@@ -14,7 +14,16 @@ interface PrimeCalendarFieldProps<V extends any, I extends InputBase<V> = any, C
     selectionMode?: SelectionMode;
     helperText?: string;
     icon?: any;
-    onRightIconClick?: () => void;
+    showDefaultIcon?: boolean;
+    minDate?: Date;
+    maxDate?: Date;
+    disabledDates?: Date[];
+    disabledDays?: number[];
+    showButtonBar?: boolean;
+    showOnFocus?: boolean;
+    showWeek?: boolean;
+    dateFormat?: string;
+    maxDateCount?: number;
 }
 
 export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(props: PrimeCalendarFieldProps<V, I>, ref: any) => {
@@ -45,7 +54,18 @@ export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(pro
             onChange={handleChange}
             className={props.input?.inputClassName}
             selectionMode={props.selectionMode}
-            showIcon={props.icon}
+            showIcon={Boolean(props.icon || props.showDefaultIcon)}
+            icon={props.icon}
+            showOnFocus={props.showOnFocus}
+            showWeek={props.showWeek}
+            dateFormat={props.dateFormat}
+            maxDateCount={props.maxDateCount}
+            minDate={props.minDate}
+            maxDate={props.maxDate}
+            disabledDates={props.disabledDates}
+            disabledDays={props.disabledDays}
+            showButtonBar={props.showButtonBar}
+            panelClassName="PrimeCalendarFieldPanel"
             ref={ref}
         />
     );
