@@ -21,20 +21,8 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
 
     const { form, component, errorTranslators, ...rest } = props;
 
-    // TODO ensure we batch the forceUpdates to increase performance
-
     useEffect(() => {
-        const subscription = form?.stateChanges.subscribe(forceUpdate);
-        return () => subscription?.unsubscribe();
-    }, [form]);
-
-    useEffect(() => {
-        const subscription = form?.statusChanges.subscribe(forceUpdate);
-        return () => subscription?.unsubscribe();
-    }, [form]);
-
-    useEffect(() => {
-        const subscription = form?.valueChanges.subscribe(forceUpdate);
+        const subscription = form?.anythingChanges.subscribe(forceUpdate);
         return () => subscription?.unsubscribe();
     }, [form]);
 
@@ -43,6 +31,8 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
     }
 
     const F = component ?? DefaultForm;
+
+    const handleEnableChanged = () => form?.emitEvents();
 
     let inputs;
     if (form instanceof Form) {
@@ -63,7 +53,7 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
                         input={inp}
                         control={ctrl}
                         errorTranslators={errorTranslators}
-                        onEnableChanged={forceUpdate}
+                        onEnableChanged={handleEnableChanged}
                     />
                 );
             })}

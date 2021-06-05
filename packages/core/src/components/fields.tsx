@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import clsx from 'clsx';
 
 import {
@@ -16,7 +16,7 @@ import {
   InputArray,
 } from "../models/inputs";
 import { ErrorTranslators } from '../models/errors';
-import { useEffect } from 'react';
+import { useForceUpdate } from '../hooks/force-update';
 
 const inputHasControl = (input: InputElement): boolean => {
     // NOTE: static elements are skipped, since they are just
@@ -40,12 +40,22 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     const { input, control, form } = props;
 
     const isHidden = input?.hidden && input.hidden(form);
-    useEffect(() => {
-        if (isHidden) {
-            control?.disable({ emitEvent: false });
-        } else {
-            control?.enable({ emitEvent: false });
+
+    const forceUpdate = useForceUpdate();
+
+    useLayoutEffect(() => {
+        if (isHidden === undefined) {
+            return;
         }
+
+        const opts = { emitEvent: false };
+        if (isHidden) {
+            control?.disable(opts);
+        } else {
+            control?.enable(opts);
+        }
+
+        forceUpdate();
         if (props.onEnableChanged) {
             props.onEnableChanged();
         }
@@ -70,6 +80,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
                 input={input}
                 control={control as FormGroup<any>}
                 errorTranslators={props.errorTranslators}
+                onEnableChanged={props.onEnableChanged}
             />
         );
     } else if (input instanceof InputArray) {
@@ -79,6 +90,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
                 input={input}
                 control={control as FormArray}
                 errorTranslators={props.errorTranslators}
+                onEnableChanged={props.onEnableChanged}
             />
         );
     } else if (input instanceof StaticElement) {

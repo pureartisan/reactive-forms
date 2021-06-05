@@ -1,6 +1,7 @@
 import { useState, useEffect, DependencyList } from "react";
 
 import { Form } from "../models/forms";
+import { Subscription } from '../models/observable';
 
 type Builder = (...args: any[]) => Form | null;
 
@@ -8,6 +9,7 @@ type Options = {
   valueChanges?: <T>(form: Form<T>) => void;
   statusChanges?: <T>(form: Form<T>) => void;
   stateChanges?: <T>(form: Form<T>) => void;
+  anythingChanges?: <T>(form: Form<T>) => void;
 };
 
 export const useForm = <T = any>(
@@ -21,29 +23,32 @@ export const useForm = <T = any>(
     const f = builder();
 
     if (f) {
-        const valueChangesSubs = f.valueChanges?.subscribe(() => {
-            if (opts?.valueChanges) {
-                opts.valueChanges(f);
-            }
-        });
-        const statusChangesSubs = f.statusChanges?.subscribe(() => {
-            if (opts?.statusChanges) {
-                opts.statusChanges(f);
-            }
-        });
-        const stateChangesSubs = f.stateChanges?.subscribe(() => {
-            if (opts?.stateChanges) {
-                opts.stateChanges(f);
-            }
-        });
+        const subs: Subscription<any>[] = [];
+
+        if (opts?.valueChanges) {
+            subs.push(f.valueChanges?.subscribe(() => {
+                opts?.valueChanges && opts.valueChanges(f);
+            }));
+        }
+        if (opts?.statusChanges) {
+            subs.push(f.statusChanges?.subscribe(() => {
+                opts?.statusChanges && opts.statusChanges(f);
+            }));
+        }
+        if (opts?.stateChanges) {
+            subs.push(f.stateChanges?.subscribe(() => {
+                opts?.stateChanges && opts.stateChanges(f);
+            }));
+        }
+        if (opts?.anythingChanges) {
+            subs.push(f.anythingChanges?.subscribe(() => {
+                opts?.anythingChanges && opts.anythingChanges(f);
+            }));
+        }
 
         setForm(f);
 
-        return () => {
-            valueChangesSubs.unsubscribe();
-            statusChangesSubs.unsubscribe();
-            stateChangesSubs.unsubscribe();
-        };
+        return () => subs.forEach(s => s.unsubscribe());
     }
   }, deps);
 

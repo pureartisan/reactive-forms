@@ -193,12 +193,12 @@ export abstract class AbstractControl<V>
   valueChanges!: Observable<V>;
   statusChanges!: Observable<Status>;
   stateChanges!: Observable<any>;
+  anythingChanges!: Observable<any>;
 
   protected _parent?: FormGroup<any> | FormArray;
   protected pendingChange: boolean;
   protected pendingDirty: boolean;
   protected pendingTouched: boolean;
-  protected onDisabledChange: any[];
 
   private onCollectionChange?: () => void;
 
@@ -233,7 +233,6 @@ export abstract class AbstractControl<V>
     this.pendingChange = false;
     this.pendingDirty = false;
     this.pendingTouched = false;
-    this.onDisabledChange = [];
 
     // this.hasError = this.hasError.bind(this);
     // this.getError = this.getError.bind(this);
@@ -346,9 +345,10 @@ export abstract class AbstractControl<V>
   }
 
   emitEvents(onlySelf?: boolean): void {
-    this.valueChanges?.next(this.value);
-    this.statusChanges?.next(this.status);
     this.stateChanges?.next();
+    this.statusChanges?.next(this.status);
+    this.valueChanges?.next(this.value);
+    this.anythingChanges?.next();
 
     if (this._parent && !onlySelf) {
         this._parent.emitEvents();
@@ -372,14 +372,11 @@ export abstract class AbstractControl<V>
         onlySelf: true,
       });
     });
-    this.updateValue();
-
-    if (opts.emitEvent !== false) {
-      this.emitEvents(opts.onlySelf);
-    }
-
-    this.updateAncestors(!!opts.onlySelf, opts.emitEvent);
-    this.onDisabledChange.forEach((changeFn) => changeFn(true));
+    this.updateValueAndValidity({
+        onlySelf: true,
+        emitEvent: opts.emitEvent,
+    });
+    this.updateAncestors(opts.onlySelf, opts.emitEvent);
   }
 
   /**
@@ -403,8 +400,7 @@ export abstract class AbstractControl<V>
       onlySelf: true,
       emitEvent: opts.emitEvent,
     });
-    this.updateAncestors(!!opts.onlySelf, opts.emitEvent);
-    this.onDisabledChange.forEach((changeFn) => changeFn(false));
+    this.updateAncestors(opts.onlySelf, opts.emitEvent);
   }
 
   /**
@@ -652,7 +648,7 @@ export abstract class AbstractControl<V>
   /**
    * @param {Boolean} onlySelf
    */
-  protected updateAncestors(onlySelf: boolean, emitEvent?: boolean): void {
+  protected updateAncestors(onlySelf?: boolean, emitEvent?: boolean): void {
     if (this._parent && !onlySelf) {
       const opts = { emitEvent };
       this._parent.updateValueAndValidity(opts);
@@ -757,6 +753,7 @@ export abstract class AbstractControl<V>
     if (emitEvent) {
       this.statusChanges?.next();
       this.stateChanges?.next();
+      this.anythingChanges?.next();
     }
     if (this._parent) {
       this._parent.updateControlsErrors(emitEvent);
@@ -767,6 +764,7 @@ export abstract class AbstractControl<V>
     this.valueChanges = new Observable<V>();
     this.statusChanges = new Observable<Status>();
     this.stateChanges = new Observable<any>();
+    this.anythingChanges = new Observable<any>();
   }
 
   abstract reset(formState: unknown, opts?: ControlChangeOpts): void;
