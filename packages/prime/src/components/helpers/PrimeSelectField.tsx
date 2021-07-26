@@ -48,7 +48,7 @@ export const PrimeSelectField = forwardRef(<V extends string, I extends SelectIn
     return (
         <div
             className={clsx(
-                `rf-field rf-field-${props.inputType} p-field`,
+                `rf-field rf-field-${props.inputType} rf-field-name-${props.input?.name} p-field`,
                 props.input?.className,
                 {
                     'p-col-12': !props.input?.className,

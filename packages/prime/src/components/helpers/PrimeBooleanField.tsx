@@ -33,7 +33,7 @@ export const PrimeBooleanField = forwardRef(<I extends BooleanInputBase>(props: 
     return (
         <div
             className={clsx(
-                `rf-field rf-field-${props.inputType}`,
+                `rf-field rf-field-${props.inputType} rf-field-name-${props.input?.name}`,
                 props.className,
                 props.input?.className,
                 {
