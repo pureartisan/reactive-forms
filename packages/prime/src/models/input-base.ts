@@ -29,6 +29,7 @@ export abstract class TextInputBase<T> extends InputBase<T> {
         const defaultProps = this.defaultProps<TextInputBase<T>>();
 
         this.helpText = options.helpText ?? defaultProps.helpText;
+        this.helpTextComponent = options.helpTextComponent ?? defaultProps.helpTextComponent;
 
         this.className = options.className ?? defaultProps.className;
         this.inputClassName = options.inputClassName ?? defaultProps.inputClassName;
@@ -59,6 +60,7 @@ export abstract class BooleanInputBase extends InputBase<boolean> {
         const defaultProps = this.defaultProps<BooleanInputBase>();
 
         this.helpText = options.helpText ?? defaultProps.helpText;
+        this.helpTextComponent = options.helpTextComponent ?? defaultProps.helpTextComponent;
 
         this.className = options.className ?? defaultProps.className;
         this.inputClassName = options.inputClassName ?? defaultProps.inputClassName;
@@ -92,6 +94,7 @@ export abstract class SelectInputBase<O, T> extends InputBase<O> {
         this.options = (options.options ?? defaultProps.options ) || [];
 
         this.helpText = options.helpText ?? defaultProps.helpText;
+        this.helpTextComponent = options.helpTextComponent ?? defaultProps.helpTextComponent;
 
         this.className = options.className ?? defaultProps.className;
         this.inputClassName = options.inputClassName ?? defaultProps.inputClassName;
