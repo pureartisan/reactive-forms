@@ -6,11 +6,11 @@ import { Dropdown } from 'primereact/dropdown';
 import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg } from '@reactiveforms/core';
 
 import { SelectInputBase } from '../../models/input-base';
+import { getHelpText } from '../../utils/helpers';
 
 interface PrimeSelectFieldProps<V extends string, I extends InputBase<V> = any, C extends BaseControl<V> = BaseControl<V>> extends BaseInputComponentProps<V, I, C> {
     type?: string;
     inputType?: string;
-    helperText?: string;
 }
 
 export const PrimeSelectField = forwardRef(<V extends string, I extends SelectInputBase<V, V>>(props: PrimeSelectFieldProps<V, I>, ref: any) => {
@@ -27,7 +27,7 @@ export const PrimeSelectField = forwardRef(<V extends string, I extends SelectIn
         props.control?.emitEvents();
     };
 
-    const helpText = firstError || props.input?.helpText;
+    const helpText = getHelpText(props.input, props.control, firstError);
 
     const inputSection = (
         <Dropdown

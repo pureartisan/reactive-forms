@@ -6,13 +6,13 @@ import { Calendar } from 'primereact/calendar';
 import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg } from '@reactiveforms/core';
 
 import { TextInputBase } from '../../models/input-base';
+import { getHelpText } from '../../utils/helpers';
 
 type SelectionMode = 'single' | 'multiple' | 'range';
 
 interface PrimeCalendarFieldProps<V extends any, I extends InputBase<V> = any, C extends BaseControl<V> = BaseControl<V>> extends BaseInputComponentProps<V, I, C> {
     inputType?: string;
     selectionMode?: SelectionMode;
-    helperText?: string;
     icon?: any;
     showDefaultIcon?: boolean;
     minDate?: Date;
@@ -42,7 +42,7 @@ export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(pro
         props.control?.emitEvents();
     };
 
-    const helpText = firstError || props.input?.helpText;
+    const helpText = getHelpText(props.input, props.control, firstError);
 
     const inputSection = (
         <Calendar

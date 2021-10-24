@@ -6,11 +6,11 @@ import { InputText } from 'primereact/inputtext';
 import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg } from '@reactiveforms/core';
 
 import { TextInputBase } from '../../models/input-base';
+import { getHelpText } from '../../utils/helpers';
 
 interface PrimeTextFieldProps<V extends string, I extends InputBase<V> = any, C extends BaseControl<V> = BaseControl<V>> extends BaseInputComponentProps<V, I, C> {
     type?: string;
     inputType?: string;
-    helperText?: string;
     leftIcon?: any;
     leftIconClassName?: string;
     rightIcon?: any;
@@ -33,7 +33,7 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
         props.control?.emitEvents();
     };
 
-    const helpText = firstError || props.input?.helpText;
+    const helpText = getHelpText(props.input, props.control, firstError);
 
     const leftIcon = props.leftIcon ?? props.input?.leftIcon;
     const rightIcon = props.rightIcon ?? props.input?.rightIcon;

@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg } from '@reactiveforms/core';
 
 import { BooleanInputBase } from '../../models/input-base';
+import { getHelpText } from '../../utils/helpers';
 
 interface PrimeBooleanFieldProps<I extends InputBase<boolean> = any, C extends BaseControl<boolean> = BaseControl<boolean>> extends BaseInputComponentProps<boolean, I, C> {
     className?: string;
@@ -26,7 +27,7 @@ export const PrimeBooleanField = forwardRef(<I extends BooleanInputBase>(props: 
         props.control?.emitEvents();
     };
 
-    const helpText = firstError || props.input?.helpText;
+    const helpText = getHelpText(props.input, props.control, firstError);
 
     const Input = props.component;
 

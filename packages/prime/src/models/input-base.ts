@@ -2,8 +2,14 @@ import { InputBase } from '@reactiveforms/core';
 
 export type ClassNameMap = any;
 
+export type PrimeInputBase =
+    TextInputBase<any> |
+    BooleanInputBase |
+    SelectInputBase<any, any>;
+
 export abstract class TextInputBase<T> extends InputBase<T> {
     helpText?: string;
+    helpTextComponent?: any;
 
     className?: string | ClassNameMap;
     inputClassName?: string | ClassNameMap;
@@ -41,6 +47,7 @@ export abstract class TextInputBase<T> extends InputBase<T> {
 
 export abstract class BooleanInputBase extends InputBase<boolean> {
     helpText?: string;
+    helpTextComponent?: any;
 
     className?: string | ClassNameMap;
     inputClassName?: string | ClassNameMap;
@@ -70,6 +77,7 @@ export abstract class SelectInputBase<O, T> extends InputBase<O> {
     options?: OptionItem<O>[];
 
     helpText?: string;
+    helpTextComponent?: any;
 
     className?: string | ClassNameMap;
     inputClassName?: string | ClassNameMap;
