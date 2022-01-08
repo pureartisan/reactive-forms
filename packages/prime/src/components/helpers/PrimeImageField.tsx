@@ -11,14 +11,14 @@ interface PrimeImageFieldProps<V extends FileData, I extends InputBase<V> = any,
     allowMultiple?: boolean;
 }
 
-export const PrimeImageField = forwardRef(<V extends string, I extends FileInputBase<V>>(props: PrimeImageFieldProps<V, I>, ref: any) => {
+export const PrimeImageField = forwardRef(<I extends FileInputBase<FileData>>(props: PrimeImageFieldProps<FileData, I>, ref: any) => {
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const firstError = getFirstErrorMsg(props);
 
-    const value = props.control?.value as FileData;
+    const value = props.control?.value;
 
     useEffect(() => {
         if (file) {

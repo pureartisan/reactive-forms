@@ -22,7 +22,7 @@
     "is-mobile": "^3.0.0"
   },
   "devDependencies": {
-    "@reactiveforms/core": "^0.0.1-alpha.14",
+    "@reactiveforms/core": "^0.0.1-alpha.28",
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.1",
     "primeflex": "^2.0.0",
@@ -33,7 +33,7 @@
     "react-transition-group": "^4.4.2"
   },
   "peerDependencies": {
-    "@reactiveforms/core": "^0.0.1-alpha.14",
+    "@reactiveforms/core": "^0.0.1-alpha.28",
     "@types/react": "^16.8.0 || ^17.0.1",
     "@types/react-dom": "^16.8.0 || ^17.0.1",
     "primeflex": "^2.0.0",
@@ -72,5 +72,5 @@
   "bugs": {
     "url": "https://github.com/pureartisan/reactive-forms/issues"
   },
-  "gitHead": "e99c4453bb6911ba71766d72a4bc890c71919c92"
+  "gitHead": "b8c9960a5d8e869ab9ed96d558a124af5bfa19ae"
 }
