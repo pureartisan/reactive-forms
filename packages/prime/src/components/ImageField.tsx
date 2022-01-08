@@ -9,6 +9,7 @@ import {FileData} from "../models/files";
 
 export class ImageInput extends FileInputBase<FileData> {
     allowPreview?: boolean;
+    selectLabel?: string;
     resetLabel?: string;
     altLabel?: string;
 
@@ -18,6 +19,7 @@ export class ImageInput extends FileInputBase<FileData> {
         const defaultProps = this.defaultProps<ImageInput>();
 
         this.allowPreview = options.allowPreview ?? defaultProps.allowPreview;
+        this.selectLabel = options.selectLabel ?? defaultProps.selectLabel;
         this.resetLabel = options.resetLabel ?? defaultProps.resetLabel;
         this.altLabel = options.altLabel ?? defaultProps.altLabel;
     }
@@ -31,6 +33,7 @@ export const ImageField = forwardRef((props: BaseInputComponentProps<FileData, I
             inputType="ImageField"
             allowPreview={props.input?.allowPreview}
             resetLabel={props.input?.resetLabel}
+            selectLabel={props.input?.selectLabel}
             altLabel={props.input?.altLabel}
         />
     );

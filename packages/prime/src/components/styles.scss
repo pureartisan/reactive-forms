@@ -48,6 +48,10 @@
             position: relative;
             flex-grow: 1;
 
+            .rf-select-file {
+                margin-bottom: auto;
+            }
+
             .rf-reset {
                 margin-top: 1em;
             }
