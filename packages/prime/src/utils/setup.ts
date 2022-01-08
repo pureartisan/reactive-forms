@@ -11,6 +11,7 @@ import { CheckboxInput, CheckboxField } from '../components/CheckboxField';
 import { SwitchInput, SwitchField } from '../components/SwitchField';
 import { SelectInput, SelectField } from '../components/SelectField';
 import { DateInput, DateField } from '../components/DateField';
+import {ImageField, ImageInput} from "../components/ImageField";
 import { StaticComponent } from '../components/StaticComponent';
 
 export const setDefaults = (): void => {
@@ -23,6 +24,8 @@ export const setDefaults = (): void => {
     TextInput.updateDefaultProps({ component: TextField });
     TextAreaInput.updateDefaultProps({ component: TextAreaField });
     PasswordInput.updateDefaultProps({ component: PasswordField });
+
+    ImageInput.updateDefaultProps({ component: ImageField });
 
     SelectInput.updateDefaultProps({ component: SelectField });
 

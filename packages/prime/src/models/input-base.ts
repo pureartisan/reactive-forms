@@ -103,6 +103,36 @@ export abstract class SelectInputBase<O, T> extends InputBase<O> {
     }
 }
 
+export abstract class FileInputBase<T> extends InputBase<T> {
+    id?: string;
+
+    allowMultiple?: boolean;
+
+    helpText?: string;
+    helpTextComponent?: any;
+
+    className?: string | ClassNameMap;
+    inputClassName?: string | ClassNameMap;
+    labelClassName?: string | ClassNameMap;
+    hintClassName?: string | ClassNameMap;
+
+    constructor(options: Partial<FileInputBase<T>>) {
+        super(options);
+        const defaultProps = this.defaultProps<FileInputBase<T>>();
+
+        this.id = options.id ?? defaultProps.id;
+        this.allowMultiple = options.allowMultiple ?? defaultProps.allowMultiple;
+
+        this.helpText = options.helpText ?? defaultProps.helpText;
+        this.helpTextComponent = options.helpTextComponent ?? defaultProps.helpTextComponent;
+
+        this.className = options.className ?? defaultProps.className;
+        this.inputClassName = options.inputClassName ?? defaultProps.inputClassName;
+        this.labelClassName = options.labelClassName ?? defaultProps.labelClassName;
+        this.hintClassName = options.hintClassName ?? defaultProps.hintClassName;
+    }
+}
+
 // export abstract class SliderInputBase<T extends number | number[]> extends InputBase<T> {
 //     min?: number;
 //     max?: number;
