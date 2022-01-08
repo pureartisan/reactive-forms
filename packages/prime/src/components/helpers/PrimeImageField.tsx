@@ -8,7 +8,7 @@ import { getHelpText } from '../../utils/helpers';
 import {FileData} from "../../models/files";
 
 interface PrimeImageFieldProps<V extends FileData, I extends InputBase<V> = any, C extends BaseControl<V> = BaseControl<V>> extends BaseInputComponentProps<V, I, C> {
-
+    allowMultiple?: boolean;
 }
 
 export const PrimeImageField = forwardRef(<V extends string, I extends FileInputBase<V>>(props: PrimeImageFieldProps<V, I>, ref: any) => {
@@ -56,6 +56,7 @@ export const PrimeImageField = forwardRef(<V extends string, I extends FileInput
                     'input-empty': !props.control?.value
                 }
             )}
+            ref={ref}
         >
             {props.input?.label && (
                 <label htmlFor={props.input?.id} className={props.input?.labelClassName}>

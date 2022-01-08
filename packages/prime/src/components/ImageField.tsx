@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef } from 'react';
 
 import { BaseInputComponentProps } from '@reactiveforms/core';
 
