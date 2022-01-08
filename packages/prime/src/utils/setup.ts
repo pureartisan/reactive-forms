@@ -25,7 +25,12 @@ export const setDefaults = (): void => {
     TextAreaInput.updateDefaultProps({ component: TextAreaField });
     PasswordInput.updateDefaultProps({ component: PasswordField });
 
-    ImageInput.updateDefaultProps({ component: ImageField });
+    ImageInput.updateDefaultProps({
+        component: ImageField,
+        resetLabel: 'Reset',
+        altLabel: 'Preview',
+        selectLabel: 'Select Image'
+    });
 
     SelectInput.updateDefaultProps({ component: SelectField });
 
