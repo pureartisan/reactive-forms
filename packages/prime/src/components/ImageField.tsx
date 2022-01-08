@@ -12,6 +12,7 @@ export class ImageInput extends FileInputBase<FileData> {
     selectLabel?: string;
     resetLabel?: string;
     altLabel?: string;
+    selectBtnClassName?: string;
 
     constructor(options: Partial<ImageInput>) {
         super(options);
@@ -22,6 +23,7 @@ export class ImageInput extends FileInputBase<FileData> {
         this.selectLabel = options.selectLabel ?? defaultProps.selectLabel;
         this.resetLabel = options.resetLabel ?? defaultProps.resetLabel;
         this.altLabel = options.altLabel ?? defaultProps.altLabel;
+        this.selectBtnClassName = options.selectBtnClassName ?? defaultProps.selectBtnClassName;
     }
 }
 
@@ -35,6 +37,7 @@ export const ImageField = forwardRef((props: BaseInputComponentProps<FileData, I
             resetLabel={props.input?.resetLabel}
             selectLabel={props.input?.selectLabel}
             altLabel={props.input?.altLabel}
+            selectBtnClassName={props.input?.selectBtnClassName}
         />
     );
 });

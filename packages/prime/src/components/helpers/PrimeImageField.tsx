@@ -16,6 +16,7 @@ interface PrimeImageFieldProps<V extends FileData, I extends InputBase<V> = any,
     altLabel?: string;
     selectLabel?: string;
     resetLabel?: string;
+    selectBtnClassName?: string;
     className?: string;
     inputType?: string;
 }
@@ -97,7 +98,7 @@ export const PrimeImageField = forwardRef(<I extends FileInputBase<FileData>>(pr
                     onChange={handleFileChange}
                 />
                 <div className="rf-actions">
-                    <Button className="rf-select-file" onClick={selectFile}>{props.selectLabel}</Button>
+                    <Button className={clsx('rf-select-file', props.selectBtnClassName)} onClick={selectFile}>{props.selectLabel}</Button>
                     {props.control?.dirty && props.resetLabel && (
                         <Button className="rf-reset p-button-link" onClick={handleReset}>{props.resetLabel}</Button>
                     )}
