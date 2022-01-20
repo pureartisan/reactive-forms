@@ -48,7 +48,7 @@ export const UserInfoComponent = (props: UserInfoProps) => {
 
   // build the form whenever the `user` changes.
   // (the syntax is very similar to the `useEffect` hook)
-  const form = useForm(() => buildForm(user), [user]);
+  const { form } = useForm(() => buildForm(user), [user]);
 
   return (
     <MuiReactiveForm form={form} />
@@ -60,7 +60,7 @@ The `useForm` hook also takes an optional third argument, that gives access to s
 
 ```tsx
 
-  const form = useForm(
+  const { form } = useForm(
     // build form method
     () => buildForm(user),
     // build/rebuild form when the following variables change

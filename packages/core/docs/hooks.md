@@ -30,7 +30,7 @@ const buildForm = (): Form => FormBuilder.build([
 ]);
 
 const MyComponent = () => {
-  const form = useForm(() => buildForm());
+  const { form } = useForm(() => buildForm());
 
   return (
     <ReactiveForm form={form} />
@@ -48,7 +48,7 @@ So if the form needs to only be built once, then pass in an empty array as the s
 
 ```tsx
 const MyComponent = () => {
-  const form = useForm(() => buildForm(), []);
+  const { form } = useForm(() => buildForm(), []);
 
   return (
     ...
@@ -89,7 +89,7 @@ const MyComponent = (props: Props) => {
   const { user } = props;
 
   // the form needs to be rebuilt whenever the `user` changes
-  const form = useForm(() => buildForm(user), [user]);
+  const { form } = useForm(() => buildForm(user), [user]);
 
   return (
     ...
@@ -114,7 +114,7 @@ The appropriate *callback* get triggered whenever the form *values* or the *stat
 const MyComponent = (props) => {
   const { user } = props;
 
-  const form = useForm(
+  const { form } = useForm(
     () => buildForm(user),
     [user],
     {
@@ -176,7 +176,9 @@ const MyComponent = (props: Props) => {
   const { user } = props;
 
   // NOTE: calling `form.value` will return an object of type `UserFormData`
-  const form: Form<UserFormData> = useForm(
+  const { form } : {
+      form: Form<UserFormData>
+  } = useForm(
     () => buildForm(user),
     [user]
   );
