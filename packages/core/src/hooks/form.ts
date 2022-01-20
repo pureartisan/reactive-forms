@@ -1,4 +1,4 @@
-import { useState, useEffect, DependencyList } from "react";
+import {useState, useEffect, DependencyList, useRef} from "react";
 
 import { Form } from "../models/forms";
 import { Subscription } from '../models/observable';
@@ -16,41 +16,54 @@ export const useForm = <T = any>(
   builder: Builder,
   deps?: DependencyList,
   opts?: Options
-): Form<T> | undefined => {
+): {
+    form: Form<T> | undefined,
+    reset: () => void;
+} => {
+  const subscriptions = useRef<Subscription<any>[]>([]);
   const [form, setForm] = useState<Form<T> | undefined>(undefined);
 
+  // reset any previous subscriptions
+  const unsubscribeAllSubscriptions = () => subscriptions.current?.forEach(s => s.unsubscribe());
+
+  const reset = () => {
+      unsubscribeAllSubscriptions();
+      const f = builder();
+      if (f) {
+          subscriptions.current = [];
+
+          if (opts?.valueChanges) {
+              subscriptions.current.push(f.valueChanges?.subscribe(() => {
+                  opts?.valueChanges && opts.valueChanges(f);
+              }));
+          }
+          if (opts?.statusChanges) {
+              subscriptions.current.push(f.statusChanges?.subscribe(() => {
+                  opts?.statusChanges && opts.statusChanges(f);
+              }));
+          }
+          if (opts?.stateChanges) {
+              subscriptions.current.push(f.stateChanges?.subscribe(() => {
+                  opts?.stateChanges && opts.stateChanges(f);
+              }));
+          }
+          if (opts?.anythingChanges) {
+              subscriptions.current.push(f.anythingChanges?.subscribe(() => {
+                  opts?.anythingChanges && opts.anythingChanges(f);
+              }));
+          }
+
+          setForm(f);
+      }
+  }
+
   useEffect(() => {
-    const f = builder();
-
-    if (f) {
-        const subs: Subscription<any>[] = [];
-
-        if (opts?.valueChanges) {
-            subs.push(f.valueChanges?.subscribe(() => {
-                opts?.valueChanges && opts.valueChanges(f);
-            }));
-        }
-        if (opts?.statusChanges) {
-            subs.push(f.statusChanges?.subscribe(() => {
-                opts?.statusChanges && opts.statusChanges(f);
-            }));
-        }
-        if (opts?.stateChanges) {
-            subs.push(f.stateChanges?.subscribe(() => {
-                opts?.stateChanges && opts.stateChanges(f);
-            }));
-        }
-        if (opts?.anythingChanges) {
-            subs.push(f.anythingChanges?.subscribe(() => {
-                opts?.anythingChanges && opts.anythingChanges(f);
-            }));
-        }
-
-        setForm(f);
-
-        return () => subs.forEach(s => s.unsubscribe());
-    }
+      reset();
+      return unsubscribeAllSubscriptions;
   }, deps);
 
-  return form;
+  return {
+      form,
+      reset
+  };
 };
