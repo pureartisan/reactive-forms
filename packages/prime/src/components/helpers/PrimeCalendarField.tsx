@@ -10,6 +10,8 @@ import { getHelpText } from '../../utils/helpers';
 
 type SelectionMode = 'single' | 'multiple' | 'range';
 
+type HourFormat = '12' | '24';
+
 interface PrimeCalendarFieldProps<V extends any, I extends InputBase<V> = any, C extends BaseControl<V> = BaseControl<V>> extends BaseInputComponentProps<V, I, C> {
     inputType?: string;
     selectionMode?: SelectionMode;
@@ -25,7 +27,7 @@ interface PrimeCalendarFieldProps<V extends any, I extends InputBase<V> = any, C
     dateFormat?: string;
     maxDateCount?: number;
     showTime?: boolean;
-    hourFormat?: string;
+    hourFormat?: HourFormat;
 }
 
 export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(props: PrimeCalendarFieldProps<V, I>, ref: any) => {

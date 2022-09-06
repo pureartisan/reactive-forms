@@ -6,6 +6,8 @@ import { TextInputBase } from '../models/input-base';
 
 import { PrimeCalendarField } from './helpers/PrimeCalendarField';
 
+export type HourFormat = '12' | '24';
+
 export class DateInput extends TextInputBase<Date> {
     icon?: any;
     showDefaultIcon?: boolean;
@@ -19,7 +21,7 @@ export class DateInput extends TextInputBase<Date> {
     dateFormat?: string;
     maxDateCount?: number;
     showTime?: boolean;
-    hourFormat?: number;
+    hourFormat?: HourFormat;
 
     constructor(options: Partial<DateInput>) {
         super(options);
