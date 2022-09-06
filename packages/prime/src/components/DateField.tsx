@@ -18,6 +18,8 @@ export class DateInput extends TextInputBase<Date> {
     showWeek?: boolean;
     dateFormat?: string;
     maxDateCount?: number;
+    showTime?: boolean;
+    hourFormat?: number;
 
     constructor(options: Partial<DateInput>) {
         super(options);
@@ -33,6 +35,8 @@ export class DateInput extends TextInputBase<Date> {
         this.showOnFocus = options.showOnFocus ?? defaultProps.showOnFocus;
         this.showWeek = options.showWeek ?? defaultProps.showWeek;
         this.dateFormat = options.dateFormat ?? defaultProps.dateFormat;
+        this.showTime = options.showTime ?? defaultProps.showTime;
+        this.hourFormat = options.hourFormat ?? defaultProps.hourFormat;
     }
 }
 
@@ -52,6 +56,8 @@ export const DateField = forwardRef((props: BaseInputComponentProps<any, DateInp
             showWeek={props.input?.showWeek}
             dateFormat={props.input?.dateFormat}
             maxDateCount={props.input?.maxDateCount}
+            showTime={props.input?.showTime}
+            hourFormat={props.input?.hourFormat}
         />
     );
 });
