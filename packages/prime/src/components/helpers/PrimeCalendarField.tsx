@@ -25,7 +25,7 @@ interface PrimeCalendarFieldProps<V extends any, I extends InputBase<V> = any, C
     dateFormat?: string;
     maxDateCount?: number;
     showTime?: boolean;
-    hourFormat?: number;
+    hourFormat?: string;
 }
 
 export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(props: PrimeCalendarFieldProps<V, I>, ref: any) => {
