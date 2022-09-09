@@ -1,6 +1,5 @@
-
-
 import React from 'react';
+import clsx from "clsx";
 
 import { ReactiveForm, Form, AbstractControl, ErrorTranslators } from '@reactiveforms/core';
 
@@ -15,7 +14,7 @@ const StyledForm = (props: StyledFormProps) => {
     return (
         <FormTag
             {...props}
-            className="p-fluid p-formgrid p-grid"
+            className={clsx("p-fluid p-formgrid p-grid", props.className)}
         />
     );
 };
