@@ -17,7 +17,7 @@ export const SwitchField = forwardRef((props: BaseInputComponentProps<boolean, S
             ref={ref}
             component={InputSwitch}
             inputType="SwitchField"
-            className="p-field-checkbox"
+            className="field-switch"
         />
     );
 });

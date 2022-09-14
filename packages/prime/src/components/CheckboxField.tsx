@@ -19,7 +19,7 @@ export const CheckboxField = forwardRef((props: BaseInputComponentProps<boolean,
             ref={ref}
             component={Checkbox}
             inputType="CheckboxField"
-            className="p-field-checkbox"
+            className="field-checkbox"
         />
     );
 });

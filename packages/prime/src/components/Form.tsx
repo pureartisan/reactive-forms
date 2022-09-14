@@ -14,7 +14,7 @@ const StyledForm = (props: StyledFormProps) => {
     return (
         <FormTag
             {...props}
-            className={clsx("p-fluid p-formgrid p-grid", props.className)}
+            className={clsx("formgrid grid", props.className)}
         />
     );
 };

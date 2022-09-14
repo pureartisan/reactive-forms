@@ -55,10 +55,10 @@ export const PrimeTextAreaField = forwardRef(<V extends string, I extends TextIn
     return (
         <div
             className={clsx(
-                `rf-field rf-field-textarea rf-field-name-${props.input?.name} p-field`,
+                `rf-field rf-field-textarea rf-field-name-${props.input?.name} field`,
                 props.input?.className,
                 {
-                    'p-col-12': !props.input?.className,
+                    'col': !props.input?.className,
                     'input-empty': !props.control?.value
                 }
             )}
