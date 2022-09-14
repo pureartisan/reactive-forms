@@ -23,24 +23,24 @@
   },
   "devDependencies": {
     "@reactiveforms/core": "^1.0.0",
-    "@types/react": "^17.0.1",
-    "@types/react-dom": "^17.0.1",
+    "@types/react": "^18.0.20",
+    "@types/react-dom": "^18.0.6",
     "primeflex": "^3.2.1",
     "primeicons": "^5.0.0",
     "primereact": "^8.5.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-transition-group": "^4.4.2"
   },
   "peerDependencies": {
-    "@reactiveforms/core": "^1.0.0",
-    "@types/react": "^16.8.0 || ^17.0.1",
-    "@types/react-dom": "^16.8.0 || ^17.0.1",
+    "@reactiveforms/core": "^2.0.0",
+    "@types/react": "^16.8.0 || ^17.0.1 || ^18.0.20",
+    "@types/react-dom": "^16.8.0 || ^17.0.1 || ^18.0.6",
     "primeflex": "^3.2.0",
     "primeicons": "^5.0.0",
     "primereact": "^8.5.0",
-    "react": "^16.8.0 || ^17.0.1",
-    "react-dom": "^16.8.0 || ^17.0.1"
+    "react": "^16.8.0 || ^17.0.1 || ^18.2.0",
+    "react-dom": "^16.8.0 || ^17.0.1 || ^18.2.0"
   },
   "peerDependenciesMeta": {
     "@types/react": {
