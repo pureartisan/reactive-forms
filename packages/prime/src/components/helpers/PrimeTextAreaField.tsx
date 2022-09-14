@@ -47,7 +47,7 @@ export const PrimeTextAreaField = forwardRef(<V extends string, I extends TextIn
             value={props.control?.value}
             autoResize={props.autoResize}
             onChange={handleChange}
-            className={props.input?.inputClassName}
+            className={clsx('w-full', props.input?.inputClassName)}
             ref={ref}
         />
     );

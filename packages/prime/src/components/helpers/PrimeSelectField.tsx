@@ -39,7 +39,7 @@ export const PrimeSelectField = forwardRef(<V extends string, I extends SelectIn
             optionValue="value"
             options={props.input?.options}
             onChange={handleChange}
-            className={props.input?.inputClassName}
+            className={clsx('w-full', props.input?.inputClassName)}
             panelClassName="PrimeSelectFieldPanel"
             ref={ref}
         />

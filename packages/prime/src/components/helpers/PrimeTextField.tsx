@@ -64,7 +64,7 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
                 value={props.control?.value}
                 onChange={handleChange}
                 type={props.type}
-                className={props.input?.inputClassName}
+                className={clsx('w-full', props.input?.inputClassName)}
                 ref={ref}
             />
         </>
