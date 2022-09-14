@@ -82,7 +82,7 @@ export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(pro
                 `rf-field rf-field-${props.inputType} rf-field-name-${props.input?.name} field`,
                 props.input?.className,
                 {
-                    'col': !props.input?.className,
+                    'col-12': !props.input?.className,
                     'input-empty': !props.control?.value
                 }
             )}

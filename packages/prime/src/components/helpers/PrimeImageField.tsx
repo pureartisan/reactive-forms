@@ -73,7 +73,7 @@ export const PrimeImageField = forwardRef(<I extends FileInputBase<FileData>>(pr
                 props.className,
                 props.input?.className,
                 {
-                    'col': !props.input?.className,
+                    'col-12': !props.input?.className,
                     'input-empty': !hasPreview
                 }
             )}

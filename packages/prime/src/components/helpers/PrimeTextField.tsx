@@ -76,7 +76,7 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
                 `rf-field rf-field-${props.inputType} rf-field-name-${props.input?.name} field`,
                 props.input?.className,
                 {
-                    'col': !props.input?.className,
+                    'col-12': !props.input?.className,
                     'input-empty': !props.control?.value
                 }
             )}
