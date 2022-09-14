@@ -80,7 +80,7 @@ export const PrimeImageField = forwardRef(<I extends FileInputBase<FileData>>(pr
         >
             {props.input?.label && (
                 <label htmlFor={props.input?.id} className={props.input?.labelClassName}>
-                    {props.input.label}
+                    {props.input.label as any}
                 </label>
             )}
             <div className={clsx('rf-image-input', props.input?.inputClassName)}>

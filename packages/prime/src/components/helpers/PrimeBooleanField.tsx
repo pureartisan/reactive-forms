@@ -60,7 +60,7 @@ export const PrimeBooleanField = forwardRef(<I extends BooleanInputBase>(props: 
                     htmlFor={props.input?.id}
                     className={props.input?.labelClassName}
                 >
-                    {props.input.label}
+                    {props.input.label as any}
                 </label>
             )}
             {helpText && (
