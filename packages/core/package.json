@@ -1,6 +1,6 @@
 {
   "name": "@reactiveforms/core",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Reactive Forms for React - Core",
   "keywords": [
     "react",
@@ -20,8 +20,8 @@
     "dist": "dist"
   },
   "peerDependencies": {
-    "@types/react": "^16.8.0 || ^17.0.1",
-    "react": "^16.8.0 || ^17.0.1"
+    "@types/react": "^16.8.0 || ^17.0.1 || ^18.0.20",
+    "react": "^16.8.0 || ^17.0.1 || ^18.2.0"
   },
   "peerDependenciesMeta": {
     "@types/react": {
@@ -55,8 +55,8 @@
   },
   "gitHead": "f41c950667fe3315b835717b17395ce92fdfb34b",
   "devDependencies": {
-    "@types/react": "^17.0.1",
-    "react": "^17.0.1"
+    "@types/react": "^18.0.20",
+    "react": "^18.2.0"
   },
   "dependencies": {
     "clsx": "^1.1.1"
