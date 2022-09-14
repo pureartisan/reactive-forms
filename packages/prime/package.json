@@ -36,9 +36,9 @@
     "@reactiveforms/core": "^1.0.0",
     "@types/react": "^16.8.0 || ^17.0.1",
     "@types/react-dom": "^16.8.0 || ^17.0.1",
-    "primeflex": "^2.0.0",
+    "primeflex": "^3.2.0",
     "primeicons": "^5.0.0",
-    "primereact": "^7.1.0",
+    "primereact": "^8.5.0",
     "react": "^16.8.0 || ^17.0.1",
     "react-dom": "^16.8.0 || ^17.0.1"
   },

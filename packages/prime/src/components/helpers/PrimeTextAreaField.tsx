@@ -31,15 +31,20 @@ export const PrimeTextAreaField = forwardRef(<V extends string, I extends TextIn
 
     const helpText = getHelpText(props.input, props.control, firstError);
 
+    // NOTE: work around with typing issue in primereact
+    const inputProps: any = {
+        rows: props.rows,
+        cols: props.cols,
+    };
+
     const inputSection = (
         <InputTextarea
+            {...inputProps}
             id={props.input?.id}
             placeholder={props.input?.placeholder}
             readOnly={props.input?.readonly}
             disabled={props.control?.disabled}
             value={props.control?.value}
-            rows={props.rows}
-            cols={props.cols}
             autoResize={props.autoResize}
             onChange={handleChange}
             className={props.input?.inputClassName}
