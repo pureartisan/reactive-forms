@@ -27,7 +27,7 @@ export const setDefaults = (): void => {
     PasswordInput.updateDefaultProps({
         component: PasswordField,
         toggleMask: true,
-        feedback: true
+        feedback: false
     });
 
     ImageInput.updateDefaultProps({

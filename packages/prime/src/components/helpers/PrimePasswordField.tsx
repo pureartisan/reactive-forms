@@ -69,6 +69,7 @@ export const PrimePasswordField = forwardRef(<V extends string, I extends TextIn
                 strongRegex={props.strongRegex}
                 value={props.control?.value}
                 onChange={handleChange}
+                inputClassName="w-full"
                 className={clsx('w-full', props.input?.inputClassName)}
                 ref={ref}
             />
