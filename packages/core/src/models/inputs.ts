@@ -1,4 +1,4 @@
-import { ForwardRefExoticComponent, FC } from "react";
+import {ForwardRefExoticComponent, FC, ReactNode} from "react";
 
 import { BaseControl } from "./controls";
 import { ValidatorFn, AsyncValidatorFn } from "./validators";
@@ -38,7 +38,7 @@ export abstract class InputBase<T = any> {
   id?: string;
   name?: string;
   placeholder?: string;
-  label?: string;
+  label?: string | ForwardRefExoticComponent<any> | ReactNode;
   value?: T;
   readonly?: boolean;
   disabled?: boolean;
