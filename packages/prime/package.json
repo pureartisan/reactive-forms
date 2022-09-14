@@ -1,6 +1,6 @@
 {
   "name": "@reactiveforms/prime",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "PrimeReact implementation for Reactive Forms",
   "keywords": [
     "prime",
@@ -22,7 +22,7 @@
     "is-mobile": "^3.0.0"
   },
   "devDependencies": {
-    "@reactiveforms/core": "^1.0.0",
+    "@reactiveforms/core": "^2.0.0",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "primeflex": "^3.2.1",
