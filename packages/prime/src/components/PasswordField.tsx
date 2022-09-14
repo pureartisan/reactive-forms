@@ -1,8 +1,8 @@
-import React, { forwardRef, useState } from 'react';
+import React, {forwardRef} from 'react';
 
-import { BaseInputComponentProps } from '@reactiveforms/core';
+import {BaseInputComponentProps} from '@reactiveforms/core';
 
-import { TextInputBase } from '../models/input-base';
+import {TextInputBase} from '../models/input-base';
 
 import {PrimePasswordField} from "./helpers/PrimePasswordField";
 
