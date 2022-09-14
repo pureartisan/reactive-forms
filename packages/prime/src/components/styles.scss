@@ -16,6 +16,10 @@
     .p-password {
         i {
             cursor: pointer;
+
+            &:hover {
+                color: var(--primary-color);
+            }
         }
     }
 }
