@@ -88,7 +88,7 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
             )}
             {(leftIcon || rightIcon) ? (
                 <span
-                    className={clsx({
+                    className={clsx('w-full', {
                         'p-input-icon-left': leftIcon,
                         'p-input-icon-right': rightIcon,
                     })}
@@ -99,7 +99,7 @@ export const PrimeTextField = forwardRef(<V extends string, I extends TextInputB
             {helpText && (
                 <small
                     className={clsx(
-                        "rf-helper-text p-d-block",
+                        "rf-helper-text block",
                         { 'p-error': firstError },
                         props.input?.hintClassName
                     )}

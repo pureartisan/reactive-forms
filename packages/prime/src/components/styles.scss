@@ -12,6 +12,14 @@
     }
 }
 
+.rf-field-PasswordField {
+    .p-password {
+        i {
+            cursor: pointer;
+        }
+    }
+}
+
 .rf-field-ImageField {
     .rf-image-input {
         display: flex;

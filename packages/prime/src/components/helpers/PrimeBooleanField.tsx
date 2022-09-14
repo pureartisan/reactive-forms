@@ -66,7 +66,7 @@ export const PrimeBooleanField = forwardRef(<I extends BooleanInputBase>(props: 
             {helpText && (
                 <small
                     className={clsx(
-                        "rf-helper-text p-d-block",
+                        "rf-helper-text block",
                         { 'p-error': firstError },
                         props.input?.hintClassName
                     )}

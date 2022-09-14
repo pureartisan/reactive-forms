@@ -23,7 +23,12 @@ export const setDefaults = (): void => {
     CurrencyInput.updateDefaultProps({ component: CurrencyField });
     TextInput.updateDefaultProps({ component: TextField });
     TextAreaInput.updateDefaultProps({ component: TextAreaField });
-    PasswordInput.updateDefaultProps({ component: PasswordField });
+
+    PasswordInput.updateDefaultProps({
+        component: PasswordField,
+        toggleMask: true,
+        feedback: true
+    });
 
     ImageInput.updateDefaultProps({
         component: ImageField,

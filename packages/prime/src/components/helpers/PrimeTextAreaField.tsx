@@ -72,7 +72,7 @@ export const PrimeTextAreaField = forwardRef(<V extends string, I extends TextIn
             {helpText && (
                 <small
                     className={clsx(
-                        "rf-helper-text p-d-block",
+                        "rf-helper-text block",
                         { 'p-error': firstError },
                         props.input?.hintClassName
                     )}

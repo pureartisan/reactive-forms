@@ -4,44 +4,57 @@ import { BaseInputComponentProps } from '@reactiveforms/core';
 
 import { TextInputBase } from '../models/input-base';
 
-import { PrimeTextField } from './helpers/PrimeTextField';
+import {PrimePasswordField} from "./helpers/PrimePasswordField";
 
 export class PasswordInput extends TextInputBase<string> {
-
-    showPasswordIcon?: any;
-    hidePasswordIcon?: any;
-    showPasswordByDefault?: boolean;
+    panelClassName?: string;
+    promptLabel?: string;
+    weakLabel?: string;
+    mediumLabel?: string;
+    strongLabel?: string;
+    mediumRegex?: string;
+    strongRegex?: string;
+    feedback?: boolean;
+    toggleMask?: boolean;
+    feedbackHeader?: any;
+    feedbackContent?: any;
+    feedbackFooter?: any;
 
     constructor(options: Partial<PasswordInput>) {
         super(options);
 
         const defaultProps = this.defaultProps<PasswordInput>();
 
-        this.showPasswordIcon = options.showPasswordIcon ?? defaultProps.showPasswordIcon;
-        this.hidePasswordIcon = options.hidePasswordIcon ?? defaultProps.hidePasswordIcon;
-        this.showPasswordByDefault = options.showPasswordByDefault ?? defaultProps.showPasswordByDefault;
+        this.panelClassName = options.panelClassName ?? defaultProps.panelClassName;
+        this.promptLabel = options.promptLabel ?? defaultProps.promptLabel;
+        this.weakLabel = options.weakLabel ?? defaultProps.weakLabel;
+        this.mediumLabel = options.mediumLabel ?? defaultProps.mediumLabel;
+        this.strongLabel = options.strongLabel ?? defaultProps.strongLabel;
+        this.mediumRegex = options.mediumRegex ?? defaultProps.mediumRegex;
+        this.strongRegex = options.strongRegex ?? defaultProps.strongRegex;
+        this.feedback = options.feedback ?? defaultProps.feedback;
+        this.toggleMask = options.toggleMask ?? defaultProps.toggleMask;
+        this.feedbackHeader = options.feedbackHeader ?? defaultProps.feedbackHeader;
+        this.feedbackContent = options.feedbackContent ?? defaultProps.feedbackContent;
+        this.feedbackFooter = options.feedbackFooter ?? defaultProps.feedbackFooter;
     }
 }
 
 export const PasswordField = forwardRef((props: BaseInputComponentProps<string, PasswordInput>, ref: any) => {
-
-    const [passwordVisible, setPasswordVisible] = useState(Boolean(props.input?.showPasswordByDefault));
-
-    const togglePasswordShow = () => setPasswordVisible(!passwordVisible);
-
-    const showPassword = props.input?.showPasswordIcon || props.input?.hidePasswordIcon;
-
     return (
-        <PrimeTextField
+        <PrimePasswordField
             {...props}
             ref={ref}
-            type={passwordVisible ? 'text' : 'password'}
             inputType="PasswordField"
-            onRightIconClick={togglePasswordShow}
-            rightIcon={showPassword && (
-              passwordVisible ? props.input?.hidePasswordIcon : props.input?.showPasswordIcon
-            )}
-            rightIconClassName="show-password-button"
+            panelClassName={props.input?.panelClassName}
+            promptLabel={props.input?.promptLabel}
+            weakLabel={props.input?.weakLabel}
+            mediumLabel={props.input?.mediumLabel}
+            strongLabel={props.input?.strongLabel}
+            mediumRegex={props.input?.mediumRegex}
+            strongRegex={props.input?.strongRegex}
+            feedback={props.input?.feedback}
+            toggleMask={props.input?.toggleMask}
         />
     );
 });

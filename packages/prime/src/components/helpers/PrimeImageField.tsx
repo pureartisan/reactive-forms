@@ -107,7 +107,7 @@ export const PrimeImageField = forwardRef(<I extends FileInputBase<FileData>>(pr
             {helpText && (
                 <small
                     className={clsx(
-                        "rf-helper-text p-d-block",
+                        "rf-helper-text block",
                         { 'p-error': firstError },
                         props.input?.hintClassName
                     )}

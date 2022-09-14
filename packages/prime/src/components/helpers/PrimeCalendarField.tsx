@@ -96,7 +96,7 @@ export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(pro
             {helpText && (
                 <small
                     className={clsx(
-                        "rf-helper-text p-d-block",
+                        "rf-helper-text block",
                         { 'p-error': firstError },
                         props.input?.hintClassName
                     )}
