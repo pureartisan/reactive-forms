@@ -10,7 +10,12 @@ export interface EmitEventOpts {
   emitEvent?: boolean;
 }
 
-export interface ControlChangeOpts extends SelfOnlyOpts, EmitEventOpts {}
+export interface HasFormEventOpts {
+    // TODO: figure out a way to define the type without creating a circular dependency
+  form?: any;
+}
+
+export interface ControlChangeOpts extends SelfOnlyOpts, EmitEventOpts, HasFormEventOpts {}
 
 export interface BaseControl<T = any> {
   readonly value?: T;

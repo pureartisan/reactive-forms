@@ -48,7 +48,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
             return;
         }
 
-        const opts = { emitEvent: false };
+        const opts = { emitEvent: false, form };
         if (isHidden) {
             control?.disable(opts);
         } else {

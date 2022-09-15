@@ -1148,6 +1148,37 @@ export class FormGroup<
     );
   }
 
+  /**
+   * Enables the control. This means the control will be included in validation checks and
+   * the aggregate value of its parent. Its status is re-calculated based on its value and
+   * its validators.
+   *
+   * If the control has children, all children will be enabled.
+   * @param {{onlySelf: Boolean, emitEvent: Boolean}} opts
+   * @return {void}
+   */
+  enable(opts: ControlChangeOpts = {}): void {
+        this.status = "VALID";
+        const isHidden = this.group?.hidden?.(opts.form);
+        this.forEachChild((control) => {
+            const childOpts = {
+                emitEvent: false,
+                onlySelf: true,
+                form: opts.form
+            };
+            if (isHidden) {
+                control.disable(childOpts);
+            } else {
+                control.enable(childOpts);
+            }
+        });
+        this.updateValueAndValidity({
+            onlySelf: true,
+            emitEvent: opts.emitEvent,
+        });
+        this.updateAncestors(opts.onlySelf, opts.emitEvent);
+  }
+
   // TODO, do we need this?
   private _onCollectionChange(): void {
     // do nothing
@@ -1401,6 +1432,37 @@ export class FormArray extends AbstractControl<any> {
    */
   getRawValue(): any[] {
     return this.controls.map((control) => control.getRawValue());
+  }
+
+  /**
+   * Enables the control. This means the control will be included in validation checks and
+   * the aggregate value of its parent. Its status is re-calculated based on its value and
+   * its validators.
+   *
+   * If the control has children, all children will be enabled.
+   * @param {{onlySelf: Boolean, emitEvent: Boolean}} opts
+   * @return {void}
+   */
+  enable(opts: ControlChangeOpts = {}): void {
+        this.status = "VALID";
+        const isHidden = this.inputArray?.hidden?.(opts.form);
+        this.forEachChild((control) => {
+            const childOpts = {
+                emitEvent: false,
+                onlySelf: true,
+                form: opts.form
+            };
+            if (isHidden) {
+                control.disable(childOpts);
+            } else {
+                control.enable(childOpts);
+            }
+        });
+        this.updateValueAndValidity({
+            onlySelf: true,
+            emitEvent: opts.emitEvent,
+        });
+        this.updateAncestors(opts.onlySelf, opts.emitEvent);
   }
 
   private throwIfControlMissing(index: number): void {
