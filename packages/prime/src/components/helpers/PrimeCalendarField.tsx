@@ -24,6 +24,7 @@ interface PrimeCalendarFieldProps<V extends any, I extends InputBase<V> = any, C
     showButtonBar?: boolean;
     showOnFocus?: boolean;
     showWeek?: boolean;
+    locale?: string;
     dateFormat?: string;
     maxDateCount?: number;
     showTime?: boolean;
@@ -62,6 +63,7 @@ export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(pro
             icon={props.icon}
             showOnFocus={props.showOnFocus}
             showWeek={props.showWeek}
+            locale={props.locale}
             dateFormat={props.dateFormat}
             maxDateCount={props.maxDateCount}
             minDate={props.minDate}
