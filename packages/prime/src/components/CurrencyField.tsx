@@ -14,7 +14,6 @@ export class CurrencyInput extends TextInputBase<number> {
     max?: number;
     minFractionDigits?: number;
     maxFractionDigits?: number;
-    mode?: string;
     locale?: string;
     prefix?: string;
     suffix?: string;
@@ -31,7 +30,6 @@ export class CurrencyInput extends TextInputBase<number> {
         this.max = options.max ?? defaultProps.max;
         this.minFractionDigits = options.minFractionDigits ?? defaultProps.minFractionDigits;
         this.maxFractionDigits = options.maxFractionDigits ?? defaultProps.maxFractionDigits;
-        this.mode = options.mode ?? defaultProps.mode;
         this.locale = options.locale ?? defaultProps.locale;
         this.prefix = options.prefix ?? defaultProps.prefix;
         this.suffix = options.suffix ?? defaultProps.suffix;
@@ -44,6 +42,7 @@ export const CurrencyField = forwardRef((props: BaseInputComponentProps<number, 
             {...props}
             ref={ref}
             inputType="CurrencyField"
+            mode="currency"
             currency={props.input?.currency}
             currencyDisplay={props.input?.currencyDisplay}
             useGrouping={props.input?.useGrouping}
@@ -51,7 +50,6 @@ export const CurrencyField = forwardRef((props: BaseInputComponentProps<number, 
             max={props.input?.max}
             minFractionDigits={props.input?.minFractionDigits}
             maxFractionDigits={props.input?.maxFractionDigits}
-            mode={props.input?.mode}
             locale={props.input?.locale}
             prefix={props.input?.prefix}
             suffix={props.input?.suffix}
