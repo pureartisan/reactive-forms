@@ -23,6 +23,7 @@ export class DateInput extends TextInputBase<Date> {
     maxDateCount?: number;
     showTime?: boolean;
     hourFormat?: HourFormat;
+    baseZIndex?: number;
 
     constructor(options: Partial<DateInput>) {
         super(options);
@@ -41,6 +42,7 @@ export class DateInput extends TextInputBase<Date> {
         this.dateFormat = options.dateFormat ?? defaultProps.dateFormat;
         this.showTime = options.showTime ?? defaultProps.showTime;
         this.hourFormat = options.hourFormat ?? defaultProps.hourFormat;
+        this.baseZIndex = options.baseZIndex ?? defaultProps.baseZIndex;
     }
 }
 
@@ -63,6 +65,7 @@ export const DateField = forwardRef((props: BaseInputComponentProps<any, DateInp
             maxDateCount={props.input?.maxDateCount}
             showTime={props.input?.showTime}
             hourFormat={props.input?.hourFormat}
+            baseZIndex={props.input?.baseZIndex}
         />
     );
 });

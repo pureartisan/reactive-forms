@@ -29,6 +29,7 @@ interface PrimeCalendarFieldProps<V extends any, I extends InputBase<V> = any, C
     maxDateCount?: number;
     showTime?: boolean;
     hourFormat?: HourFormat;
+    baseZIndex?: number;
 }
 
 export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(props: PrimeCalendarFieldProps<V, I>, ref: any) => {
@@ -74,6 +75,7 @@ export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(pro
             showTime={props.showTime}
             hourFormat={props.hourFormat}
             panelClassName="PrimeCalendarFieldPanel"
+            baseZIndex={props.baseZIndex}
             ref={ref}
         />
     );
