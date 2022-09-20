@@ -110,6 +110,8 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     return null;
 };
 
+Field.displayName = 'Field';
+
 interface FieldControlProps<V> {
     control?: FormControl<V>;
     input?: InputBase<V>;
@@ -134,6 +136,8 @@ export const FieldControl = <V,>(
         />
     );
 };
+
+FieldControl.displayName = 'FieldControl';
 
 interface FieldGroupProps<V> {
     form?: Form<any> | AbstractControl<any>;
@@ -171,6 +175,8 @@ export const FieldGroup = <V,>(
         </C>
     );
 };
+
+FieldGroup.displayName = 'FieldGroup';
 
 interface FieldArrayProps {
     form?: Form<any> | AbstractControl<any>;
@@ -211,6 +217,8 @@ export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
     );
 };
 
+FieldArray.displayName = 'FieldArray';
+
 interface StaticComponentProps {
     form?: Form<any> | AbstractControl<any>;
     input?: StaticElement;
@@ -237,3 +245,5 @@ export const StaticComponent = (
         </C>
     );
 };
+
+StaticComponent.displayName = 'StaticComponent';

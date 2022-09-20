@@ -62,3 +62,5 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
         </F>
     );
 };
+
+ReactiveForm.displayName = 'ReactiveForm';
