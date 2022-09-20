@@ -37,3 +37,5 @@ export const PrimeReactiveForm = (props: PrimeReactiveFormProps): JSX.Element =>
         />
     );
 };
+
+PrimeReactiveForm.displayName = 'PrimeReactiveForm';

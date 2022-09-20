@@ -11,3 +11,5 @@ export const FormGroup = (props: FormGroupProps): JSX.Element => {
         </>
     );
 };
+
+FormGroup.displayName = 'FormGroup';
