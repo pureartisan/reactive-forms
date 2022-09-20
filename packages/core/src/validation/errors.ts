@@ -16,9 +16,10 @@ export const translateErrorMsg = (key: string, meta?: any, errorTranslators?: Er
 };
 
 
-export const getFirstErrorMsg = <V>(props: BaseInputComponentProps<V>, onlyIfNotPristine = true): string | undefined => {
+export const getFirstErrorMsg = <V>(props: BaseInputComponentProps<V>, onlyIfNotPristine?: boolean): string | undefined => {
 
-    if (onlyIfNotPristine && props.control?.pristine) {
+    const errorsOnlyIfNotPristine = props.errorsOnlyIfNotPristine ?? onlyIfNotPristine ?? true;
+    if (errorsOnlyIfNotPristine && props.control?.pristine) {
         return undefined;
     }
 
