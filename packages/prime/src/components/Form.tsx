@@ -24,6 +24,7 @@ interface PrimeReactiveFormProps {
     className?: string;
     style?: any;
     elementType?: any;
+    errorsOnlyIfNotPristine?: boolean;
     errorTranslators?: ErrorTranslators;
 }
 

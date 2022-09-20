@@ -20,6 +20,7 @@ export interface BaseInputComponentProps<
   input?: I;
   control?: C;
   errorTranslators?: ErrorTranslators;
+  errorsOnlyIfNotPristine?: boolean;
 }
 
 export type HiddenResolver = (form: any) => boolean;

@@ -11,6 +11,7 @@ interface ReactiveFormProps {
   component?: any;
   className?: string;
   style?: any;
+  errorsOnlyIfNotPristine?: boolean;
   errorTranslators?: ErrorTranslators;
 }
 
@@ -19,7 +20,7 @@ const DefaultForm = (props: any) => <form {...props} />;
 export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
     const forceUpdate = useForceUpdate();
 
-    const { form, component, errorTranslators, ...rest } = props;
+    const { form, component, errorTranslators, errorsOnlyIfNotPristine, ...rest } = props;
 
     useEffect(() => {
         const subscription = form?.anythingChanges.subscribe(forceUpdate);
@@ -53,6 +54,7 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
                         input={inp}
                         control={ctrl}
                         errorTranslators={errorTranslators}
+                        errorsOnlyIfNotPristine={errorsOnlyIfNotPristine}
                         onEnableChanged={handleEnableChanged}
                     />
                 );

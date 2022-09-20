@@ -33,6 +33,7 @@ interface FieldProps {
     control?: AbstractControl<any>;
     input?: InputElement;
     errorTranslators?: ErrorTranslators;
+    errorsOnlyIfNotPristine?: boolean;
     onEnableChanged?: () => void;
 }
 
@@ -71,6 +72,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
                 input={input}
                 control={control as FormControl<any>}
                 errorTranslators={props.errorTranslators}
+                errorsOnlyIfNotPristine={props.errorsOnlyIfNotPristine}
             />
         );
     } else if (input instanceof InputGroup) {
@@ -80,6 +82,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
                 input={input}
                 control={control as FormGroup<any>}
                 errorTranslators={props.errorTranslators}
+                errorsOnlyIfNotPristine={props.errorsOnlyIfNotPristine}
                 onEnableChanged={props.onEnableChanged}
             />
         );
@@ -90,6 +93,7 @@ export const Field = (props: FieldProps): JSX.Element | null => {
                 input={input}
                 control={control as FormArray}
                 errorTranslators={props.errorTranslators}
+                errorsOnlyIfNotPristine={props.errorsOnlyIfNotPristine}
                 onEnableChanged={props.onEnableChanged}
             />
         );
@@ -110,6 +114,7 @@ interface FieldControlProps<V> {
     control?: FormControl<V>;
     input?: InputBase<V>;
     errorTranslators?: ErrorTranslators;
+    errorsOnlyIfNotPristine?: boolean;
 }
 
 export const FieldControl = <V,>(
@@ -125,6 +130,7 @@ export const FieldControl = <V,>(
             control={props.control}
             input={props.input}
             errorTranslators={props.errorTranslators}
+            errorsOnlyIfNotPristine={props.errorsOnlyIfNotPristine}
         />
     );
 };
@@ -134,6 +140,7 @@ interface FieldGroupProps<V> {
     control?: FormGroup<V>;
     input?: InputGroup;
     errorTranslators?: ErrorTranslators;
+    errorsOnlyIfNotPristine?: boolean;
     onEnableChanged?: () => void;
 }
 
@@ -156,6 +163,7 @@ export const FieldGroup = <V,>(
                         input={inp}
                         control={ctrl}
                         errorTranslators={props.errorTranslators}
+                        errorsOnlyIfNotPristine={props.errorsOnlyIfNotPristine}
                         onEnableChanged={props.onEnableChanged}
                     />
                 );
@@ -169,6 +177,7 @@ interface FieldArrayProps {
     control?: FormArray;
     input?: InputArray;
     errorTranslators?: ErrorTranslators;
+    errorsOnlyIfNotPristine?: boolean;
     onEnableChanged?: () => void;
 }
 
@@ -193,6 +202,7 @@ export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
                         form={props.form}
                         control={props.control?.at(controlIndex)}
                         errorTranslators={props.errorTranslators}
+                        errorsOnlyIfNotPristine={props.errorsOnlyIfNotPristine}
                         onEnableChanged={props.onEnableChanged}
                     />
                 );
