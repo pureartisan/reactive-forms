@@ -13,6 +13,7 @@ interface ReactiveFormProps {
   style?: any;
   errorsOnlyIfNotPristine?: boolean;
   errorTranslators?: ErrorTranslators;
+  hiddenSubmitButton?: boolean;
 }
 
 const DefaultForm = (props: any) => <form {...props} />;
@@ -59,6 +60,11 @@ export const ReactiveForm = (props: ReactiveFormProps): JSX.Element | null => {
                     />
                 );
             })}
+            {props.hiddenSubmitButton && (
+                <div className="hidden-submit-button" style={{ display: "none" }}>
+                    <button type="submit">Submit</button>
+                </div>
+            )}
         </F>
     );
 };
