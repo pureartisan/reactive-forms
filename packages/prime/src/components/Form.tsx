@@ -26,6 +26,7 @@ interface PrimeReactiveFormProps {
     elementType?: any;
     errorsOnlyIfNotPristine?: boolean;
     errorTranslators?: ErrorTranslators;
+    hiddenSubmitButton?: boolean;
 }
 
 

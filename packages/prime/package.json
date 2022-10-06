@@ -1,6 +1,6 @@
 {
   "name": "@reactiveforms/prime",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "PrimeReact implementation for Reactive Forms",
   "keywords": [
     "prime",
@@ -22,7 +22,7 @@
     "is-mobile": "^3.0.0"
   },
   "devDependencies": {
-    "@reactiveforms/core": "^2.3.0",
+    "@reactiveforms/core": "^2.4.0",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "primeflex": "^3.2.1",
@@ -33,7 +33,7 @@
     "react-transition-group": "^4.4.2"
   },
   "peerDependencies": {
-    "@reactiveforms/core": "^2.3.0",
+    "@reactiveforms/core": "^2.4.0",
     "@types/react": "^16.8.0 || ^17.0.1 || ^18.0.20",
     "@types/react-dom": "^16.8.0 || ^17.0.1 || ^18.0.6",
     "primeflex": "^3.2.0",
