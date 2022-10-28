@@ -45,13 +45,13 @@ export const Field = (props: FieldProps): JSX.Element | null => {
 
     const forceUpdate = useForceUpdate();
 
-    useLayoutEffect(() => {
-        if (isHidden === undefined) {
+    const setInputDisabled = (value?: boolean): void => {
+        if (value === undefined) {
             return;
         }
 
         const opts = { emitEvent: false, form };
-        if (isHidden) {
+        if (value) {
             control?.disable(opts);
         } else {
             control?.enable(opts);
@@ -61,25 +61,15 @@ export const Field = (props: FieldProps): JSX.Element | null => {
         if (props.onEnableChanged) {
             props.onEnableChanged();
         }
-    }, [isHidden]);
+    };
 
     useLayoutEffect(() => {
-        if (isDisabled === undefined) {
+        if (isHidden === undefined && isDisabled === undefined) {
             return;
         }
 
-        const opts = { emitEvent: false, form };
-        if (isDisabled) {
-            control?.disable(opts);
-        } else {
-            control?.enable(opts);
-        }
-
-        forceUpdate();
-        if (props.onEnableChanged) {
-            props.onEnableChanged();
-        }
-    }, [isDisabled]);
+        setInputDisabled(isHidden || isDisabled);
+    }, [isHidden, isDisabled]);
 
     if (!input || isHidden) {
         return null;
