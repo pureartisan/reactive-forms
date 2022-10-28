@@ -46,10 +46,6 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     const forceUpdate = useForceUpdate();
 
     const setInputDisabled = (value?: boolean): void => {
-        if (value === undefined) {
-            return;
-        }
-
         const opts = { emitEvent: false, form };
         if (value) {
             control?.disable(opts);
