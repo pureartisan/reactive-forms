@@ -1,22 +1,22 @@
 import React, { useLayoutEffect } from "react";
-import clsx from 'clsx';
+import clsx from "clsx";
 
 import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  FormArray,
-  Form
+    AbstractControl,
+    FormControl,
+    FormGroup,
+    FormArray,
+    Form,
 } from "../models/forms";
 import {
-  StaticElement,
-  InputElement,
-  InputBase,
-  InputGroup,
-  InputArray,
+    StaticElement,
+    InputElement,
+    InputBase,
+    InputGroup,
+    InputArray,
 } from "../models/inputs";
-import { ErrorTranslators } from '../models/errors';
-import { useForceUpdate } from '../hooks/force-update';
+import { ErrorTranslators } from "../models/errors";
+import { useForceUpdate } from "../hooks/force-update";
 
 const inputHasControl = (input: InputElement): boolean => {
     // NOTE: static elements are skipped, since they are just
@@ -41,16 +41,13 @@ export const Field = (props: FieldProps): JSX.Element | null => {
     const { input, control, form } = props;
 
     const isHidden = input?.hidden && input.hidden(form);
+    const isDisabled = input?.disabledOn && input.disabledOn(form);
 
     const forceUpdate = useForceUpdate();
 
-    useLayoutEffect(() => {
-        if (isHidden === undefined) {
-            return;
-        }
-
+    const setInputDisabled = (value?: boolean): void => {
         const opts = { emitEvent: false, form };
-        if (isHidden) {
+        if (value) {
             control?.disable(opts);
         } else {
             control?.enable(opts);
@@ -60,7 +57,15 @@ export const Field = (props: FieldProps): JSX.Element | null => {
         if (props.onEnableChanged) {
             props.onEnableChanged();
         }
-    }, [isHidden]);
+    };
+
+    useLayoutEffect(() => {
+        if (isHidden === undefined && isDisabled === undefined) {
+            return;
+        }
+
+        setInputDisabled(isHidden || isDisabled);
+    }, [isHidden, isDisabled]);
 
     if (!input || isHidden) {
         return null;
@@ -98,19 +103,14 @@ export const Field = (props: FieldProps): JSX.Element | null => {
             />
         );
     } else if (input instanceof StaticElement) {
-        return (
-            <StaticComponent
-                form={form}
-                input={input}
-            />
-        );
+        return <StaticComponent form={form} input={input} />;
     }
 
     // unknown case
     return null;
 };
 
-Field.displayName = 'Field';
+Field.displayName = "Field";
 
 interface FieldControlProps<V> {
     control?: FormControl<V>;
@@ -137,7 +137,7 @@ export const FieldControl = <V,>(
     );
 };
 
-FieldControl.displayName = 'FieldControl';
+FieldControl.displayName = "FieldControl";
 
 interface FieldGroupProps<V> {
     form?: Form<any> | AbstractControl<any>;
@@ -159,7 +159,9 @@ export const FieldGroup = <V,>(
     return (
         <C control={props.control} input={props.input}>
             {props.input?.inputs?.map((inp) => {
-                const ctrl = inp?.name ? props.control?.get(inp.name) : undefined;
+                const ctrl = inp?.name
+                    ? props.control?.get(inp.name)
+                    : undefined;
                 return (
                     <Field
                         key={inp?.name}
@@ -176,7 +178,7 @@ export const FieldGroup = <V,>(
     );
 };
 
-FieldGroup.displayName = 'FieldGroup';
+FieldGroup.displayName = "FieldGroup";
 
 interface FieldArrayProps {
     form?: Form<any> | AbstractControl<any>;
@@ -217,7 +219,7 @@ export const FieldArray = (props: FieldArrayProps): JSX.Element | null => {
     );
 };
 
-FieldArray.displayName = 'FieldArray';
+FieldArray.displayName = "FieldArray";
 
 interface StaticComponentProps {
     form?: Form<any> | AbstractControl<any>;
@@ -228,7 +230,6 @@ interface StaticComponentProps {
 export const StaticComponent = (
     props: StaticComponentProps
 ): JSX.Element | null => {
-
     const C = props.input?.component;
     if (!C) {
         return null;
@@ -246,4 +247,4 @@ export const StaticComponent = (
     );
 };
 
-StaticComponent.displayName = 'StaticComponent';
+StaticComponent.displayName = "StaticComponent";
