@@ -48,7 +48,8 @@ export const PrimeImageField = forwardRef(<I extends FileInputBase<FileData>>(pr
             url: value?.url,
             raw: f
         }, { emitEvent: false });
-        props.control?.markAsDirty();
+        props.control?.markAsDirty({ emitEvent: false });
+        props.control?.emitEvents();
     };
 
     const selectFile = () => {
@@ -61,7 +62,8 @@ export const PrimeImageField = forwardRef(<I extends FileInputBase<FileData>>(pr
         props.control?.setValue({
             url: value?.url
         }, { emitEvent: false });
-        props.control?.markAsPristine();
+        props.control?.markAsPristine({ emitEvent: false });
+        props.control?.emitEvents();
     };
 
     const hasPreview = Boolean(previewUrl);
