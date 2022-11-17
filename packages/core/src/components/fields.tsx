@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import clsx from "clsx";
 
 import {
@@ -66,6 +66,14 @@ export const Field = (props: FieldProps): JSX.Element | null => {
 
         setInputDisabled(isHidden || isDisabled);
     }, [isHidden, isDisabled]);
+
+    useEffect(() => {
+        if (isDisabled === undefined) {
+            return;
+        }
+
+        setInputDisabled(isDisabled);
+    }, [])
 
     if (!input || isHidden) {
         return null;
