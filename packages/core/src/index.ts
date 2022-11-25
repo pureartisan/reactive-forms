@@ -12,6 +12,9 @@ export * from "./builders/form";
 // hooks
 export * from "./hooks/form";
 
+// helpers
+export * from './helpers/fields';
+
 // validators
 export * from "./validation/error-translators";
 export * from "./validation/errors";
