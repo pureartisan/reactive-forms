@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import { Calendar } from 'primereact/calendar';
 
-import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg } from '@reactiveforms/core';
+import {BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg, fieldCssCls} from '@reactiveforms/core';
 
 import { TextInputBase } from '../../models/input-base';
 import { getHelpText } from '../../utils/helpers';
@@ -83,7 +83,8 @@ export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(pro
     return (
         <div
             className={clsx(
-                `rf-field rf-field-${props.inputType} rf-field-name-${props.input?.name} field`,
+                'field',
+                fieldCssCls(props.input, props.inputType),
                 props.input?.className,
                 {
                     'col-12': !props.input?.className,

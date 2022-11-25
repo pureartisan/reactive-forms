@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import { InputTextarea } from 'primereact/inputtextarea';
 
-import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg } from '@reactiveforms/core';
+import {BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg, fieldCssCls} from '@reactiveforms/core';
 
 import { TextInputBase } from '../../models/input-base';
 import { getHelpText } from '../../utils/helpers';
@@ -55,7 +55,8 @@ export const PrimeTextAreaField = forwardRef(<V extends string, I extends TextIn
     return (
         <div
             className={clsx(
-                `rf-field rf-field-textarea rf-field-name-${props.input?.name} field`,
+                'field',
+                fieldCssCls(props.input, 'textarea'),
                 props.input?.className,
                 {
                     'col-12': !props.input?.className,

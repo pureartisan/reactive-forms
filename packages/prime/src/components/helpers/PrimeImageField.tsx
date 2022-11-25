@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { Image } from 'primereact/image';
 import {Button} from "primereact/button";
 
-import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg } from '@reactiveforms/core';
+import {BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg, fieldCssCls} from '@reactiveforms/core';
 
 import { FileInputBase } from '../../models/input-base';
 import { getHelpText } from '../../utils/helpers';
@@ -71,7 +71,8 @@ export const PrimeImageField = forwardRef(<I extends FileInputBase<FileData>>(pr
     return (
         <div
             className={clsx(
-                `rf-field rf-field-${props.inputType} rf-field-name-${props.input?.name} field`,
+                'field',
+                fieldCssCls(props.input, props.inputType),
                 props.className,
                 props.input?.className,
                 {

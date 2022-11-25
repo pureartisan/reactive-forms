@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import { Password } from 'primereact/password';
 
-import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg } from '@reactiveforms/core';
+import {BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg, fieldCssCls} from '@reactiveforms/core';
 
 import { TextInputBase } from '../../models/input-base';
 import { getHelpText } from '../../utils/helpers';
@@ -40,7 +40,8 @@ export const PrimePasswordField = forwardRef(<V extends string, I extends TextIn
     return (
         <div
             className={clsx(
-                `rf-field rf-field-${props.inputType} rf-field-name-${props.input?.name} field`,
+                'field',
+                fieldCssCls(props.input, props.inputType),
                 props.input?.className,
                 {
                     'col-12': !props.input?.className,

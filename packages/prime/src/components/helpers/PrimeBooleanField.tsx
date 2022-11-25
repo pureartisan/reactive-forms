@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 
-import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg } from '@reactiveforms/core';
+import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg, fieldCssCls } from '@reactiveforms/core';
 
 import { BooleanInputBase } from '../../models/input-base';
 import { getHelpText } from '../../utils/helpers';
@@ -34,7 +34,7 @@ export const PrimeBooleanField = forwardRef(<I extends BooleanInputBase>(props: 
     return (
         <div
             className={clsx(
-                `rf-field rf-field-${props.inputType} rf-field-name-${props.input?.name}`,
+                fieldCssCls(props.input, props.inputType),
                 props.className,
                 props.input?.className,
                 {

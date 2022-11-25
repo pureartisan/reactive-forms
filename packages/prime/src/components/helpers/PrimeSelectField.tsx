@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import { Dropdown } from 'primereact/dropdown';
 
-import { BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg } from '@reactiveforms/core';
+import {BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg, fieldCssCls} from '@reactiveforms/core';
 
 import { SelectInputBase } from '../../models/input-base';
 import { getHelpText } from '../../utils/helpers';
@@ -48,7 +48,8 @@ export const PrimeSelectField = forwardRef(<V extends string, I extends SelectIn
     return (
         <div
             className={clsx(
-                `rf-field rf-field-${props.inputType} rf-field-name-${props.input?.name} field`,
+                'field',
+                fieldCssCls(props.input, props.inputType),
                 props.input?.className,
                 {
                     'col-12': !props.input?.className,
