@@ -6,7 +6,7 @@ import {InputNumber, InputNumberChangeParams} from "primereact/inputnumber";
 import {BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg, fieldCssCls} from '@reactiveforms/core';
 
 import { TextInputBase } from '../../models/input-base';
-import { getHelpText } from '../../utils/helpers';
+import {getHelpText, hasRequiredValidator} from '../../utils/helpers';
 
 interface PrimeNumberFieldProps<V extends number, I extends InputBase<V> = any, C extends BaseControl<V> = BaseControl<V>> extends BaseInputComponentProps<V, I, C> {
     inputType?: string;
@@ -47,7 +47,8 @@ export const PrimeNumberField = forwardRef(<V extends number, I extends TextInpu
                 props.input?.className,
                 {
                     'col-12': !props.input?.className,
-                    'input-empty': !props.control?.value
+                    'input-empty': !props.control?.value,
+                    'has-required': hasRequiredValidator(props.input)
                 }
             )}
         >

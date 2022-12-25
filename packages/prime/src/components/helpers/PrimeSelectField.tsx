@@ -6,7 +6,7 @@ import { Dropdown } from 'primereact/dropdown';
 import {BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg, fieldCssCls} from '@reactiveforms/core';
 
 import { SelectInputBase } from '../../models/input-base';
-import { getHelpText } from '../../utils/helpers';
+import {getHelpText, hasRequiredValidator} from '../../utils/helpers';
 
 interface PrimeSelectFieldProps<V extends string, I extends InputBase<V> = any, C extends BaseControl<V> = BaseControl<V>> extends BaseInputComponentProps<V, I, C> {
     type?: string;
@@ -53,7 +53,8 @@ export const PrimeSelectField = forwardRef(<V extends string, I extends SelectIn
                 props.input?.className,
                 {
                     'col-12': !props.input?.className,
-                    'input-empty': !props.control?.value
+                    'input-empty': !props.control?.value,
+                    'has-required': hasRequiredValidator(props.input)
                 }
             )}
         >

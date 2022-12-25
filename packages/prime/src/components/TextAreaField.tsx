@@ -26,6 +26,10 @@ export const TextAreaField = forwardRef((props: BaseInputComponentProps<string, 
     return (
         <PrimeTextAreaField
             {...props}
+            rows={props.input?.rows}
+            cols={props.input?.cols}
+            rowsMax={props.input?.rowsMax}
+            autoResize={props.input?.autoResize}
             ref={ref}
         />
     );

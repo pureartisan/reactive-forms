@@ -6,7 +6,7 @@ import { Calendar } from 'primereact/calendar';
 import {BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg, fieldCssCls} from '@reactiveforms/core';
 
 import { TextInputBase } from '../../models/input-base';
-import { getHelpText } from '../../utils/helpers';
+import {getHelpText, hasRequiredValidator} from '../../utils/helpers';
 
 type SelectionMode = 'single' | 'multiple' | 'range';
 
@@ -88,7 +88,8 @@ export const PrimeCalendarField = forwardRef(<V, I extends TextInputBase<V>>(pro
                 props.input?.className,
                 {
                     'col-12': !props.input?.className,
-                    'input-empty': !props.control?.value
+                    'input-empty': !props.control?.value,
+                    'has-required': hasRequiredValidator(props.input)
                 }
             )}
         >
