@@ -12,7 +12,7 @@ import {
 } from "@reactiveforms/core";
 
 import { FileInputBase } from "../../models/input-base";
-import {getHelpText, hasRequiredValidator} from "../../utils/helpers";
+import {getHelpText} from "../../utils/helpers";
 import { FileData } from "../../models/files";
 import { covertHeicToPng, isHeicFile } from "../../utils/files";
 
@@ -104,8 +104,7 @@ export const PrimeImageField = forwardRef(
                     props.input?.className,
                     {
                         "col-12": !props.input?.className,
-                        "input-empty": !hasPreview,
-                    'has-required': hasRequiredValidator(props.input)
+                        "input-empty": !hasPreview
                 }
             )}
         >

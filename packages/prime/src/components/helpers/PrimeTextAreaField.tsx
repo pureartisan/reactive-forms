@@ -6,7 +6,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import {BaseInputComponentProps, InputBase, BaseControl, getFirstErrorMsg, fieldCssCls} from '@reactiveforms/core';
 
 import { TextInputBase } from '../../models/input-base';
-import {getHelpText, hasRequiredValidator} from '../../utils/helpers';
+import {getHelpText} from '../../utils/helpers';
 
 interface PrimeTextAreaFieldProps<V extends string, I extends InputBase<V> = any, C extends BaseControl<V> = BaseControl<V>> extends BaseInputComponentProps<V, I, C> {
     cols?: number;
@@ -61,8 +61,7 @@ export const PrimeTextAreaField = forwardRef(<V extends string, I extends TextIn
                 props.input?.className,
                 {
                     'col-12': !props.input?.className,
-                    'input-empty': !props.control?.value,
-                    'has-required': hasRequiredValidator(props.input)
+                    'input-empty': !props.control?.value
                 }
             )}
         >

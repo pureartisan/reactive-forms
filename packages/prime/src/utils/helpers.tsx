@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BaseControl, Validators } from '@reactiveforms/core';
+import { BaseControl } from '@reactiveforms/core';
 
 import { PrimeInputBase } from '../models/input-base';
 
@@ -15,10 +15,3 @@ export const getHelpText = (input?: PrimeInputBase, control?: BaseControl<any>, 
     }
     return input?.helpText ?? null;
 }
-
-export const hasRequiredValidator = (input?: PrimeInputBase): boolean => {
-    if (Array.isArray(input?.validators)) {
-        return input?.validators.some((validator: any) => validator === Validators.required) ?? false;
-    }
-    return input?.validators === Validators.required;
-};
