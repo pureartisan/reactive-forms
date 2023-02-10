@@ -15,7 +15,7 @@ export const covertHeicToPng = async (file: File): Promise<File> => {
     });
     return new File(
         Array.isArray(blob) ? blob : [blob],
-        file.name.replace("heic", "png"),
+        file.name.replace(/\.heic$/i, ".png"),
         {
             type: `image/png`,
         }
