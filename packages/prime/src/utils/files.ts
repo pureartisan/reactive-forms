@@ -1,13 +1,13 @@
 import heic2any from "heic2any";
 
-export const isHEICFile = (file: File): boolean => {
+export const isHeicFile = (file: File): boolean => {
     return (
         file.type.toLowerCase() === "image/heic" ||
-        file.name.toLowerCase().includes(".heic")
+        Boolean(file.name.split(".").pop()?.includes("heic"))
     );
 };
 
-export const convertHeic = async (file: File): Promise<File> => {
+export const covertHeicToPng = async (file: File): Promise<File> => {
     const blob = await heic2any({
         blob: file,
         toType: `image/png`,
