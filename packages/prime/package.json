@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "clsx": "^1.1.1",
+    "heic2any": "^0.0.3",
     "is-mobile": "^3.0.0"
   },
   "devDependencies": {
